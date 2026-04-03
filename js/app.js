@@ -1,5 +1,5 @@
 /* ============================================================
-   Live Korea — Core JavaScript
+   Live Korean — Core JavaScript
    Handles: language, bookmarks, toast, terms, shared utils
    ============================================================ */
 
@@ -74,7 +74,7 @@ function buildLangToggle() {
 /* ── i18n strings ──────────────────────────────────────────── */
 var LK_I18N = {
   en: {
-    'home.hero.title': '🎬 Learn Korean with <span class="hero-accent">K-Drama</span>',
+    'home.hero.title': '🎬 Learn Korean with <span class="hero-accent">K-Dramas</span>',
     'home.hero.sub': 'Watch real YouTube Shorts from your favourite Korean dramas and learn natural Korean expressions — one clip at a time.',
     'home.shows.label': '📺 Dramas',
     'guardian.meta': '16 Episodes · 480 Shorts · Fantasy Romance',
@@ -279,7 +279,7 @@ function buildTopbar(homeUrl) {
   root.innerHTML =
     '<div class="topbar-left">'
     + '<button class="btn-topbar-home" onclick="window.location.href=\'' + (homeUrl||'index.html') + '\'" title="Home" aria-label="Home">🏠</button>'
-    + '<div class="topbar-logo"><span class="logo-live">Live</span><div class="logo-dot"></div><span class="logo-korea">Korea</span></div>'
+    + '<div class="topbar-logo"><span class="logo-live">Live</span><div class="logo-dot"></div><span class="logo-korea">Korean</span></div>'
     + '</div>'
     + '<div class="topbar-right">'
     + buildLangToggle()

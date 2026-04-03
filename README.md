@@ -1,11 +1,11 @@
-# Live Korea — K-Drama Korean Learning App
+# Live Korean — K-Drama Korean Learning App
 
 A static PWA for learning Korean through YouTube Shorts from popular K-dramas.
 
 ## Structure
 
 ```
-live-korea/
+live-korean/
 ├── index.html                    ← Main page (Terms of Use + Drama selector)
 ├── css/style.css                 ← All styles
 ├── js/app.js                     ← Core JS (language, bookmarks, modals, i18n)
