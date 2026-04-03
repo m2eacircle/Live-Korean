@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Live Korea — Learn Korean through K-Drama YouTube Shorts. Guardian, The Glory, All of Us Are Dead.">
+  <title>Live Korea — Learn Korean with K-Drama</title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="theme-color" content="#ff2d78">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Live Korea">
+  <style>
+    /* ── K-Drama card accent colours ────────────────────── */
+    .show-card[data-drama="guardian"] { --card-accent: #7c5cbf; }
+    .show-card[data-drama="glory"]    { --card-accent: #b83232; }
+    .show-card[data-drama="aouad"]    { --card-accent: #3d9e56; }
+
+    .show-card[data-drama="guardian"]:hover { border-color: #7c5cbf; box-shadow: 0 8px 32px rgba(124,92,191,0.3); }
+    .show-card[data-drama="glory"]:hover    { border-color: #b83232; box-shadow: 0 8px 32px rgba(184,50,50,0.3); }
+    .show-card[data-drama="aouad"]:hover    { border-color: #3d9e56; box-shadow: 0 8px 32px rgba(61,158,86,0.3); }
+
+    /* ── Show banner gradients ──────────────────────────── */
+    .guardian-banner { background: linear-gradient(135deg, #1a0e2e 0%, #3d2173 50%, #1a0e2e 100%); }
+    .glory-banner    { background: linear-gradient(135deg, #1a0a0a 0%, #6b1919 50%, #1a0a0a 100%); }
+    .aouad-banner    { background: linear-gradient(135deg, #0a1a0a 0%, #1a4d24 50%, #0a1a0a 100%); }
+
+    .banner-emoji-large {
+      font-size: 5rem;
+      opacity: 0.5;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* ── Stats strip ─────────────────────────────────────── */
+    .stats-strip {
+      display: flex;
+      gap: 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 36px;
+    }
+    .stat-item {
+      flex: 1;
+      padding: 16px 12px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    @media (max-width: 420px) {
+      .stat-num { font-size: 1.15rem; }
+      .stat-label { font-size: 0.65rem; }
+    }
+
+    /* ── How it works strip ──────────────────────────────── */
+    .how-strip {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      margin-bottom: 36px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .how-step {
+      flex: 1;
+      min-width: 140px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .how-step-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      width: 44px; height: 44px;
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .how-step-text { flex: 1; }
+    .how-step-title { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .how-step-sub { font-size: 0.74rem; color: var(--muted); line-height: 1.4; }
+
+    /* ── Korean script hero decoration ──────────────────── */
+    .kr-decoration {
+      position: absolute;
+      right: 20px; top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 8rem;
+      font-weight: 900;
+      color: rgba(255,45,120,0.05);
+      pointer-events: none;
+      user-select: none;
+      line-height: 1;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── TOPBAR ──────────────────────────────────────────────── -->
+<header class="topbar">
+  <div class="topbar-left">
+    <button class="btn-topbar-home" onclick="window.location.reload()" title="Home">🏠</button>
+    <div class="topbar-logo">
+      <span class="logo-live">Live</span>
+      <div class="logo-dot"></div>
+      <span class="logo-korea">Korea</span>
+    </div>
+  </div>
+  <div class="topbar-right" id="topbar-lang-wrap">
+    <!-- Lang toggle injected by JS -->
+  </div>
+</header>
+
+
+<!-- =====================================================
+     TERMS OF USE OVERLAY
+====================================================== -->
+<div class="terms-overlay visible" id="termsOverlay">
+  <div class="terms-wrap">
+
+    <!-- Language Toggle -->
+    <div class="lang-toggle" role="group" aria-label="Language / 언어 선택">
+      <button class="lang-btn" id="btn-en" onclick="setOverlayLang('en')" aria-pressed="false">
+        <span class="lang-flag">🇺🇸</span> EN
+      </button>
+      <button class="lang-btn active" id="btn-ko" onclick="setOverlayLang('ko')" aria-pressed="true">
+        <span class="lang-flag">🇰🇷</span> KO
+      </button>
+    </div>
+
+    <!-- ── ENGLISH TERMS ── -->
+    <div class="lang-content" id="content-en">
+      <div class="terms-hero">
+        <span class="terms-hero-icon">🎬</span>
+        <div class="terms-hero-title"><span class="accent">Live</span> Korea</div>
+        <div class="terms-hero-sub">by m2ea Labs &mdash; Please read and agree to our Terms of Use to continue</div>
+      </div>
+
+      <div class="terms-card">
+        <div class="terms-card-title">👋 Welcome</div>
+        <p>Welcome to <strong>Live Korea</strong> — learn Korean the fun way through real YouTube Shorts from your favourite K-dramas. Each short connects to a natural Korean expression used in the show.</p>
+        <p>Please read the Terms of Use carefully before using the app.</p>
+      </div>
+
+      <div class="terms-card">
+        <div class="terms-card-title">📌 Terms of Use</div>
+        <ul class="terms-list">
+          <li>This app is for <strong>personal study purposes only</strong>. All video content rights belong to their respective copyright owners. If any rights holder requests removal, content may be taken down without prior notice.</li>
+          <li>You <strong>may not use this content for any commercial, redistribution, or other non-personal purpose</strong>. Use is strictly limited to personal Korean language study.</li>
+          <li>All study notes and language explanations <strong>may contain errors or inaccuracies</strong>. All content represents the opinion of <strong>m2ea Labs</strong>. If you disagree with any explanation, your interpretation may be correct — always use your own judgment.</li>
+          <li>YouTube Shorts embedded in this app <strong>may include ads served by YouTube</strong>. These are not controlled by m2ea Labs.</li>
+        </ul>
+      </div>
+
+      <div class="terms-card">
+        <div class="terms-card-title">ℹ️ About Live Korea</div>
+        <p>Live Korea links YouTube Shorts from popular Korean dramas to natural Korean expressions. Each episode features 30 expressions with short video clips to show them in context.</p>
+        <p>This app covers: <strong>Guardian: The Lonely and Great God</strong>, <strong>The Glory</strong>, and <strong>All of Us Are Dead</strong>. More dramas coming soon.</p>
+        <p>Operated by <strong>m2ea Labs</strong> as a language study project. All video content remains the property of its original owners.</p>
+      </div>
+
+      <div class="terms-check-wrap" onclick="handleCheckClick('en', event)">
+        <input type="checkbox" id="agreeCheck-en" onchange="onCheckChange('en')" aria-label="Agree to Terms of Use">
+        <label for="agreeCheck-en">
+          I have read and fully agree to the <strong>Terms of Use</strong> above.
+          I understand this app is for personal study only and all video rights belong to their respective owners.
+        </label>
+      </div>
+      <button class="btn-agree" id="btnAgree-en" onclick="agreeAndEnter()" disabled aria-disabled="true">
+        Agree &amp; Start Learning ▶
+      </button>
+    </div><!-- /content-en -->
+
+    <!-- ── KOREAN TERMS ── -->
+    <div class="lang-content visible ko-text" id="content-ko">
+      <div class="terms-hero">
+        <span class="terms-hero-icon">🎬</span>
+        <div class="terms-hero-title"><span class="accent">Live</span> Korea</div>
+        <div class="terms-hero-sub">by m2ea Labs &mdash; 이용약관을 읽고 동의하신 후 앱을 사용하실 수 있습니다</div>
+      </div>
+
+      <div class="terms-card">
+        <div class="terms-card-title">👋 환영합니다</div>
+        <p><strong>Live Korea</strong>에 오신 것을 환영합니다. 좋아하는 K-드라마의 YouTube 쇼츠를 통해 자연스러운 한국어 표현을 재미있게 배울 수 있습니다.</p>
+        <p>앱을 이용하시기 전에 아래 이용약관을 주의 깊게 읽어주시기 바랍니다.</p>
+      </div>
+
+      <div class="terms-card">
+        <div class="terms-card-title">📌 이용약관</div>
+        <ul class="terms-list">
+          <li>이 앱은 <strong>개인 학습 목적으로만</strong> 사용 가능합니다. 모든 영상 콘텐츠의 저작권은 각 원저작자에게 있으며, 저작권자의 요청 시 <strong>예고 없이 콘텐츠가 삭제될 수 있습니다.</strong></li>
+          <li>이 콘텐츠는 <strong>상업적 이용, 재배포 및 기타 비개인적 목적으로 사용할 수 없습니다.</strong> 개인 한국어 학습 목적에 한해서만 이용 가능합니다.</li>
+          <li>모든 학습 내용과 언어 설명은 <strong>오류나 부정확한 정보를 포함할 수 있습니다.</strong> 모든 내용은 <strong>m2ea Labs의 의견</strong>입니다. 다른 해석이 있다면 여러분이 맞을 수 있습니다.</li>
+          <li>앱에 삽입된 YouTube 쇼츠에는 <strong>YouTube가 제공하는 광고가 포함될 수 있습니다.</strong> 이는 m2ea Labs와 무관합니다.</li>
+        </ul>
+      </div>
+
+      <div class="terms-card">
+        <div class="terms-card-title">ℹ️ 앱 소개</div>
+        <p>Live Korea는 인기 한국 드라마의 YouTube 쇼츠를 자연스러운 한국어 표현과 연결하여 제공합니다. 각 에피소드마다 30개의 표현과 쇼츠 영상 링크가 제공됩니다.</p>
+        <p>현재 제공 드라마: <strong>도깨비 (쓸쓸하고 찬란하神)</strong>, <strong>더 글로리</strong>, <strong>지금 우리 학교는</strong>. 더 많은 드라마가 추가될 예정입니다.</p>
+        <p>이 앱은 <strong>m2ea Labs</strong>에서 한국어 학습 프로젝트로 운영합니다. 모든 영상 콘텐츠의 저작권은 원저작자에게 있습니다.</p>
+      </div>
+
+      <div class="terms-check-wrap" onclick="handleCheckClick('ko', event)">
+        <input type="checkbox" id="agreeCheck-ko" onchange="onCheckChange('ko')" aria-label="이용약관에 동의합니다">
+        <label for="agreeCheck-ko">
+          위의 <strong>이용약관</strong>을 모두 읽었으며 이에 동의합니다.
+          본 앱이 개인 학습 목적으로만 사용 가능하며, 모든 영상 저작권은 원저작자에게 있음을 이해합니다.
+        </label>
+      </div>
+      <button class="btn-agree" id="btnAgree-ko" onclick="agreeAndEnter()" disabled aria-disabled="true">
+        동의하고 학습 시작하기 ▶
+      </button>
+    </div><!-- /content-ko -->
+
+  </div><!-- /terms-wrap -->
+</div><!-- /termsOverlay -->
+
+
+<!-- =====================================================
+     MAIN CONTENT
+====================================================== -->
+<main id="mainContent">
+<div class="page-wrap">
+
+  <!-- Home Hero -->
+  <div class="home-hero" style="position:relative;overflow:hidden;">
+    <div class="kr-decoration">한국어</div>
+    <div class="home-hero-eyebrow">✨ K-Drama Korean Learning</div>
+    <h1 data-i18n="home.hero.title">🎬 Learn Korean with <span class="hero-accent">K-Drama</span></h1>
+    <p data-i18n="home.hero.sub">Watch real YouTube Shorts from your favourite Korean dramas and learn natural Korean expressions — one clip at a time.</p>
+  </div>
+
+  <!-- Stats Strip -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-num">3</div>
+      <div class="stat-label" id="stat-dramas">Dramas</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">44</div>
+      <div class="stat-label" id="stat-eps">Episodes</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">1,320</div>
+      <div class="stat-label" id="stat-shorts">Shorts</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">30</div>
+      <div class="stat-label" id="stat-expr">Expressions</div>
+    </div>
+  </div>
+
+  <!-- How It Works -->
+  <div class="how-strip" id="howStrip">
+    <div class="how-step">
+      <div class="how-step-icon">🎬</div>
+      <div class="how-step-text">
+        <div class="how-step-title" id="how1t">Pick a Drama</div>
+        <div class="how-step-sub" id="how1s">Choose from 3 hit K-dramas</div>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-icon">📺</div>
+      <div class="how-step-text">
+        <div class="how-step-title" id="how2t">Select Episode</div>
+        <div class="how-step-sub" id="how2s">30 shorts per episode</div>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-icon">▶️</div>
+      <div class="how-step-text">
+        <div class="how-step-title" id="how3t">Watch &amp; Learn</div>
+        <div class="how-step-sub" id="how3s">See the expression in context</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bookmark Bar -->
+  <div class="bookmark-bar" id="bookmarkBar">
+    <div class="bookmark-bar-head">
+      <span>🔖</span>
+      <span>Bookmarks</span>
+    </div>
+    <div class="bookmark-chips" id="bookmarkChips"></div>
+  </div>
+
+  <!-- Shows Grid -->
+  <div class="section-label" data-i18n="home.shows.label">📺 Dramas</div>
+  <div class="show-grid">
+
+    <!-- GUARDIAN -->
+    <a class="show-card" href="dramas/guardian/index.html" data-drama="guardian">
+      <button class="bm-corner" data-bm-id="show-guardian"
+        onclick="event.preventDefault();event.stopPropagation();
+                 toggleBookmark('show','show-guardian','🌊 Guardian','dramas/guardian/index.html')"
+        title="Bookmark">🔖</button>
+      <div class="show-card-banner guardian-banner">
+        <div class="banner-emoji-large">🌊</div>
+        <div class="show-card-overlay"></div>
+      </div>
+      <div class="show-card-body">
+        <div class="show-card-title">Guardian: The Lonely and Great God</div>
+        <div class="show-card-title-kr">쓸쓸하고 찬란하神 – 도깨비</div>
+        <div class="show-card-meta" data-i18n="guardian.meta">16 Episodes · 480 Shorts · Fantasy Romance</div>
+      </div>
+      <span class="show-badge">🔥 Popular</span>
+    </a>
+
+    <!-- THE GLORY -->
+    <a class="show-card" href="dramas/glory/index.html" data-drama="glory">
+      <button class="bm-corner" data-bm-id="show-glory"
+        onclick="event.preventDefault();event.stopPropagation();
+                 toggleBookmark('show','show-glory','🥀 The Glory','dramas/glory/index.html')"
+        title="Bookmark">🔖</button>
+      <div class="show-card-banner glory-banner">
+        <div class="banner-emoji-large">🥀</div>
+        <div class="show-card-overlay"></div>
+      </div>
+      <div class="show-card-body">
+        <div class="show-card-title">The Glory</div>
+        <div class="show-card-title-kr">더 글로리</div>
+        <div class="show-card-meta" data-i18n="glory.meta">16 Episodes · 480 Shorts · Thriller Drama</div>
+      </div>
+      <span class="show-badge">⭐ Hit Drama</span>
+    </a>
+
+    <!-- ALL OF US ARE DEAD -->
+    <a class="show-card" href="dramas/all-of-us-are-dead/index.html" data-drama="aouad">
+      <button class="bm-corner" data-bm-id="show-aouad"
+        onclick="event.preventDefault();event.stopPropagation();
+                 toggleBookmark('show','show-aouad','🧟 All of Us Are Dead','dramas/all-of-us-are-dead/index.html')"
+        title="Bookmark">🔖</button>
+      <div class="show-card-banner aouad-banner">
+        <div class="banner-emoji-large">🧟</div>
+        <div class="show-card-overlay"></div>
+      </div>
+      <div class="show-card-body">
+        <div class="show-card-title">All of Us Are Dead</div>
+        <div class="show-card-title-kr">지금 우리 학교는</div>
+        <div class="show-card-meta" data-i18n="aouad.meta">12 Episodes · 360 Shorts · Zombie Thriller</div>
+      </div>
+      <span class="show-badge">💥 Netflix</span>
+    </a>
+
+  </div><!-- /show-grid -->
+
+</div><!-- /page-wrap -->
+</main><!-- /mainContent -->
+
+
+<!-- ── FOOTER ───────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="footer-copy">© 2025 m2ea Labs. All rights reserved.</div>
+  <div><button class="footer-terms" onclick="showTermsModal()">Terms of Use / 이용약관</button></div>
+</footer>
+
+<!-- Terms Modal (footer link) -->
+<div id="termsModal" style="display:none;position:fixed;inset:0;z-index:900;background:rgba(0,0,0,0.88);overflow-y:auto;">
+  <div style="max-width:580px;margin:40px auto;padding:0 16px 60px;">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:26px 24px;position:relative;">
+      <button onclick="closeTermsModal()" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:1.4rem;color:var(--muted);cursor:pointer;line-height:1;">✕</button>
+      <div style="text-align:center;margin-bottom:18px;">
+        <div style="font-size:2.2rem;margin-bottom:8px;">📄</div>
+        <div style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--accent);">Terms of Use</div>
+        <div style="font-size:0.76rem;color:var(--muted);margin-top:4px;">Live Korea · by m2ea Labs</div>
+      </div>
+      <div id="agreedBadge" style="display:none;background:rgba(6,214,160,0.1);border:1.5px solid var(--green);border-radius:10px;padding:11px 16px;margin-bottom:16px;">
+        <div style="font-size:0.85rem;font-weight:700;color:var(--green);">✅ You have agreed to these Terms of Use.</div>
+        <div style="font-size:0.76rem;color:var(--muted);margin-top:2px;">Your agreement is saved on this device. Thank you for using Live Korea responsibly.</div>
+      </div>
+      <ul style="list-style:none;padding:0;margin:0 0 16px;">
+        <li style="font-size:0.85rem;color:var(--text);line-height:1.75;padding:9px 0 9px 18px;border-bottom:1px solid var(--border);position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>For <strong>personal study only</strong>. All video rights belong to respective copyright owners. Content may be removed without notice if requested by rights holders.</li>
+        <li style="font-size:0.85rem;color:var(--text);line-height:1.75;padding:9px 0 9px 18px;border-bottom:1px solid var(--border);position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>No commercial use, redistribution, or non-personal use permitted.</li>
+        <li style="font-size:0.85rem;color:var(--text);line-height:1.75;padding:9px 0 9px 18px;border-bottom:1px solid var(--border);position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>All language explanations represent the opinion of <strong>m2ea Labs</strong> and may contain errors.</li>
+        <li style="font-size:0.85rem;color:var(--text);line-height:1.75;padding:9px 0 9px 18px;position:relative;"><span style="position:absolute;left:0;color:var(--accent);">▸</span>YouTube Shorts may include ads served by YouTube, not controlled by m2ea Labs.</li>
+      </ul>
+      <button onclick="closeTermsModal()" style="width:100%;background:linear-gradient(135deg,var(--accent),#d91a60);color:#fff;border:none;border-radius:var(--radius-sm);padding:13px;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;">
+        Close ✕
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<script src="js/app.js"></script>
+<script>
+
+/* ── Topbar lang toggle (main page) ──────────────────────── */
+document.getElementById('topbar-lang-wrap').innerHTML = buildLangToggle();
+
+/* ── Language override for Terms overlay ─────────────────── */
+function setOverlayLang(lang) {
+  saveLang(lang);
+  document.getElementById('content-en').classList.toggle('visible', lang === 'en');
+  document.getElementById('content-ko').classList.toggle('visible', lang === 'ko');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-ko').classList.toggle('active', lang === 'ko');
+  document.getElementById('btn-en').setAttribute('aria-pressed', String(lang === 'en'));
+  document.getElementById('btn-ko').setAttribute('aria-pressed', String(lang === 'ko'));
+  document.documentElement.lang = lang;
+  mirrorCheckboxState();
+}
+
+function mirrorCheckboxState() {
+  var lang = getLang();
+  var cbEn = document.getElementById('agreeCheck-en');
+  var cbKo = document.getElementById('agreeCheck-ko');
+  var checked = lang === 'ko' ? cbKo.checked : cbEn.checked;
+  cbEn.checked = checked;
+  cbKo.checked = checked;
+  setAgreeBtnsState(checked);
+}
+
+function setAgreeBtnsState(checked) {
+  ['en', 'ko'].forEach(function(l) {
+    var btn = document.getElementById('btnAgree-' + l);
+    btn.classList.toggle('enabled', checked);
+    btn.disabled = !checked;
+    btn.setAttribute('aria-disabled', String(!checked));
+  });
+}
+
+function handleCheckClick(lang, e) {
+  var checkId = 'agreeCheck-' + lang;
+  if (e.target.id !== checkId && e.target.tagName !== 'INPUT') {
+    var cb = document.getElementById(checkId);
+    cb.checked = !cb.checked;
+    mirrorCheckboxState();
+  }
+}
+
+function onCheckChange() { mirrorCheckboxState(); }
+
+function agreeAndEnter() {
+  var lang = getLang();
+  var cb = document.getElementById('agreeCheck-' + lang);
+  if (!cb.checked) return;
+  setAgreed();
+  document.getElementById('termsOverlay').classList.remove('visible');
+  document.getElementById('mainContent').classList.add('visible');
+  // Update topbar lang toggle
+  document.getElementById('topbar-lang-wrap').innerHTML = buildLangToggle();
+  applyLang();
+  updateHowStrip();
+  renderBookmarkBar();
+  syncBookmarkButtons();
+}
+
+function updateHowStrip() {
+  var lang = getLang();
+  if (lang === 'ko') {
+    var t1 = document.getElementById('how1t'); if (t1) t1.textContent = '드라마 선택';
+    var s1 = document.getElementById('how1s'); if (s1) s1.textContent = '3개의 인기 K-드라마';
+    var t2 = document.getElementById('how2t'); if (t2) t2.textContent = '에피소드 선택';
+    var s2 = document.getElementById('how2s'); if (s2) s2.textContent = '에피소드당 30개 쇼츠';
+    var t3 = document.getElementById('how3t'); if (t3) t3.textContent = '보고 배우기';
+    var s3 = document.getElementById('how3s'); if (s3) s3.textContent = '실제 맥락에서 표현 확인';
+    var sd = document.getElementById('stat-dramas'); if (sd) sd.textContent = '드라마';
+    var se = document.getElementById('stat-eps');    if (se) se.textContent = '에피소드';
+    var ss = document.getElementById('stat-shorts'); if (ss) ss.textContent = '쇼츠';
+    var sx = document.getElementById('stat-expr');   if (sx) sx.textContent = '표현';
+  }
+}
+
+function showTermsModal() {
+  document.getElementById('termsModal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  var badge = document.getElementById('agreedBadge');
+  if (badge) badge.style.display = hasAgreed() ? 'block' : 'none';
+}
+function closeTermsModal() {
+  document.getElementById('termsModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.getElementById('termsModal').addEventListener('click', function(e) {
+  if (e.target === this) closeTermsModal();
+});
+
+/* ── Init ─────────────────────────────────────────────────── */
+window.addEventListener('DOMContentLoaded', function() {
+  if (hasAgreed()) {
+    document.getElementById('termsOverlay').classList.remove('visible');
+    document.getElementById('mainContent').classList.add('visible');
+    document.getElementById('topbar-lang-wrap').innerHTML = buildLangToggle();
+    applyLang();
+    updateHowStrip();
+    renderBookmarkBar();
+    syncBookmarkButtons();
+  } else {
+    setOverlayLang(getLang());
+  }
+});
+
+</script>
+</body>
+</html>
