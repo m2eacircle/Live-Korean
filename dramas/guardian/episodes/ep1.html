@@ -91,17 +91,6 @@
   <div><button class="footer-terms" onclick="showTermsModal()">Terms of Use</button></div>
 </footer>
 
-<div id="termsModal" style="display:none;position:fixed;inset:0;z-index:900;background:rgba(0,0,0,0.88);overflow-y:auto;">
-  <div style="max-width:580px;margin:40px auto;padding:0 16px 60px;">
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:26px 24px;position:relative;">
-      <button onclick="closeTermsModal()" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:1.4rem;color:var(--muted);cursor:pointer;">&#10005;</button>
-      <div style="text-align:center;margin-bottom:16px;"><div style="font-size:2rem;">&#128214;</div><div style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:var(--accent);">Terms of Use</div></div>
-      <p style="font-size:0.85rem;color:var(--text);line-height:1.75;padding:8px 0;">For personal study only. All video rights belong to respective owners. No commercial use permitted.</p>
-      <button onclick="closeTermsModal()" style="width:100%;background:linear-gradient(135deg,var(--accent),#d91a60);color:#fff;border:none;border-radius:var(--radius-sm);padding:12px;font-size:0.95rem;font-weight:700;cursor:pointer;">Close &#10005;</button>
-    </div>
-  </div>
-</div>
-
 <script src="../../../js/app.js"></script>
 <script>
 
@@ -606,17 +595,6 @@ var EP_DATA = {
       '&#128172; Guardian E'+EP_NUM+' #'+num,
       'dramas/guardian/episodes/ep'+EP_NUM+'.html#slot'+num);
   }
-
-  function showTermsModal() {
-    document.getElementById('termsModal').style.display = 'block';
-    document.body.style.overflow = 'hidden';
-  }
-  function closeTermsModal() {
-    document.getElementById('termsModal').style.display = 'none';
-    document.body.style.overflow = '';
-  }
-  document.getElementById('termsModal').addEventListener('click', function(e) {
-    if (e.target === this) closeTermsModal();
   });
 
   window.addEventListener('DOMContentLoaded', function() {
@@ -646,6 +624,14 @@ var EP_DATA = {
       }, 200);
     }
   });
+
+  function setLang(lang) {
+    saveLang(lang);
+    document.getElementById('topbar-lang-wrap').innerHTML = buildLangToggle();
+    buildExpressions();
+    renderBookmarkBar();
+    syncBookmarkButtons();
+  }
 </script>
 </body>
 </html>

@@ -313,15 +313,165 @@ function buildFooter() {
   var el = document.getElementById('lk-footer');
   if (!el) return;
   el.innerHTML =
-    '<div class="footer-copy" data-i18n="footer.copy">© 2025 m2ea Labs. All rights reserved.</div>'
-    + '<div><button class="footer-terms" data-i18n="footer.terms" onclick="showTermsModal()">Terms of Use</button></div>';
+    '<div class="footer-copy">\u00a9 2025 m2ea Labs. All rights reserved.</div>'
+    + '<div><button class="footer-terms" onclick="showTermsModal()">Terms of Use / \uc774\uc6a9\uc57d\uad00</button></div>';
+  injectTermsModal();
+}
+
+/* ── Full bilingual Terms modal — injected once per page ───── */
+function injectTermsModal() {
+  if (document.getElementById('termsModal')) return;
+
+  var div = document.createElement('div');
+  div.id = 'termsModal';
+  div.style.cssText = 'display:none;position:fixed;inset:0;z-index:900;background:rgba(26,19,51,0.6);backdrop-filter:blur(6px);overflow-y:auto;';
+
+  div.innerHTML = [
+    '<div style="max-width:600px;margin:40px auto;padding:0 16px 60px;">',
+    '<div style="background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:28px 24px;position:relative;box-shadow:var(--shadow-lg);">',
+
+    /* close button */
+    '<button onclick="closeTermsModal()" style="position:absolute;top:14px;right:16px;background:var(--card2);border:1px solid var(--border);border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--muted);cursor:pointer;line-height:1;">\u2715</button>',
+
+    /* lang toggle */
+    '<div style="display:flex;justify-content:center;margin-bottom:24px;">',
+    '<div style="display:flex;background:var(--card2);border:1.5px solid var(--border);border-radius:30px;padding:3px;gap:2px;">',
+    '<button id="tm-btn-en" onclick="setTermsModalLang(\'en\')" style="background:none;border:none;border-radius:24px;padding:7px 22px;font-size:0.82rem;font-weight:700;font-family:\'DM Sans\',sans-serif;color:var(--muted);cursor:pointer;transition:all 0.2s;">\ud83c\uddfa\ud83c\uddf8 EN</button>',
+    '<button id="tm-btn-ko" onclick="setTermsModalLang(\'ko\')" style="background:none;border:none;border-radius:24px;padding:7px 22px;font-size:0.82rem;font-weight:700;font-family:\'DM Sans\',sans-serif;color:var(--muted);cursor:pointer;transition:all 0.2s;">\ud83c\uddf0\ud83c\uddf7 KO</button>',
+    '</div></div>',
+
+    /* ── ENGLISH content ── */
+    '<div id="tm-content-en">',
+    '<div style="text-align:center;margin-bottom:20px;">',
+    '<div style="font-size:2.4rem;margin-bottom:10px;">\ud83c\udfa5</div>',
+    '<div style="font-family:\'Syne\',sans-serif;font-size:1.25rem;font-weight:800;color:var(--accent);">Live Korean</div>',
+    '<div style="font-size:0.76rem;color:var(--muted);margin-top:4px;">by m2ea Labs &mdash; Terms of Use</div>',
+    '</div>',
+
+    /* agreed badge */
+    '<div id="tm-agreed-en" style="display:none;background:rgba(5,150,105,0.08);border:1.5px solid var(--green);border-radius:10px;padding:11px 16px;margin-bottom:16px;">',
+    '<div style="font-size:0.85rem;font-weight:700;color:var(--green);">\u2705 You have agreed to these Terms of Use.</div>',
+    '<div style="font-size:0.76rem;color:var(--muted);margin-top:3px;">Your agreement is saved on this device. Thank you for using Live Korean responsibly.</div>',
+    '</div>',
+
+    _tmCard('Welcome',
+      '<p>Welcome to <strong>Live Korean</strong> \u2014 learn Korean through real YouTube Shorts from your favourite K-dramas. Each short connects to a natural Korean expression used in the show.</p>'),
+
+    _tmCard('Terms of Use',
+      '<ul style="list-style:none;padding:0;margin:0;">'
+      + _tmLi('This app is for <strong>personal study purposes only</strong>. All video content rights belong to their respective copyright owners. If any rights holder requests removal, content may be taken down without prior notice.')
+      + _tmLi('You <strong>may not use this content for any commercial, redistribution, or other non-personal purpose</strong>. Use is strictly limited to personal Korean language study.')
+      + _tmLi('All study notes and language explanations <strong>may contain errors or inaccuracies</strong>. All content represents the opinion of <strong>m2ea Labs</strong>. If you disagree with any explanation, your interpretation may be correct \u2014 always use your own judgment.')
+      + _tmLi('YouTube Shorts embedded in this app <strong>may include ads served by YouTube</strong>. These are not controlled by m2ea Labs.')
+      + '</ul>'),
+
+    _tmCard('About Live Korean',
+      '<p>Live Korean links YouTube Shorts from popular Korean dramas to natural Korean expressions. Each episode features 30 expressions with short video clips to show them in context.</p>'
+      + '<p style="margin-top:8px;">This app covers: <strong>Guardian: The Lonely and Great God</strong>, <strong>The Glory</strong>, and <strong>All of Us Are Dead</strong>. More dramas coming soon.</p>'
+      + '<p style="margin-top:8px;">Operated by <strong>m2ea Labs</strong> as a language study project. All video content remains the property of its original owners.</p>'),
+
+    '<button onclick="closeTermsModal()" style="width:100%;background:linear-gradient(135deg,var(--accent),#c01850);color:#fff;border:none;border-radius:var(--radius-sm);padding:13px;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:\'DM Sans\',sans-serif;margin-top:6px;">Close \u00d7</button>',
+    '</div>',
+
+    /* ── KOREAN content ── */
+    '<div id="tm-content-ko" style="display:none;font-family:\'Noto Sans KR\',\'DM Sans\',sans-serif;word-break:keep-all;">',
+    '<div style="text-align:center;margin-bottom:20px;">',
+    '<div style="font-size:2.4rem;margin-bottom:10px;">\ud83c\udfa5</div>',
+    '<div style="font-family:\'Syne\',sans-serif;font-size:1.25rem;font-weight:800;color:var(--accent);">Live Korean</div>',
+    '<div style="font-size:0.76rem;color:var(--muted);margin-top:4px;">m2ea Labs &mdash; \uc774\uc6a9\uc57d\uad00</div>',
+    '</div>',
+
+    '<div id="tm-agreed-ko" style="display:none;background:rgba(5,150,105,0.08);border:1.5px solid var(--green);border-radius:10px;padding:11px 16px;margin-bottom:16px;">',
+    '<div style="font-size:0.85rem;font-weight:700;color:var(--green);">\u2705 \uc774\uc6a9\uc57d\uad00\uc5d0 \ub3d9\uc758\ud558\uc168\uc2b5\ub2c8\ub2e4.</div>',
+    '<div style="font-size:0.76rem;color:var(--muted);margin-top:3px;">\ub3d9\uc758 \ub0b4\uc6a9\uc774 \uc774 \uae30\uae30\uc5d0 \uc800\uc7a5\ub418\uc5c8\uc2b5\ub2c8\ub2e4. Live Korean\uc744 \uc787\uc74c\ubaa9\uac8c \uc774\uc6a9\ud574 \uc8fc\uc154\uc11c \uac10\uc0ac\ud569\ub2c8\ub2e4.</div>',
+    '</div>',
+
+    _tmCard('\ud83d\udc4b \ud658\uc601\ud569\ub2c8\ub2e4',
+      '<p><strong>Live Korean</strong>\uc5d0 \uc624\uc2e0 \uac83\uc744 \ud658\uc601\ud569\ub2c8\ub2e4. \uc88b\uc544\ud558\ub294 K-\ub4dc\ub77c\ub9c8\uc758 YouTube \uc264\uce20\ub97c \ud1b5\ud574 \uc790\uc5f0\uc2a4\ub7ec\uc6b4 \ud55c\uad6d\uc5b4 \ud45c\ud604\uc744 \uc7ac\ubbf8\uc788\uac8c \ubc30\uc6b8 \uc218 \uc788\uc2b5\ub2c8\ub2e4.</p>'),
+
+    _tmCard('\ud83d\udccc \uc774\uc6a9\uc57d\uad00',
+      '<ul style="list-style:none;padding:0;margin:0;">'
+      + _tmLi('\uc774 \uc571\uc740 <strong>\uac1c\uc778 \ud559\uc2b5 \ubaa9\uc801\uc73c\ub85c\ub9cc</strong> \uc0ac\uc6a9 \uac00\ub2a5\ud569\ub2c8\ub2e4. \ubaa8\ub4e0 \uc601\uc0c1 \ucf58\ud150\uce20\uc758 \uc800\uc791\uad8c\uc740 \uac01 \uc6d0\uc800\uc791\uc790\uc5d0\uac8c \uc788\uc73c\uba70, \uc800\uc791\uad8c\uc790\uc758 \uc694\uccad \uc2dc <strong>\uc608\uace0 \uc5c6\uc774 \ucf58\ud150\uce20\uac00 \uc0ad\uc81c\ub420 \uc218 \uc788\uc2b5\ub2c8\ub2e4.</strong>')
+      + _tmLi('\uc774 \ucf58\ud150\uce20\ub294 <strong>\uc0c1\uc5c5\uc801 \uc774\uc6a9, \uc7ac\ubc30\ud3ec \ubc0f \uae30\ud0c0 \ube44\uac1c\uc778\uc801 \ubaa9\uc801\uc73c\ub85c \uc0ac\uc6a9\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.</strong> \uac1c\uc778 \ud55c\uad6d\uc5b4 \ud559\uc2b5 \ubaa9\uc801\uc5d0 \ud55c\ud574\uc11c\ub9cc \uc774\uc6a9 \uac00\ub2a5\ud569\ub2c8\ub2e4.')
+      + _tmLi('\ubaa8\ub4e0 \ud559\uc2b5 \ub0b4\uc6a9\uacfc \uc5b8\uc5b4 \uc124\uba85\uc740 <strong>\uc624\ub958\ub098 \ubd80\uc815\ud655\ud55c \uc815\ubcf4\ub97c \ud3ec\ud568\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.</strong> \ubaa8\ub4e0 \ub0b4\uc6a9\uc740 <strong>m2ea Labs\uc758 \uc758\uacac</strong>\uc785\ub2c8\ub2e4.')
+      + _tmLi('\uc571\uc5d0 \uc0bd\uc785\ub41c YouTube \uc264\uce20\uc5d0\ub294 <strong>YouTube\uac00 \uc81c\uacf5\ud558\ub294 \uad11\uace0\uac00 \ud3ec\ud568\ub420 \uc218 \uc788\uc2b5\ub2c8\ub2e4.</strong> \uc774\ub294 m2ea Labs\uc640 \ubb34\uad00\ud569\ub2c8\ub2e4.')
+      + '</ul>'),
+
+    _tmCard('\u2139\ufe0f \uc571 \uc18c\uac1c',
+      '<p>Live Korean\uc740 \uc778\uae30 \ud55c\uad6d \ub4dc\ub77c\ub9c8\uc758 YouTube \uc264\uce20\ub97c \uc790\uc5f0\uc2a4\ub7ec\uc6b4 \ud55c\uad6d\uc5b4 \ud45c\ud604\uacfc \uc5f0\uacb0\ud558\uc5ec \uc81c\uacf5\ud569\ub2c8\ub2e4.</p>'
+      + '<p style="margin-top:8px;">\ud604\uc7ac \uc81c\uacf5 \ub4dc\ub77c\ub9c8: <strong>\ub3c4\uae68\ube44</strong>, <strong>\ub354 \uae00\ub85c\ub9ac</strong>, <strong>\uc9c0\uae08 \uc6b0\ub9ac \ud559\uad50\ub294</strong>. \ub354 \ub9ce\uc740 \ub4dc\ub77c\ub9c8\uac00 \ucd94\uac00\ub420 \uc608\uc815\uc785\ub2c8\ub2e4.</p>'
+      + '<p style="margin-top:8px;">\uc774 \uc571\uc740 <strong>m2ea Labs</strong>\uc5d0\uc11c \ud55c\uad6d\uc5b4 \ud559\uc2b5 \ud504\ub85c\uc81d\ud2b8\ub85c \uc6b4\uc601\ud569\ub2c8\ub2e4.</p>'),
+
+    '<button onclick="closeTermsModal()" style="width:100%;background:linear-gradient(135deg,var(--accent),#c01850);color:#fff;border:none;border-radius:var(--radius-sm);padding:13px;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:\'Noto Sans KR\',sans-serif;margin-top:6px;">\ub2eb\uae30 \u00d7</button>',
+    '</div>',
+
+    '</div></div>'
+  ].join('');
+
+  div.addEventListener('click', function(e) { if (e.target === div) closeTermsModal(); });
+  document.body.appendChild(div);
+}
+
+/* helpers for modal card and list-item HTML */
+function _tmCard(title, body) {
+  return '<div style="background:var(--card2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px;margin-bottom:14px;">'
+    + '<div style="font-family:\'Syne\',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent2);margin-bottom:10px;">' + title + '</div>'
+    + '<div style="font-size:0.86rem;color:var(--text);line-height:1.75;">' + body + '</div>'
+    + '</div>';
+}
+function _tmLi(html) {
+  return '<li style="padding:7px 0 7px 18px;border-bottom:1px solid var(--border);position:relative;line-height:1.75;"><span style="position:absolute;left:0;color:var(--accent);">\u25b8</span>' + html + '</li>';
+}
+
+function setTermsModalLang(lang) {
+  var enBtn = document.getElementById('tm-btn-en');
+  var koBtn = document.getElementById('tm-btn-ko');
+  var enContent = document.getElementById('tm-content-en');
+  var koContent = document.getElementById('tm-content-ko');
+  if (!enBtn) return;
+
+  var activeStyle = 'background:var(--accent);color:#fff;border-radius:24px;box-shadow:0 2px 10px rgba(232,36,92,0.3);';
+  var inactiveStyle = 'background:none;border-radius:24px;';
+
+  if (lang === 'en') {
+    enBtn.style.cssText += activeStyle;
+    koBtn.style.cssText += inactiveStyle;
+    koBtn.style.background = 'none';
+    koBtn.style.color = 'var(--muted)';
+    enBtn.style.background = 'var(--accent)';
+    enBtn.style.color = '#fff';
+    enContent.style.display = 'block';
+    koContent.style.display = 'none';
+  } else {
+    koBtn.style.background = 'var(--accent)';
+    koBtn.style.color = '#fff';
+    enBtn.style.background = 'none';
+    enBtn.style.color = 'var(--muted)';
+    koContent.style.display = 'block';
+    enContent.style.display = 'none';
+  }
+
+  /* show agreed badge in active panel */
+  var agreed = hasAgreed();
+  var enBadge = document.getElementById('tm-agreed-en');
+  var koBadge = document.getElementById('tm-agreed-ko');
+  if (enBadge) enBadge.style.display = (agreed && lang === 'en') ? 'block' : 'none';
+  if (koBadge) koBadge.style.display = (agreed && lang === 'ko') ? 'block' : 'none';
 }
 
 function showTermsModal() {
+  injectTermsModal();
   var modal = document.getElementById('termsModal');
-  if (modal) { modal.style.display = 'block'; document.body.style.overflow = 'hidden'; }
+  if (!modal) return;
+  modal.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  /* open in current app language */
+  setTermsModalLang(getLang());
 }
+
 function closeTermsModal() {
   var modal = document.getElementById('termsModal');
-  if (modal) { modal.style.display = 'none'; document.body.style.overflow = ''; }
+  if (!modal) return;
+  modal.style.display = 'none';
+  document.body.style.overflow = '';
 }
