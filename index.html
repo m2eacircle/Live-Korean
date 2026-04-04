@@ -154,7 +154,7 @@
     <div class="lang-content" id="content-en">
       <div class="terms-hero">
         <span class="terms-hero-icon">🎬</span>
-        <div class="terms-hero-title"><span class="accent">Live</span> Korea</div>
+        <div class="terms-hero-title"><span class="accent">Live</span> Korean</div>
         <div class="terms-hero-sub">by m2ea Labs &mdash; Please read and agree to our Terms of Use to continue</div>
       </div>
 
@@ -197,7 +197,7 @@
     <div class="lang-content visible ko-text" id="content-ko">
       <div class="terms-hero">
         <span class="terms-hero-icon">🎬</span>
-        <div class="terms-hero-title"><span class="accent">Live</span> Korea</div>
+        <div class="terms-hero-title"><span class="accent">Live</span> Korean</div>
         <div class="terms-hero-sub">by m2ea Labs &mdash; 이용약관을 읽고 동의하신 후 앱을 사용하실 수 있습니다</div>
       </div>
 
@@ -273,11 +273,11 @@
         onclick="event.preventDefault();event.stopPropagation();
                  toggleBookmark('show','show-guardian','🌊 Guardian','dramas/guardian/index.html')"
         title="Bookmark">🔖</button>
-      <div class="show-card-banner guardian-banner">
-        <div class="banner-emoji-large">🌊</div>
-        <div class="show-card-overlay"></div>
-      </div>
-      <div class="show-card-body">
+        <div class="show-card-banner">
+          <img src="images/guardian.jpg" alt="Guardian: The Lonely and Great God">
+          <div class="show-card-overlay"></div>
+        </div>      
+        <div class="show-card-body">
         <div class="show-card-title">Guardian: The Lonely and Great God</div>
         <div class="show-card-title-kr">쓸쓸하고 찬란하神 – 도깨비</div>
         <div class="show-card-meta" data-i18n="guardian.meta">16 Episodes · 480 Shorts · Fantasy Romance</div>
@@ -287,8 +287,8 @@
 
     <!-- THE GLORY — Coming Soon -->
     <div class="show-card disabled" data-drama="glory" title="Coming soon — study content in preparation">
-      <div class="show-card-banner glory-banner" style="position:relative;overflow:hidden;">
-        <div class="banner-emoji-large" style="filter:grayscale(30%) brightness(0.7);">🥀</div>
+      <div class="show-card-banner">
+        <div class="images/glory.jpg" style="filter:grayscale(30%) brightness(0.7);">🥀</div>
         <div class="show-card-overlay"></div>
         <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
           <span style="background:rgba(255,255,255,0.92);color:var(--accent2);font-size:0.75rem;font-weight:800;
@@ -307,7 +307,7 @@
     <!-- ALL OF US ARE DEAD — Coming Soon -->
     <div class="show-card disabled" data-drama="aouad" title="Coming soon — study content in preparation">
       <div class="show-card-banner aouad-banner" style="position:relative;overflow:hidden;">
-        <div class="banner-emoji-large" style="filter:grayscale(30%) brightness(0.7);">🧟</div>
+        <div class="images/all-of-us-are-dead.jpg" style="filter:grayscale(30%) brightness(0.7);">🧟</div>
         <div class="show-card-overlay"></div>
         <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
           <span style="background:rgba(255,255,255,0.92);color:var(--accent2);font-size:0.75rem;font-weight:800;
@@ -419,11 +419,12 @@ function agreeAndEnter() {
   setAgreed();
   document.getElementById('termsOverlay').classList.remove('visible');
   document.getElementById('mainContent').classList.add('visible');
-  // Update topbar lang toggle
   document.getElementById('topbar-lang-wrap').innerHTML = buildLangToggle();
   applyLang();
   renderBookmarkBar();
   syncBookmarkButtons();
+}
+
 function showTermsModal() {
   document.getElementById('termsModal').style.display = 'block';
   document.body.style.overflow = 'hidden';
