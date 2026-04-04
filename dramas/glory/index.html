@@ -80,19 +80,19 @@
   </div>
 
   <!-- Coming Soon notice — EN -->
-  <div class="coming-soon-bar" id="cs-en">
+  <div class="coming-soon-bar" data-lang-en>
     <div class="cs-badge">&#128679; Coming Soon</div>
     <p>We are currently preparing study content for <strong>The Glory</strong>.<br>Korean expression cards and YouTube Shorts will be available soon — check back!</p>
   </div>
 
   <!-- Coming Soon notice — KO -->
-  <div class="coming-soon-bar" id="cs-ko" style="display:none;font-family:'Noto Sans KR','DM Sans',sans-serif;word-break:keep-all;">
+  <div class="coming-soon-bar" data-lang-ko style="display:none;font-family:'Noto Sans KR','DM Sans',sans-serif;word-break:keep-all;">
     <div class="cs-badge">&#128679; 준비중</div>
     <p><strong>더 글로리</strong> 학습 콘텐츠를 열심히 준비하고 있습니다.<br>한국어 표현 카드와 YouTube 쇼츠가 곧 업데이트될 예정입니다!</p>
   </div>
 
   <!-- EN description -->
-  <div class="drama-info-card" id="drama-desc-en">
+  <div class="drama-info-card" data-lang-en>
     <div class="di-label">&#127916; About This Drama</div>
     <div class="di-desc">
       <strong>The Glory</strong> is a 2022&ndash;2023 Netflix Korean thriller drama starring Song Hye-kyo and Lee Do-hyun. Moon Dong-eun (Song Hye-kyo) suffered severe school bullying and violence as a teenager. After years of meticulous planning, she returns as an adult — as the homeroom teacher of her tormentor's child — to execute her long-awaited revenge.<br><br>
@@ -110,7 +110,7 @@
   </div>
 
   <!-- KO description -->
-  <div class="drama-info-card" id="drama-desc-ko" style="display:none;font-family:'Noto Sans KR','DM Sans',sans-serif;word-break:keep-all;">
+  <div class="drama-info-card" data-lang-ko style="display:none;font-family:'Noto Sans KR','DM Sans',sans-serif;word-break:keep-all;">
     <div class="di-label">&#127916; 드라마 소개</div>
     <div class="di-desc">
       <strong>더 글로리</strong>는 2022&ndash;2023년 넷플릭스에서 공개된 스릴러 드라마입니다. 송혜교와 이도현이 주연을 맡았으며, 학창 시절 심각한 학교 폭력을 당한 문동은(송혜교)이 수년간 치밀하게 계획을 세운 끝에 가해자의 자녀 담임 선생님으로 돌아와 복수를 실행하는 이야기입니다.<br><br>
@@ -148,10 +148,6 @@
     document.getElementById('bc-drama').textContent  = isKo ? '더 글로리' : 'The Glory';
     document.getElementById('hdr-title').textContent = isKo ? '더 글로리' : 'The Glory';
     document.getElementById('hdr-meta').textContent  = isKo ? '16화 · 2022–2023 · 스릴러 드라마' : '16 Episodes · 2022–2023 · Thriller Drama';
-    document.getElementById('drama-desc-en').style.display = isKo ? 'none' : 'block';
-    document.getElementById('drama-desc-ko').style.display = isKo ? 'block' : 'none';
-    document.getElementById('cs-en').style.display = isKo ? 'none' : 'block';
-    document.getElementById('cs-ko').style.display = isKo ? 'block' : 'none';
   }
 
   window.addEventListener('DOMContentLoaded', function() {

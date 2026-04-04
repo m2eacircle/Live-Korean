@@ -31,10 +31,9 @@ function saveLang(lang) {
 function setLang(lang) {
   saveLang(lang);
   document.documentElement.lang = lang;
-  var btnEn = document.getElementById('topbar-lang-en');
-  var btnKo = document.getElementById('topbar-lang-ko');
-  if (btnEn) btnEn.classList.toggle('active', lang === 'en');
-  if (btnKo) btnKo.classList.toggle('active', lang === 'ko');
+  /* Refresh the topbar lang toggle so active state updates */
+  var wrap = document.getElementById('topbar-lang-wrap');
+  if (wrap) wrap.innerHTML = buildLangToggle();
   document.body.classList.toggle('ko-active', lang === 'ko');
   /* Page-specific language update (drama descriptions, episode labels, etc.) */
   if (typeof applyPageLang === 'function') applyPageLang();

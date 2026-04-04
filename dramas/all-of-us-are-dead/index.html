@@ -76,19 +76,19 @@
   </div>
 
   <!-- Coming Soon notice — EN -->
-  <div class="coming-soon-bar" id="cs-en">
+  <div class="coming-soon-bar" data-lang-en>
     <div class="cs-badge">&#128679; Coming Soon</div>
     <p>We are currently preparing study content for <strong>All of Us Are Dead</strong>.<br>Korean expression cards and YouTube Shorts will be available soon — check back!</p>
   </div>
 
   <!-- Coming Soon notice — KO -->
-  <div class="coming-soon-bar" id="cs-ko" style="display:none;font-family:'Noto Sans KR','DM Sans',sans-serif;word-break:keep-all;">
+  <div class="coming-soon-bar" data-lang-ko style="display:none;font-family:'Noto Sans KR','DM Sans',sans-serif;word-break:keep-all;">
     <div class="cs-badge">&#128679; 준비중</div>
     <p><strong>지금 우리 학교는</strong> 학습 콘텐츠를 열심히 준비하고 있습니다.<br>한국어 표현 카드와 YouTube 쇼츠가 곧 업데이트될 예정입니다!</p>
   </div>
 
   <!-- EN description -->
-  <div class="drama-info-card" id="drama-desc-en">
+  <div class="drama-info-card" data-lang-en>
     <div class="di-label">&#127916; About This Drama</div>
     <div class="di-desc">
       <strong>All of Us Are Dead</strong> is a 2022 Netflix Korean zombie thriller drama based on the webtoon <em>Now at Our School</em> by Joo Dong-geun. When a zombie virus breaks out at Hyosan High School, a group of students must fight to survive and find a way to escape — while the outside world struggles to contain the outbreak.<br><br>
@@ -106,7 +106,7 @@
   </div>
 
   <!-- KO description -->
-  <div class="drama-info-card" id="drama-desc-ko" style="display:none;font-family:'Noto Sans KR','DM Sans',sans-serif;word-break:keep-all;">
+  <div class="drama-info-card" data-lang-ko style="display:none;font-family:'Noto Sans KR','DM Sans',sans-serif;word-break:keep-all;">
     <div class="di-label">&#127916; 드라마 소개</div>
     <div class="di-desc">
       <strong>지금 우리 학교는</strong>은 주동근 작가의 동명 웹툰을 원작으로 한 2022년 넷플릭스 좀비 스릴러 드라마입니다. 현산고등학교에서 좀비 바이러스가 발생하고, 살아남은 학생들이 탈출구를 찾아 사투를 벌이는 동안 외부 세계도 사태 수습에 안간힘을 씁니다.<br><br>
@@ -144,10 +144,6 @@
     document.getElementById('bc-drama').textContent  = isKo ? '지금 우리 학교는' : 'All of Us Are Dead';
     document.getElementById('hdr-title').textContent = isKo ? '지금 우리 학교는' : 'All of Us Are Dead';
     document.getElementById('hdr-meta').textContent  = isKo ? '12화 · 2022 · 좀비 스릴러' : '12 Episodes · 2022 · Zombie Thriller';
-    document.getElementById('drama-desc-en').style.display = isKo ? 'none' : 'block';
-    document.getElementById('drama-desc-ko').style.display = isKo ? 'block' : 'none';
-    document.getElementById('cs-en').style.display = isKo ? 'none' : 'block';
-    document.getElementById('cs-ko').style.display = isKo ? 'block' : 'none';
   }
 
   window.addEventListener('DOMContentLoaded', function() {
