@@ -21,13 +21,13 @@
     document.getElementById('topbar-lang-wrap').innerHTML = buildLangToggle();
     var isKo = getLang() === 'ko';
     var overlay = document.createElement('div');
-    overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;background:#0a0a0f;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;';
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;';
     overlay.innerHTML =
       '<div style="font-size:4rem;margin-bottom:1rem;">&#127797;</div>'
       + '<div style="font-family:\'Syne\',sans-serif;font-size:1.5rem;font-weight:800;color:var(--accent);margin-bottom:6px;">' + (isKo ? '더 글로리' : 'The Glory') + '</div>'
       + '<div style="font-family:\'Noto Sans KR\',sans-serif;font-size:0.88rem;color:var(--accent2);margin-bottom:16px;">' + (isKo ? '더 글로리' : '더 글로리') + '</div>'
       + '<div style="background:rgba(255,45,120,0.1);border:1px solid rgba(255,45,120,0.3);border-radius:20px;padding:6px 18px;font-size:0.75rem;font-weight:700;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;">&#128679; ' + (isKo ? '준비중' : 'Coming Soon') + '</div>'
-      + '<div style="font-size:0.88rem;color:var(--muted);max-width:340px;line-height:1.7;margin-bottom:28px;">' + (isKo ? '학습 콘텐츠를 열심히 준비 중입니다.<br>곧 업데이트될 예정이니 기대해 주세요!' : 'We\'re working hard on the study content for this drama.<br>Check back soon!') + '</div>'
+      + '<div style="font-size:0.88rem;color: var(--muted);max-width:340px;line-height:1.7;margin-bottom:28px;">' + (isKo ? '학습 콘텐츠를 열심히 준비 중입니다.<br>곧 업데이트될 예정이니 기대해 주세요!' : 'We\'re working hard on the study content for this drama.<br>Check back soon!') + '</div>'
       + '<button onclick="goHome()" style="background:linear-gradient(135deg,var(--accent),#d91a60);color:#fff;border:none;border-radius:10px;padding:11px 28px;font-size:0.95rem;font-weight:800;cursor:pointer;font-family:inherit;">&#9664; ' + (isKo ? '홈으로' : 'Back to Home') + '</button>';
     document.body.appendChild(overlay);
   });

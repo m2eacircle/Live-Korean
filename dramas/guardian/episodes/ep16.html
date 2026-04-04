@@ -22,7 +22,7 @@
     document.getElementById('topbar-lang-wrap').innerHTML = buildLangToggle();
     var isKo = getLang() === 'ko';
     var overlay = document.createElement('div');
-    overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;background:#0a0a0f;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;';
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;';
     overlay.innerHTML =
       '<div style="font-size:3rem;margin-bottom:1rem;">&#128274;</div>'
       + '<div style="font-family:\'Syne\',sans-serif;font-size:1.3rem;font-weight:800;color:var(--accent);margin-bottom:0.5rem;">' + (isKo ? '준비중' : 'Coming Soon') + '</div>'
