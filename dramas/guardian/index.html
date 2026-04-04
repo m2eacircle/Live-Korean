@@ -245,17 +245,6 @@
     syncBookmarkButtons();
   });
 
-  /* Re-run when topbar language button is clicked */
-  function setLang(lang) {
-    saveLang(lang);
-    document.getElementById('topbar-lang-wrap').innerHTML = buildLangToggle();
-    applyPageLang();
-    /* Rebuild episode cards with new language labels */
-    var grid = document.getElementById('episodeGrid');
-    if (grid) { grid.innerHTML = ''; buildEpisodeGrid(); }
-    renderBookmarkBar();
-    syncBookmarkButtons();
-  }
 </script>
 </body>
 </html>

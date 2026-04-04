@@ -36,9 +36,15 @@ function setLang(lang) {
   if (btnEn) btnEn.classList.toggle('active', lang === 'en');
   if (btnKo) btnKo.classList.toggle('active', lang === 'ko');
   document.body.classList.toggle('ko-active', lang === 'ko');
+  /* Page-specific language update (drama descriptions, episode labels, etc.) */
+  if (typeof applyPageLang === 'function') applyPageLang();
   applyLang();
   if (typeof buildExpressions === 'function') buildExpressions();
-  if (typeof buildEpisodeGrid === 'function') buildEpisodeGrid();
+  /* Rebuild episode grid with cleared guard so labels update */
+  if (typeof buildEpisodeGrid === 'function') {
+    var grid = document.getElementById('episodeGrid');
+    if (grid) { grid.innerHTML = ''; buildEpisodeGrid(); }
+  }
   if (typeof syncBookmarkButtons === 'function') syncBookmarkButtons();
   if (typeof renderBookmarkBar === 'function' && document.getElementById('bookmarkBar')) renderBookmarkBar();
 }

@@ -598,7 +598,6 @@ var EP_DATA = {
       '&#128172; Guardian E'+EP_NUM+' #'+num,
       'dramas/guardian/episodes/ep'+EP_NUM+'.html#slot'+num);
   }
-  });
 
   window.addEventListener('DOMContentLoaded', function() {
     if (!hasAgreed()) {
@@ -616,8 +615,8 @@ var EP_DATA = {
       document.body.appendChild(overlay);
       return;
     }
+    injectTermsModal();
     document.getElementById('topbar-lang-wrap').innerHTML = buildLangToggle();
-    applyLang();
     buildExpressions();
     renderBookmarkBar();
     if (window.location.hash) {
@@ -628,13 +627,6 @@ var EP_DATA = {
     }
   });
 
-  function setLang(lang) {
-    saveLang(lang);
-    document.getElementById('topbar-lang-wrap').innerHTML = buildLangToggle();
-    buildExpressions();
-    renderBookmarkBar();
-    syncBookmarkButtons();
-  }
 </script>
 </body>
 </html>
