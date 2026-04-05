@@ -460,7 +460,7 @@ body::before {
 
 .site-footer { background: var(--surface); border-top: 1px solid var(--border); padding: 20px; text-align: center; display: flex; flex-direction: column; gap: 6px; }
 .footer-copy { font-size: 0.78rem; color: var(--muted); }
-.footer-terms { background: none; border: none; color: var(--accent2); font-size: 0.78rem; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: var(--transition); }
+.footer-terms { background: none; border: none; color: var(--accent2); font-size: 0.78rem; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: var(--transition); text-decoration: none; display: inline-block; }
 .footer-terms:hover { color: var(--accent); }
 
 .modal-overlay { display: none; position: fixed; inset: 0; z-index: 600; background: rgba(26,19,51,0.6); backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 20px; }
