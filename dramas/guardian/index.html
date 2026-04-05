@@ -87,7 +87,7 @@
   </div>
 
   <!-- EN description -->
-  <div class="drama-info-card" data-lang-en>
+  <div class="drama-info-card" id="desc-en" data-lang-en>
     <div class="di-label">&#127916; About This Drama</div>
     <div class="di-desc">
       <strong>Guardian: The Lonely and Great God</strong> (also known as <em>Goblin</em>) is a 2016&ndash;2017 Korean fantasy romance drama starring Gong Yoo and Kim Go-eun. A 939-year-old goblin &mdash; cursed to live forever with a sword through his chest &mdash; can only break the curse if a human bride pulls out the sword. He encounters Ji Eun-tak, a cheerful high school girl who can see ghosts, and their fates become intertwined across lifetimes.<br><br>
@@ -105,7 +105,7 @@
   </div>
 
   <!-- KO description -->
-  <div class="drama-info-card" data-lang-ko style="display:none;font-family:'Noto Sans KR','DM Sans',sans-serif;word-break:keep-all;">
+  <div class="drama-info-card" id="desc-ko" data-lang-ko style="display:none;font-family:'Noto Sans KR','DM Sans',sans-serif;word-break:keep-all;">
     <div class="di-label">&#127916; 드라마 소개</div>
     <div class="di-desc">
       <strong>쓸쓸하고 찬란하神 &ndash; 도깨비</strong>는 2016&ndash;2017년 tvN에서 방영된 판타지 로맨스 드라마입니다. 공유와 김고은이 주연을 맡았으며, 가슴에 꽂힌 검을 뽑아줄 신부를 기다리며 939년을 살아온 도깨비(공유)와 귀신을 볼 수 있는 밝고 씩씩한 고등학생 지은탁(김고은)의 운명적 만남을 그린 작품입니다.<br><br>
@@ -163,6 +163,8 @@
     document.getElementById('ep-section-label').innerHTML = isKo
       ? '&#127916; 에피소드 &mdash; 16화'
       : '&#127916; Episodes &mdash; 16 Episodes';
+    document.getElementById('desc-en').style.display = isKo ? 'none' : 'block';
+    document.getElementById('desc-ko').style.display = isKo ? 'block' : 'none';
   }
 
   function buildEpisodeGrid() {

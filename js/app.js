@@ -31,21 +31,33 @@ function saveLang(lang) {
 function setLang(lang) {
   saveLang(lang);
   document.documentElement.lang = lang;
-  /* Refresh the topbar lang toggle so active state updates */
+
+  /* Refresh topbar toggle active state */
   var wrap = document.getElementById('topbar-lang-wrap');
   if (wrap) wrap.innerHTML = buildLangToggle();
+
   document.body.classList.toggle('ko-active', lang === 'ko');
-  /* Page-specific language update (drama descriptions, episode labels, etc.) */
+
+  /* Page-level lang update — defined in each page's inline script */
   if (typeof applyPageLang === 'function') applyPageLang();
+
+  /* data-lang-en / data-lang-ko elements */
   applyLang();
+
+  /* Expressions rebuild (ep pages) */
   if (typeof buildExpressions === 'function') buildExpressions();
-  /* Rebuild episode grid with cleared guard so labels update */
-  if (typeof buildEpisodeGrid === 'function') {
-    var grid = document.getElementById('episodeGrid');
-    if (grid) { grid.innerHTML = ''; buildEpisodeGrid(); }
+
+  /* Episode grid rebuild (drama index pages) */
+  var grid = document.getElementById('episodeGrid');
+  if (grid && typeof buildEpisodeGrid === 'function') {
+    grid.innerHTML = '';
+    buildEpisodeGrid();
   }
+
   if (typeof syncBookmarkButtons === 'function') syncBookmarkButtons();
-  if (typeof renderBookmarkBar === 'function' && document.getElementById('bookmarkBar')) renderBookmarkBar();
+  if (document.getElementById('bookmarkBar') && typeof renderBookmarkBar === 'function') {
+    renderBookmarkBar();
+  }
 }
 
 function applyLang() {

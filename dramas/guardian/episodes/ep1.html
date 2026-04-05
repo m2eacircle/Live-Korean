@@ -518,6 +518,11 @@ var EP_DATA = {
 
   function goHome() { window.location.href = '../../../index.html'; }
 
+  /* Called by setLang() in app.js on every language switch */
+  function applyPageLang() {
+    buildExpressions();
+  }
+
   function escHtml(s) {
     if (!s) return '';
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
