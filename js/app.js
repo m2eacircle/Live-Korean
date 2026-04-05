@@ -59,10 +59,10 @@ function applyLang() {
     }
   });
   document.querySelectorAll('[data-lang-en]').forEach(function(el) {
-    el.style.display = (lang === 'en') ? '' : 'none';
+    el.style.display = (lang === 'en') ? 'block' : 'none';
   });
   document.querySelectorAll('[data-lang-ko]').forEach(function(el) {
-    el.style.display = (lang === 'ko') ? '' : 'none';
+    el.style.display = (lang === 'ko') ? 'block' : 'none';
   });
 }
 

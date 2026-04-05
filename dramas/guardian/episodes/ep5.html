@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guardian E5 &mdash; Live Korean</title>
+  <link rel="stylesheet" href="../../../css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-left">
+    <button class="btn-topbar-home" onclick="goHome()" title="Home">&#127968;</button>
+    <div class="topbar-logo"><span class="logo-live">Live</span><div class="logo-dot"></div><span class="logo-korea">Korean</span></div>
+  </div>
+  <div class="topbar-right" id="topbar-lang-wrap"></div>
+</header>
+<script src="../../../js/app.js"></script>
+<script>
+  function goHome() { window.location.href = '../../../index.html'; }
+  window.addEventListener('DOMContentLoaded', function() {
+    if (!hasAgreed()) { window.location.href = '../../../index.html'; return; }
+    document.getElementById('topbar-lang-wrap').innerHTML = buildLangToggle();
+    var isKo = getLang() === 'ko';
+    var overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;';
+    overlay.innerHTML =
+      '<div style="font-size:3rem;margin-bottom:1rem;">&#128274;</div>'
+      + '<div style="font-family:\'Syne\',sans-serif;font-size:1.3rem;font-weight:800;color:var(--accent);margin-bottom:0.5rem;">' + (isKo ? '준비중' : 'Coming Soon') + '</div>'
+      + '<div style="font-size:0.9rem;color:var(--muted);margin-bottom:2rem;">' + (isKo ? '이 에피소드는 아직 준비 중입니다.<br>곧 업데이트될 예정입니다!' : 'Episode 5 is not available yet.<br>Check back soon!') + '</div>'
+      + '<button onclick="history.back()" style="background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 28px;font-size:0.95rem;font-weight:800;cursor:pointer;font-family:inherit;">&#9664; ' + (isKo ? '돌아가기' : 'Go Back') + '</button>';
+    document.body.appendChild(overlay);
+  });
+</script>
+</body>
+</html>
