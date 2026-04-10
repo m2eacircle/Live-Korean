@@ -89,11 +89,13 @@
       padding: 16px 18px 18px;
     }
     .cat-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 800;
+      font-family: 'Playfair Display', 'Noto Sans KR', serif;
+      font-size: 1.12rem;
+      font-weight: 600;
+      font-style: italic;
       color: var(--text);
       margin-bottom: 3px;
+      letter-spacing: 0.01em;
     }
     .cat-subtitle {
       font-size: 0.78rem;
@@ -191,21 +193,6 @@
       border-radius: 10px;
       letter-spacing: 0.3px;
       text-transform: uppercase;
-    }
-
-    /* ── Hero decoration ─────────────────────────────────── */
-    .kr-decoration {
-      position: absolute;
-      right: 20px; top: 50%;
-      transform: translateY(-50%);
-      font-family: 'Noto Sans KR', sans-serif;
-      font-size: 7.5rem;
-      font-weight: 900;
-      color: rgba(255,45,120,0.05);
-      pointer-events: none;
-      user-select: none;
-      line-height: 1;
-      white-space: nowrap;
     }
 
   </style>
@@ -340,7 +327,6 @@
 
   <!-- Home Hero -->
   <div class="home-hero" style="position:relative;overflow:hidden;">
-    <div class="kr-decoration">한국</div>
     <div class="home-hero-eyebrow" data-i18n="home.hero.eyebrow">✨ Korean Culture · YouTube Shorts</div>
     <h1 data-i18n="home.hero.title">🇰🇷 Discover Korean Culture through <span class="hero-accent">YouTube Shorts</span></h1>
     <p data-i18n="home.hero.sub">Explore K-Drama, K-Music, and K-Entertainment through curated YouTube Shorts — dive into Korean culture one clip at a time.</p>
