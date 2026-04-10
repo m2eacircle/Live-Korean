@@ -92,7 +92,7 @@ function buildLangToggle() {
 var LK_I18N = {
   en: {
     'home.hero.eyebrow': '✨ Korean Culture · YouTube Shorts',
-    'home.hero.title': '🇰🇷 Discover Korean Culture through <span class="hero-accent">YouTube Shorts</span>',
+    'home.hero.title': 'Discover Korean Culture through <span class="hero-accent">YouTube Shorts</span>',
     'home.hero.sub': 'Explore K-Drama, K-Music, and K-Entertainment through curated YouTube Shorts — dive into Korean culture one clip at a time.',
     'home.categories.label': '📺 Categories',
     'cat.kdrama.name': 'K-Drama',
@@ -102,7 +102,7 @@ var LK_I18N = {
     'cat.kent.name': 'K-Entertainment',
     'cat.kent.sub': 'Variety & More',
     'cat.coming': 'Content coming soon',
-    'install.label': '📲 Add to your Home Screen',
+    'install.label': 'Add to your Home Screen',
     'install.sub': 'Live Korean works as a web app — no App Store needed. Install in seconds for a full-screen experience.',
     'bm.bar.title': 'Bookmarks — Jump back in',
     'bm.empty': 'No bookmarks yet. Tap 🔖 to save your spot.',
@@ -115,7 +115,7 @@ var LK_I18N = {
   },
   ko: {
     'home.hero.eyebrow': '✨ 한국 문화 · YouTube 쇼츠',
-    'home.hero.title': '🇰🇷 <span class="hero-kr">YouTube 쇼츠</span>로 한국 문화 탐험',
+    'home.hero.title': '<span class="hero-kr">YouTube 쇼츠</span>로 한국 문화 탐험',
     'home.hero.sub': 'K-드라마, K-뮤직, K-엔터테인먼트의 YouTube 쇼츠로 한국 문화를 한 클립씩 경험해보세요.',
     'home.categories.label': '📺 카테고리',
     'cat.kdrama.name': 'K-드라마',
@@ -125,7 +125,7 @@ var LK_I18N = {
     'cat.kent.name': 'K-엔터테인먼트',
     'cat.kent.sub': '예능 & 버라이어티',
     'cat.coming': '콘텐츠 준비 중',
-    'install.label': '📲 홈 화면에 추가하기',
+    'install.label': '홈 화면에 추가하기',
     'install.sub': 'Live Korean은 웹 앱으로 동작합니다 — 앱 스토어 없이 바로 설치하세요.',
     'bm.bar.title': '북마크 — 이어보기',
     'bm.empty': '아직 북마크가 없습니다. 🔖 버튼으로 저장하세요.',
