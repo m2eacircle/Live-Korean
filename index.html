@@ -127,73 +127,102 @@
       border: 1px solid var(--border);
     }
 
-    /* ── App download section ────────────────────────────── */
-    .download-section {
+    /* ── Web app install section ─────────────────────────── */
+    .install-section {
       background: linear-gradient(135deg, var(--card) 0%, var(--card2) 100%);
       border: 1.5px solid var(--border);
       border-radius: var(--radius);
-      padding: 32px 24px;
+      padding: 28px 24px 30px;
       margin-bottom: 48px;
       text-align: center;
     }
-    .download-label {
+    .install-icon {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      display: block;
+      line-height: 1;
+    }
+    .install-label {
       font-family: 'Syne', sans-serif;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 800;
       color: var(--text);
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
-    .download-sub {
-      font-size: 0.82rem;
+    .install-sub {
+      font-size: 0.81rem;
       color: var(--muted);
-      margin-bottom: 24px;
+      margin-bottom: 22px;
       max-width: 340px;
       margin-left: auto;
       margin-right: auto;
+      line-height: 1.55;
     }
-    .download-btns {
+    .install-steps {
       display: flex;
-      gap: 14px;
+      gap: 0;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .install-step {
+      flex: 1;
+      min-width: 110px;
+      max-width: 160px;
+      padding: 14px 10px;
+      position: relative;
+    }
+    .install-step + .install-step::before {
+      content: '→';
+      position: absolute;
+      left: -8px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+    .install-step-num {
+      width: 28px; height: 28px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 8px;
+    }
+    .install-step-icon { font-size: 1.4rem; margin-bottom: 6px; display: block; }
+    .install-step-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .install-step-desc {
+      font-size: 0.68rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .install-platform-note {
+      display: flex;
+      gap: 10px;
       justify-content: center;
       flex-wrap: wrap;
     }
-    .btn-store {
+    .install-pill {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      background: var(--text);
-      color: var(--bg);
-      border: none;
-      border-radius: 12px;
-      padding: 12px 22px;
-      font-size: 0.82rem;
-      font-weight: 700;
+      gap: 6px;
+      background: var(--card2);
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--muted);
       font-family: 'DM Sans', sans-serif;
-      cursor: pointer;
-      text-decoration: none;
-      transition: var(--transition);
-      min-width: 170px;
-      justify-content: center;
-      opacity: 0.55;
-      position: relative;
     }
-    .btn-store:hover { opacity: 0.72; transform: translateY(-1px); }
-    .btn-store-icon { font-size: 1.4rem; flex-shrink: 0; }
-    .btn-store-text { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; }
-    .btn-store-pre  { font-size: 0.62rem; font-weight: 400; letter-spacing: 0.4px; opacity: 0.75; }
-    .btn-store-name { font-size: 0.9rem; font-weight: 800; letter-spacing: -0.2px; }
-    .btn-store-soon {
-      position: absolute;
-      top: -8px; right: -6px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 0.6rem;
-      font-weight: 800;
-      padding: 2px 7px;
-      border-radius: 10px;
-      letter-spacing: 0.3px;
-      text-transform: uppercase;
-    }
+    .install-pill-icon { font-size: 0.9rem; }
 
   </style>
 </head>
@@ -348,7 +377,10 @@
     <!-- K-DRAMA -->
     <div class="cat-card coming" data-cat="kdrama">
       <div class="cat-banner kdrama-banner">
-        <div class="cat-banner-emoji">🎬</div>
+        <img src="images/kdrama-banner.jpg" alt="K-Drama"
+          style="width:100%;height:100%;object-fit:cover;display:block;"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="cat-banner-emoji" style="display:none;">🎬</div>
         <div class="cat-banner-overlay"></div>
         <div class="cat-coming-pill">
           <span>&#128679; Coming Soon</span>
@@ -365,7 +397,10 @@
     <!-- K-MUSIC -->
     <div class="cat-card coming" data-cat="kmusic">
       <div class="cat-banner kmusic-banner">
-        <div class="cat-banner-emoji">🎵</div>
+        <img src="images/kmusic-banner.jpg" alt="K-Music"
+          style="width:100%;height:100%;object-fit:cover;display:block;"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="cat-banner-emoji" style="display:none;">🎵</div>
         <div class="cat-banner-overlay"></div>
         <div class="cat-coming-pill">
           <span>&#128679; Coming Soon</span>
@@ -382,7 +417,10 @@
     <!-- K-ENTERTAINMENT -->
     <div class="cat-card coming" data-cat="kent">
       <div class="cat-banner kent-banner">
-        <div class="cat-banner-emoji">🎤</div>
+        <img src="images/kent-banner.jpg" alt="K-Entertainment"
+          style="width:100%;height:100%;object-fit:cover;display:block;"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="cat-banner-emoji" style="display:none;">🎤</div>
         <div class="cat-banner-overlay"></div>
         <div class="cat-coming-pill">
           <span>&#128679; Coming Soon</span>
@@ -398,27 +436,106 @@
 
   </div><!-- /cat-grid -->
 
-  <!-- App Download -->
-  <div class="download-section">
-    <div class="download-label" data-i18n="download.label">📲 Get the App</div>
-    <div class="download-sub" data-i18n="download.sub">Watch anywhere, anytime — take Live Korean with you.</div>
-    <div class="download-btns">
-      <a class="btn-store" href="#" onclick="return false;" title="App Store — coming soon">
-        <span class="btn-store-icon">🍎</span>
-        <span class="btn-store-text">
-          <span class="btn-store-pre" data-i18n="download.ios">Download on the App Store</span>
-          <span class="btn-store-name">App Store</span>
-        </span>
-        <span class="btn-store-soon" data-i18n="download.soon">Soon</span>
-      </a>
-      <a class="btn-store" href="#" onclick="return false;" title="Google Play — coming soon">
-        <span class="btn-store-icon">▶</span>
-        <span class="btn-store-text">
-          <span class="btn-store-pre" data-i18n="download.android">Get it on Google Play</span>
-          <span class="btn-store-name">Google Play</span>
-        </span>
-        <span class="btn-store-soon" data-i18n="download.soon">Soon</span>
-      </a>
+  <!-- Web App Install -->
+  <div class="install-section" id="installSection">
+    <span class="install-icon">📲</span>
+    <div class="install-label" data-i18n="install.label">Add to your Home Screen</div>
+    <div class="install-sub" data-i18n="install.sub">Live Korean works as a web app — no App Store needed. Install it in seconds for a full-screen experience.</div>
+
+    <div class="install-steps">
+      <!-- iOS -->
+      <div id="steps-ios" style="display:none;width:100%;">
+        <div style="font-size:0.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">iPhone / iPad</div>
+        <div class="install-steps" style="margin-bottom:0;">
+          <div class="install-step">
+            <div class="install-step-num">1</div>
+            <span class="install-step-icon">🌐</span>
+            <div class="install-step-title" data-i18n="install.ios.1.title">Open in Safari</div>
+            <div class="install-step-desc" data-i18n="install.ios.1.desc">Must use Safari — other browsers can't install web apps on iOS</div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-num">2</div>
+            <span class="install-step-icon">⬆️</span>
+            <div class="install-step-title" data-i18n="install.ios.2.title">Tap Share</div>
+            <div class="install-step-desc" data-i18n="install.ios.2.desc">Tap the Share button at the bottom of Safari</div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-num">3</div>
+            <span class="install-step-icon">➕</span>
+            <div class="install-step-title" data-i18n="install.ios.3.title">Add to Home Screen</div>
+            <div class="install-step-desc" data-i18n="install.ios.3.desc">Scroll down and tap "Add to Home Screen"</div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-num">4</div>
+            <span class="install-step-icon">✅</span>
+            <div class="install-step-title" data-i18n="install.ios.4.title">Tap Add</div>
+            <div class="install-step-desc" data-i18n="install.ios.4.desc">Confirm by tapping Add — Live Korean appears on your home screen</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Android -->
+      <div id="steps-android" style="display:none;width:100%;">
+        <div style="font-size:0.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Android</div>
+        <div class="install-steps" style="margin-bottom:0;">
+          <div class="install-step">
+            <div class="install-step-num">1</div>
+            <span class="install-step-icon">🌐</span>
+            <div class="install-step-title" data-i18n="install.and.1.title">Open in Chrome</div>
+            <div class="install-step-desc" data-i18n="install.and.1.desc">Open this page in Chrome on your Android device</div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-num">2</div>
+            <span class="install-step-icon">⋮</span>
+            <div class="install-step-title" data-i18n="install.and.2.title">Tap Menu</div>
+            <div class="install-step-desc" data-i18n="install.and.2.desc">Tap the three-dot menu in the top-right corner</div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-num">3</div>
+            <span class="install-step-icon">➕</span>
+            <div class="install-step-title" data-i18n="install.and.3.title">Add to Home Screen</div>
+            <div class="install-step-desc" data-i18n="install.and.3.desc">Tap "Add to Home screen" or the install banner if it appears</div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-num">4</div>
+            <span class="install-step-icon">✅</span>
+            <div class="install-step-title" data-i18n="install.and.4.title">Tap Install</div>
+            <div class="install-step-desc" data-i18n="install.and.4.desc">Confirm — Live Korean is added to your home screen</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Desktop -->
+      <div id="steps-desktop" style="display:none;width:100%;">
+        <div style="font-size:0.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Desktop (Chrome / Edge)</div>
+        <div class="install-steps" style="margin-bottom:0;">
+          <div class="install-step">
+            <div class="install-step-num">1</div>
+            <span class="install-step-icon">🌐</span>
+            <div class="install-step-title">Open in Chrome or Edge</div>
+            <div class="install-step-desc">Use Chrome or Microsoft Edge on your computer</div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-num">2</div>
+            <span class="install-step-icon">⊞</span>
+            <div class="install-step-title">Look for install icon</div>
+            <div class="install-step-desc">Click the install icon (⊞) in the address bar</div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-num">3</div>
+            <span class="install-step-icon">✅</span>
+            <div class="install-step-title">Click Install</div>
+            <div class="install-step-desc">Confirm and Live Korean opens as a standalone app</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Platform selector tabs -->
+    <div class="install-platform-note">
+      <button class="install-pill" id="pill-ios"     onclick="showInstallSteps('ios')">     <span class="install-pill-icon">🍎</span> iPhone / iPad</button>
+      <button class="install-pill" id="pill-android" onclick="showInstallSteps('android')"> <span class="install-pill-icon">🤖</span> Android</button>
+      <button class="install-pill" id="pill-desktop" onclick="showInstallSteps('desktop')"> <span class="install-pill-icon">💻</span> Desktop</button>
     </div>
   </div>
 
@@ -501,7 +618,26 @@ function agreeAndEnter() {
   syncBookmarkButtons();
 }
 
-/* ── Init ─────────────────────────────────────────────────── */
+/* ── Web App Install — platform detection & tab toggle ───── */
+function showInstallSteps(platform) {
+  ['ios','android','desktop'].forEach(function(p) {
+    var steps = document.getElementById('steps-' + p);
+    var pill  = document.getElementById('pill-' + p);
+    if (steps) steps.style.display = (p === platform) ? 'block' : 'none';
+    if (pill)  pill.style.background  = (p === platform) ? 'var(--accent)' : '';
+    if (pill)  pill.style.color       = (p === platform) ? '#fff' : '';
+    if (pill)  pill.style.borderColor = (p === platform) ? 'var(--accent)' : '';
+  });
+}
+
+function detectPlatform() {
+  var ua = navigator.userAgent;
+  if (/iPad|iPhone|iPod/.test(ua)) return 'ios';
+  if (/Android/.test(ua))          return 'android';
+  return 'desktop';
+}
+
+
 window.addEventListener('DOMContentLoaded', function() {
   injectTermsModal();
   if (hasAgreed()) {
@@ -511,6 +647,7 @@ window.addEventListener('DOMContentLoaded', function() {
     applyLang();
     renderBookmarkBar();
     syncBookmarkButtons();
+    showInstallSteps(detectPlatform());
   } else {
     setOverlayLang(getLang());
   }
