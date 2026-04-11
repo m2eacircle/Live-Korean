@@ -7,541 +7,324 @@
   <link rel="stylesheet" href="../../css/style.css">
   <meta name="theme-color" content="#e8245c">
   <style>
-    /* ── Category hero ───────────────────────────────────── */
     .cat-hero {
-      background: linear-gradient(135deg, #fff0f4 0%, #ffd6e4 60%, #ffe4ee 100%);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px 24px 24px;
-      margin-bottom: 32px;
-      position: relative;
-      overflow: hidden;
+      background: linear-gradient(135deg,#fff0f4 0%,#ffd6e4 60%,#ffe4ee 100%);
+      border:1.5px solid var(--border); border-radius:var(--radius);
+      padding:28px 24px 24px; margin-bottom:32px;
+      position:relative; overflow:hidden;
     }
-    .cat-hero-img {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      opacity: 0.18;
-    }
-    .cat-hero-inner { position: relative; z-index: 1; }
-    .cat-hero-eyebrow {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 6px;
-    }
-    .cat-hero-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.7rem;
-      font-weight: 600;
-      font-style: italic;
-      color: var(--text);
-      line-height: 1.25;
-      margin-bottom: 8px;
-    }
-    .cat-hero-sub {
-      font-size: 0.82rem;
-      color: var(--muted);
-      max-width: 480px;
-      line-height: 1.6;
-    }
-    /* ── Shorts grid ─────────────────────────────────────── */
-    .shorts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-      margin-bottom: 48px;
-    }
-    .short-card {
-      background: var(--card);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      transition: var(--transition);
-      cursor: pointer;
-    }
-    .short-card:hover {
-      border-color: var(--accent);
-      box-shadow: 0 8px 28px rgba(232,36,92,0.13);
-      transform: translateY(-2px);
-    }
-    .short-thumb {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: linear-gradient(135deg, #fff0f4, #ffd6e4);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .short-thumb img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-    }
-    .short-play-btn {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,0.22);
-      transition: var(--transition);
-    }
-    .short-card:hover .short-play-btn { background: rgba(232,36,92,0.35); }
-    .short-play-icon {
-      width: 48px; height: 48px;
-      background: rgba(255,255,255,0.92);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-    }
-    .short-num {
-      position: absolute;
-      top: 10px; left: 10px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 0.65rem;
-      font-weight: 800;
-      padding: 3px 9px;
-      border-radius: 20px;
-      letter-spacing: 0.3px;
-    }
-    .short-body { padding: 14px 16px 16px; }
-    .short-show {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 4px;
-    }
-    .short-title-en {
-      font-family: 'Syne', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--text);
-      line-height: 1.35;
-      margin-bottom: 2px;
-    }
-    .short-title-ko {
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: var(--text);
-      line-height: 1.35;
-      margin-bottom: 8px;
-      font-family: 'Noto Sans KR', sans-serif;
-    }
-    .short-desc-en, .short-desc-ko {
-      font-size: 0.77rem;
-      color: var(--muted);
-      line-height: 1.55;
-      margin-bottom: 10px;
-    }
-    .short-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 12px;
-    }
-    .short-tag {
-      font-size: 0.65rem;
-      font-weight: 600;
-      padding: 3px 9px;
-      border-radius: 12px;
-      background: var(--card2);
-      color: var(--accent2);
-      border: 1px solid var(--border);
-      letter-spacing: 0.3px;
-    }
-    .short-actions {
-      display: flex;
-      gap: 8px;
-    }
-    .btn-watch {
-      flex: 1;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: var(--radius-sm);
-      padding: 9px 14px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      font-family: 'DM Sans', sans-serif;
-      cursor: pointer;
-      transition: var(--transition);
-      text-decoration: none;
-    }
-    .btn-watch:hover { background: #c91d50; }
-    .btn-watch.pending {
-      background: var(--card2);
-      color: var(--muted);
-      cursor: default;
-    }
-    .btn-watch.pending:hover { background: var(--card2); }
-    /* lang visibility */
-    [data-lang] { display: none; }
-    [data-lang].visible { display: block; }
-    .short-title-ko, .short-desc-ko { display: none; }
-    .lang-ko .short-title-en, .lang-ko .short-desc-en { display: none; }
-    .lang-ko .short-title-ko, .lang-ko .short-desc-ko { display: block; }
+    .cat-hero-img { position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.18; }
+    .cat-hero-inner { position:relative;z-index:1; }
+    .cat-hero-eyebrow { font-size:0.72rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#e8245c;margin-bottom:6px; }
+    .cat-hero-title { font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:600;font-style:italic;color:var(--text);line-height:1.25;margin-bottom:8px; }
+    .cat-hero-sub { font-size:0.82rem;color:var(--muted);max-width:520px;line-height:1.6; }
+    .shorts-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-bottom:48px; }
+    .short-card { background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:var(--transition); }
+    .short-card:hover { border-color:#e8245c;box-shadow:0 8px 28px #e8245c22;transform:translateY(-2px); }
+    .short-thumb { width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#fff0f4 0%,#ffd6e4 60%,#ffe4ee 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center; }
+    .short-play-btn { position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.22);transition:var(--transition); }
+    .short-card:hover .short-play-btn { background:#e8245c55; }
+    .short-play-icon { width:48px;height:48px;background:rgba(255,255,255,0.92);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 16px rgba(0,0,0,0.2); }
+    .short-num { position:absolute;top:10px;left:10px;background:#e8245c;color:#fff;font-size:0.65rem;font-weight:800;padding:3px 9px;border-radius:20px;letter-spacing:0.3px; }
+    .short-body { padding:14px 16px 16px; }
+    .short-show { font-size:0.68rem;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:#e8245c;margin-bottom:4px; }
+    .short-title-en { font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:700;color:var(--text);line-height:1.35;margin-bottom:2px; }
+    .short-title-ko { font-size:0.82rem;font-weight:500;color:var(--text);line-height:1.35;margin-bottom:8px;font-family:'Noto Sans KR',sans-serif;display:none; }
+    .short-desc-en, .short-desc-ko { font-size:0.77rem;color:var(--muted);line-height:1.55;margin-bottom:10px; }
+    .short-desc-ko { display:none; }
+    .lang-ko .short-title-en, .lang-ko .short-desc-en { display:none; }
+    .lang-ko .short-title-ko, .lang-ko .short-desc-ko { display:block; }
+    .short-tags { display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px; }
+    .short-tag { font-size:0.65rem;font-weight:600;padding:3px 9px;border-radius:12px;background:var(--card2);color:var(--accent2);border:1px solid var(--border); }
+    .short-actions { display:flex;gap:8px; }
+    .btn-watch { flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#e8245c;color:#fff;border:none;border-radius:var(--radius-sm);padding:9px 14px;font-size:0.78rem;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;transition:var(--transition);text-decoration:none; }
+    .btn-watch:hover { opacity:0.88; }
+    .btn-watch.pending { background:var(--card2);color:var(--muted);cursor:default; }
+    .btn-watch.pending:hover { background:var(--card2); }
   </style>
 </head>
 <body>
-
 <header class="topbar">
   <div class="topbar-left">
     <button class="btn-topbar-home" onclick="window.location.href='../../index.html'" title="Home">&#127968;</button>
-    <div class="topbar-logo">
-      <span class="logo-live">Live</span>
-      <div class="logo-dot"></div>
-      <span class="logo-korea">Korean</span>
-    </div>
+    <div class="topbar-logo"><span class="logo-live">Live</span><div class="logo-dot"></div><span class="logo-korea">Korean</span></div>
   </div>
   <div class="topbar-right" id="topbar-lang-wrap"></div>
 </header>
-
 <main>
 <div class="page-wrap">
-
-  <!-- Hero -->
   <div class="cat-hero">
     <img class="cat-hero-img" src="../../images/kdrama-banner.jpg" alt="K-Drama">
     <div class="cat-hero-inner">
-      <div class="cat-hero-eyebrow" id="hero-eyebrow">🎬 Category</div>
-      <div class="cat-hero-title" id="hero-title">K-Drama</div>
-      <p class="cat-hero-sub" id="hero-sub">Iconic scenes, emotional moments, and unforgettable lines from the best Korean dramas — each clip paired with cultural and language context.</p>
+      <div class="cat-hero-eyebrow" id="hero-eyebrow"></div>
+      <div class="cat-hero-title"  id="hero-title"></div>
+      <p class="cat-hero-sub"      id="hero-sub"></p>
     </div>
   </div>
-
-  <div class="section-label" id="section-label">📺 30 Featured Shorts</div>
-
+  <div class="section-label" id="section-label"></div>
   <div class="shorts-grid" id="shortsGrid"></div>
-
 </div>
 </main>
-
 <footer class="site-footer">
   <div class="footer-copy">© 2025 m2ea Labs. All rights reserved.</div>
   <div><a class="footer-terms" href="../../terms.html">Terms of Use / 이용약관</a></div>
 </footer>
-
 <script src="../../js/app.js"></script>
 <script>
-
-/* ================================================================
-   SHORTS DATA — K-Drama
-   ----------------------------------------------------------------
-   Fields:
-     show_en / show_ko   : series name
-     title_en / title_ko : clip title
-     desc_en  / desc_ko  : short description (cultural/language note)
-     tags                : topic tags
-     url                 : YouTube Shorts URL (paste when ready)
-================================================================ */
 var SHORTS = [
   {
-    show_en: 'Goblin (도깨비)',         show_ko: '쓸쓸하고 찬란하神 — 도깨비',
-    title_en: 'I am the Goblin',       title_ko: '나는 도깨비다',
-    desc_en:  'Kim Shin reveals himself to Eun-tak on the seashore. His plain-form declaration "나는 도깨비다" shows how Koreans use the plain speech style to sound ancient, absolute, and utterly serious.',
-    desc_ko:  '김신이 해변에서 지은탁에게 자신을 드러내는 장면. "나는 도깨비다"라는 해라체 선언은 고어적·절대적 어감을 줍니다.',
-    tags: ['해라체', 'identity', 'fantasy'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Koreans Bow So Much in K-Dramas', title_ko:'K-드라마에서 한국인이 자주 절하는 이유',
+    desc_en:'Bowing in Korea is not just politeness — it is a physical expression of the Confucian social hierarchy. The depth and duration of a bow communicates exactly how much respect is owed. A 15° nod is casual; a 45° bow signals deep respect; a 90° bow is an apology or extreme gratitude. In dramas, bowing appears constantly because hierarchy is always present.',
+    desc_ko:'한국에서 절은 단순한 예의가 아니라 유교적 사회 계층 전체를 몸으로 표현하는 방식입니다. 절의 각도와 길이가 존경의 정도를 정확하게 전달합니다. 15도는 가벼운 인사, 45도는 깊은 존경, 90도는 사과나 극한의 감사를 의미합니다.',
+    tags:['절','Confucianism','hierarchy','body language'], url:''
   },
   {
-    show_en: 'Goblin (도깨비)',         show_ko: '도깨비',
-    title_en: 'Buckwheat flowers — 연인', title_ko: '메밀꽃 꽃말은 연인',
-    desc_en:  '"꽃말이 뭐예요?" — Eun-tak asks the meaning of the buckwheat bouquet. Kim Shin answers with one word: 연인 (lover). The concept of 꽃말 (flower language) is a real and romantic part of Korean culture.',
-    desc_ko:  '"꽃말이 뭐예요?" 지은탁의 질문에 김신이 한 단어로 답합니다: 연인. 꽃말은 한국 문화에서 진지하게 여겨지는 낭만적 개념입니다.',
-    tags: ['꽃말', 'romance', 'vocabulary'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why K-Dramas Avoid Kissing Early', title_ko:'K-드라마에서 초반에 키스를 피하는 이유',
+    desc_en:'Korean romantic culture places enormous value on 설레임 (heart-fluttering anticipation). Public displays of affection have historically been taboo, so every near-miss and prolonged eye contact carries the emotional weight that a kiss would carry elsewhere. The slow burn mirrors real Korean romantic culture where restraint is considered beautiful.',
+    desc_ko:'한국 연애 문화는 설레임(두근거리는 기대감)을 매우 중요하게 여깁니다. 공개적인 애정 표현은 역사적으로 금기였기 때문에, 스치는 손길과 긴 눈맞춤 하나하나가 다른 나라의 키스만큼의 감정을 담습니다.',
+    tags:['설레임','romance','dating culture','restraint'], url:''
   },
   {
-    show_en: 'Goblin (도깨비)',         show_ko: '도깨비',
-    title_en: 'You don\'t have to believe me', title_ko: '믿지 않아도 돼',
-    desc_en:  'Kim Shin tells Eun-tak she is his bride. She pushes back. He says: "믿지 않아도 돼." The structure ~지 않아도 돼 (you don\'t have to ~) is essential everyday grammar, delivered here with 939 years of patience.',
-    desc_ko:  '"믿지 않아도 돼." "~지 않아도 돼" 구조는 일상에서 필수적인 문법으로, 여기서는 939년의 인내를 담아 전달됩니다.',
-    tags: ['grammar', '~아도 돼', 'romance'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Koreans Don\'t Call Elders by Name', title_ko:'한국인이 어른을 이름으로 부르지 않는 이유',
+    desc_en:'In Korean culture, calling someone older by their given name is deeply rude. Instead, Koreans use relationship titles: 선생님, 사장님, 언니, 오빠, 누나, 형. Even strangers get titles: 아저씨 or 아줌마. This system encodes every social relationship into the act of address itself.',
+    desc_ko:'한국 문화에서 연상을 이름으로 부르는 것은 매우 무례한 행동입니다. 대신 한국인은 선생님·사장님·언니·오빠·누나·형 같은 관계 호칭을 씁니다. 낯선 사람에게도 아저씨·아줌마를 씁니다.',
+    tags:['honorifics','address terms','age culture','선생님'], url:''
   },
   {
-    show_en: 'Squid Game (오징어 게임)', show_ko: '오징어 게임',
-    title_en: '무궁화꽃이 피었습니다',  title_ko: '무궁화꽃이 피었습니다',
-    desc_en:  'The iconic Red Light Green Light chant. "무궁화꽃이 피었습니다" is a traditional Korean children\'s game phrase meaning "The Rose of Sharon has bloomed." Knowing this makes the scene even more chilling.',
-    desc_ko:  '전통 한국 어린이 게임의 구호입니다. "무궁화꽃이 피었습니다"는 나라꽃인 무궁화가 피었다는 뜻으로, 이 장면을 더욱 섬뜩하게 만듭니다.',
-    tags: ['children\'s game', 'culture', 'iconic'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Drinking Scenes Are Everywhere in K-Dramas', title_ko:'K-드라마에 음주 장면이 넘쳐나는 이유',
+    desc_en:'Drinking in Korea is a deeply social ritual. 회식 (company dinner with drinking) is almost mandatory. Koreans pour drinks for each other, never for themselves — pouring your own drink is considered rude. Scenes of pouring and receiving reveal real relationship dynamics between characters.',
+    desc_ko:'한국에서 음주는 깊은 사회적 의식입니다. 회식은 한국 직장에서 거의 필수적입니다. 한국인은 서로의 잔을 채워주며 자신의 잔은 직접 채우지 않습니다. 술을 따르고 받는 장면이 인물 간의 실제 관계 역학을 드러냅니다.',
+    tags:['소주','회식','drinking culture','social ritual'], url:''
   },
   {
-    show_en: 'Squid Game (오징어 게임)', show_ko: '오징어 게임',
-    title_en: 'Gganbu — 깐부',          title_ko: '깐부란 무엇인가',
-    desc_en:  'Oh Il-nam explains the old concept of 깐부 to Gi-hun — a childhood bond where two friends share everything. The word itself is rare slang from 1950s–60s Korea, a poignant reminder of what was lost.',
-    desc_ko:  '오일남이 기훈에게 깐부의 개념을 설명합니다. 깐부는 1950~60년대 한국 아이들 사이에서 모든 것을 나누는 절친한 친구를 뜻하는 말입니다.',
-    tags: ['slang', 'friendship', 'history'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Workplace Dramas Feel So Strict', title_ko:'직장 드라마가 그토록 엄격하게 느껴지는 이유',
+    desc_en:'Korean workplace culture is shaped by 위계질서 (hierarchical order) inherited from Confucianism and military service. Titles like 대리, 과장, and 부장 are used constantly instead of names. Leaving before your boss is considered disrespectful — a sensitivity called 눈치 보기. This is why Korean office dramas feel like battlefields.',
+    desc_ko:'한국의 직장 문화는 유교와 군 복무에서 이어받은 위계질서로 형성됩니다. 이름 대신 대리·과장·부장 같은 직함을 끊임없이 씁니다. 상사보다 먼저 퇴근하는 것은 눈치 없는 행동으로 여겨집니다.',
+    tags:['위계질서','직함','workplace','눈치'], url:''
   },
   {
-    show_en: 'Squid Game (오징어 게임)', show_ko: '오징어 게임',
-    title_en: 'The ddakji scene',       title_ko: '딱지치기 장면',
-    desc_en:  'Gi-hun meets the recruiter and plays 딱지치기 (Korean paper-tile flipping game). This traditional street game is deeply tied to Korean childhood nostalgia and sets up the entire series in two minutes.',
-    desc_ko:  '기훈이 모집책을 만나 딱지치기를 하는 장면. 딱지치기는 한국 어린 시절의 추억이 깃든 전통 놀이로, 단 2분 안에 시리즈 전체를 예고합니다.',
-    tags: ['traditional game', 'nostalgia', 'culture'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Silence Is So Emotional in K-Dramas', title_ko:'K-드라마에서 침묵이 그토록 감정적인 이유',
+    desc_en:'Korean communication culture prizes 눈치 (reading unspoken feelings) over direct speech. What is not said carries as much weight as what is said. When a Korean drama character goes silent, the audience understands this is the most intense emotional moment — the character feels too much to speak. Koreans call this 침묵의 무게 (the weight of silence).',
+    desc_ko:'한국의 소통 문화는 직접적인 말보다 눈치(말하지 않은 감정을 읽기)를 중시합니다. 말하지 않는 것이 말하는 것만큼 무게를 가집니다. K-드라마 인물이 침묵할 때, 그것이 가장 강렬한 감정의 순간임을 시청자는 압니다.',
+    tags:['침묵','눈치','indirect communication','emotion'], url:''
   },
   {
-    show_en: 'Crash Landing on You',    show_ko: '사랑의 불시착',
-    title_en: 'First landing in the North', title_ko: '북한에 불시착',
-    desc_en:  'Se-ri\'s paragliding accident lands her in North Korea. Her confusion and Jeong-hyeok\'s composed military dialect are a masterclass in contrasting South/North Korean speech patterns in real context.',
-    desc_ko:  '세리가 패러글라이딩 사고로 북한에 불시착합니다. 세리의 당황한 반응과 정혁의 절제된 북한 말투가 남북한 언어 차이를 실감나게 보여줍니다.',
-    tags: ['dialect', 'North/South', 'comedy'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why First Love Is Such a Big Theme', title_ko:'첫사랑이 그토록 큰 주제인 이유',
+    desc_en:'첫사랑 (first love) holds a mythical status in Korean culture. The belief that first love is the purest — before the world hardens you — is deeply embedded. Korean has specific words for love nostalgia: 그립다 (to long for something that may not return) and 추억 (sweet memories of the past).',
+    desc_ko:'첫사랑은 한국 문화에서 신화적 지위를 가집니다. 세상에 물들기 전의 첫사랑이 가장 순수하다는 믿음이 깊이 내재돼 있습니다. 한국어에는 그립다, 추억 같은 사랑의 그리움을 표현하는 특정 단어가 있습니다.',
+    tags:['첫사랑','그립다','추억','nostalgia'], url:''
   },
   {
-    show_en: 'Crash Landing on You',    show_ko: '사랑의 불시착',
-    title_en: '잘 살아요 — Live well',  title_ko: '잘 살아요',
-    desc_en:  'One of the most heartbreaking farewells in Korean drama. "잘 살아요" literally means "live well" — a warm blessing used as a goodbye. It carries far more weight than any English equivalent.',
-    desc_ko:  '"잘 살아요"는 "잘 살다"의 정중한 명령형으로, 작별할 때 전하는 따뜻한 축복입니다. 어떤 영어 표현보다 깊은 감동을 담고 있습니다.',
-    tags: ['farewell', 'emotion', 'vocabulary'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Koreans Avoid Saying Direct \'No\'', title_ko:'한국인이 직접적으로 \'아니오\'라고 말하지 않는 이유',
+    desc_en:'Directly refusing a request in Korean can damage relationships. Instead, Koreans soften refusals with phrases like 좀 어려울 것 같아요 (it might be a little difficult) or 글쎄요 (well, hmm). In K-dramas, Korean audiences understand these phrases mean no — non-Korean viewers often miss this layer entirely.',
+    desc_ko:'한국어로 직접 거절하면 관계가 손상될 수 있습니다. 대신 \'좀 어려울 것 같아요\', \'글쎄요\' 같은 표현으로 거절을 부드럽게 합니다. K-드라마에서 한국 시청자는 이 말들이 거절임을 압니다.',
+    tags:['indirect refusal','글쎄요','face-saving','communication'], url:''
   },
   {
-    show_en: 'My Mister (나의 아저씨)', show_ko: '나의 아저씨',
-    title_en: 'Just live — 그냥 살아', title_ko: '그냥 살아',
-    desc_en:  'Park Dong-hun\'s quiet wisdom to Ji-an. "그냥 살아" — just live. The word 그냥 (just/simply) is deceptively common in Korean; here it carries the weight of a man who has survived everything life threw at him.',
-    desc_ko:  '박동훈이 지안에게 전하는 조용한 지혜. "그냥 살아." 그냥은 그저·단순히라는 뜻의 일상어지만, 여기서는 모든 것을 견뎌낸 남자의 무게를 담고 있습니다.',
-    tags: ['그냥', 'wisdom', 'emotion'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Umbrella Scenes Are So Romantic', title_ko:'우산 장면이 그토록 낭만적인 이유',
+    desc_en:'Rain in Korea is deeply associated with 감성 (emotional sensitivity). Sharing an umbrella forces physical closeness in a culture where public touch is rare — making it powerfully romantic without any explicit gesture. The phrase 우산 씌워줄게 (I\'ll hold the umbrella for you) is an act of protection and care.',
+    desc_ko:'한국에서 비는 감성(감정적 예민함)과 깊이 연결됩니다. 우산을 함께 쓰는 것은 공개적인 신체 접촉이 드문 문화에서 물리적 친밀감을 강제합니다. \'우산 씌워줄게\'는 보호와 배려의 행위입니다.',
+    tags:['우산','감성','rain','romance'], url:''
   },
   {
-    show_en: 'Reply 1988 (응답하라 1988)', show_ko: '응답하라 1988',
-    title_en: 'The rooftop neighbourhood', title_ko: '쌍문동 골목',
-    desc_en:  'The defining image of 1980s Seoul — neighbours sharing food across rooftops, calling each other by family terms like 엄마 and 아줌마. This scene explains why Koreans call even strangers 언니, 오빠, or 아저씨.',
-    desc_ko:  '1980년대 서울의 상징적 장면 — 옥상을 사이에 두고 음식을 나누는 이웃들. 한국인이 낯선 사람에게도 언니, 오빠, 아저씨를 쓰는 이유를 보여주는 장면입니다.',
-    tags: ['family terms', '1980s', 'culture'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Confessions Feel So Dramatic', title_ko:'고백이 그토록 드라마틱하게 느껴지는 이유',
+    desc_en:'The 고백 (confession of feelings) in Korean culture is a formal, momentous act. Unlike casual flirting, a Korean 고백 is a deliberate declaration that changes the relationship permanently. The phrase 사귀어 주세요 (please go out with me) is treated with great weight. This is why rejection in dramas causes such devastation.',
+    desc_ko:'한국 문화에서 고백은 공식적이고 중대한 행위입니다. 캐주얼한 플러팅과 달리, 한국의 고백은 관계를 영구적으로 바꾸는 의도적 선언입니다. \'사귀어 주세요\'는 큰 무게로 다뤄집니다.',
+    tags:['고백','confession','사귀어 주세요','romance ritual'], url:''
   },
   {
-    show_en: 'Reply 1988 (응답하라 1988)', show_ko: '응답하라 1988',
-    title_en: '정환이 고백 — The confession', title_ko: '정환이의 고백',
-    desc_en:  'Jung-hwan\'s silent near-confession is one of the most discussed moments in Korean drama history. What he doesn\'t say matters as much as what he does — a very Korean communication style.',
-    desc_ko:  '정환이의 침묵의 고백은 한국 드라마 역사에서 가장 많이 회자되는 장면 중 하나입니다. 말하지 않는 것이 말하는 것만큼 중요한 — 매우 한국적인 소통 방식입니다.',
-    tags: ['confession', 'indirect speech', 'romance'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Parents Are So Involved in Relationships', title_ko:'부모가 연애에 그토록 개입하는 이유',
+    desc_en:'In Korea, marriage is considered a union of families, not just individuals. Meeting the parents is a serious step, and parental approval can make or break a relationship. The concept of 집안 (family background/lineage) still carries weight. Dramas exaggerate this but the core reality is genuine.',
+    desc_ko:'한국에서 결혼은 개인이 아닌 가문의 결합으로 여겨집니다. 부모님께 인사드리는 것은 중요한 단계이며, 집안(가족 배경·혈통) 개념이 여전히 중요합니다.',
+    tags:['부모님','집안','marriage culture','family approval'], url:''
   },
   {
-    show_en: 'It\'s Okay to Not Be Okay', show_ko: '사이코지만 괜찮아',
-    title_en: '괜찮지 않아도 괜찮아',  title_ko: '괜찮지 않아도 괜찮아',
-    desc_en:  '"괜찮지 않아도 괜찮아" — it\'s okay not to be okay. This sentence became a cultural touchstone in Korea around mental health. The grammar ~지 않아도 괜찮다 (it\'s okay even if you don\'t ~) is core to Korean expression.',
-    desc_ko:  '"괜찮지 않아도 괜찮아"는 한국의 정신건강 담론에서 하나의 문화적 표지가 된 문장입니다. "~지 않아도 괜찮다" 구조는 한국어의 핵심 표현입니다.',
-    tags: ['mental health', 'grammar', 'trending'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why School Dramas Are So Intense', title_ko:'학원 드라마가 그토록 치열한 이유',
+    desc_en:'Korea\'s education system is one of the most competitive in the world. The 수능 (college entrance exam) is held once a year — on exam day, flights are even grounded to reduce noise. 학원 (private tutoring academies) are a multi-billion dollar industry. School dramas reflect real national anxiety about academic performance.',
+    desc_ko:'한국의 교육 시스템은 세계에서 가장 경쟁적입니다. 수능은 연 1회 시행되며 소음을 줄이기 위해 비행기까지 통제됩니다. 학원은 수십억 달러 규모의 산업입니다.',
+    tags:['수능','학원','education culture','competition'], url:''
   },
   {
-    show_en: 'Vincenzo',                 show_ko: '빈센조',
-    title_en: 'Consigliere arrives',    title_ko: '콘실리에레의 귀환',
-    desc_en:  'Vincenzo\'s cold, elegant Korean mixed with Italian-inflected phrasing creates a unique register. Notice how he uses formal ~습니다 endings with associates while switching to a colder informal when asserting dominance.',
-    desc_ko:  '빈센조의 차갑고 세련된 한국어는 이탈리아식 표현과 뒤섞여 독특한 언어 레지스터를 만들어냅니다. 부하에게는 격식체를, 권위를 드러낼 때는 더 차가운 반말로 전환합니다.',
-    tags: ['speech levels', 'power', 'formal'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Karaoke Is Such an Emotional Experience', title_ko:'노래방이 그토록 감정적인 경험인 이유',
+    desc_en:'Korean 노래방 is a private room rented by the hour — unlike public karaoke. This privacy creates a space where Koreans can express emotions they would never show otherwise. A character going to 노래방 alone in a drama is usually in emotional crisis. It is Korea\'s emotional pressure valve.',
+    desc_ko:'한국의 노래방은 시간제로 대여하는 독립된 공간입니다. 이 사적인 공간은 평소에 드러내지 않을 감정을 표현할 수 있는 장소를 만들어줍니다. 드라마에서 혼자 노래방 가는 장면은 감정적 위기를 의미합니다.',
+    tags:['노래방','emotional release','private space','culture'], url:''
   },
   {
-    show_en: 'Extraordinary Attorney Woo', show_ko: '이상한 변호사 우영우',
-    title_en: '우영우 자기소개',          title_ko: '우영우의 자기소개',
-    desc_en:  'Woo Young-woo\'s famous palindrome self-introduction: "기러기, 토마토, 스위스, 인도인, 별똥별, 우영우." A palindrome (앞으로 읽어도 뒤로 읽어도 같은 말) is called 회문 in Korean — she explains this while the show explains autism.',
-    desc_ko:  '우영우의 유명한 회문 자기소개. "기러기, 토마토, 스위스, 인도인, 별똥별, 우영우." 앞뒤로 읽어도 같은 낱말을 회문이라고 하며, 그녀가 이것을 설명하는 동안 드라마는 자폐를 설명합니다.',
-    tags: ['wordplay', '회문', 'self-intro'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Food Always Looks So Good', title_ko:'음식이 항상 그렇게 맛있어 보이는 이유',
+    desc_en:'Korean culture places enormous pride in food. The practice of 먹방 (eating broadcast) became a global phenomenon because Koreans have an unusually intense relationship with eating. In dramas, sharing food is an intimacy ritual. \'밥 먹었어?\' (Did you eat?) is how Koreans say \'I care about you.\'',
+    desc_ko:'한국 문화는 음식에 큰 자부심을 가집니다. 먹방이 세계적 현상이 된 것은 한국인이 식사에 대해 유난히 강렬한 관계를 가지기 때문입니다. \'밥 먹었어?\'는 한국인이 \'당신을 아낀다\'고 말하는 방식입니다.',
+    tags:['먹방','밥 먹었어?','food culture','care expression'], url:''
   },
   {
-    show_en: 'Extraordinary Attorney Woo', show_ko: '이상한 변호사 우영우',
-    title_en: 'The whale monologue',    title_ko: '고래 독백',
-    desc_en:  'Young-woo\'s joy at seeing whales is pure and unfiltered. The exclamation "와, 고래다!" followed by her detailed facts shows the Korean sentence-final particle 다 used as a joyful declaration — completely natural and expressive.',
-    desc_ko:  '영우가 고래를 보고 기뻐하는 장면. "와, 고래다!"라는 외침과 뒤따르는 고래 정보들은 종결어미 "~다"를 기쁨의 선언으로 자연스럽게 사용하는 예시입니다.',
-    tags: ['exclamation', 'sentence endings', 'joy'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Respect Language (존댓말) Matters So Much', title_ko:'존댓말이 그토록 중요한 이유',
+    desc_en:'Korean has two distinct speech systems: 존댓말 (respectful speech) and 반말 (casual speech). Using the wrong level signals you don\'t understand the relationship. The moment two people switch to banmal in a drama is always a significant relationship milestone — always watch for it.',
+    desc_ko:'한국어에는 두 가지 말하기 체계가 있습니다: 존댓말과 반말. 잘못된 말투는 관계를 이해하지 못함을 드러냅니다. 드라마에서 두 사람이 반말로 바꾸는 순간은 중요한 관계 이정표입니다.',
+    tags:['존댓말','반말','speech levels','relationship milestone'], url:''
   },
   {
-    show_en: 'Strong Woman Do Bong-soon', show_ko: '힘쎈여자 도봉순',
-    title_en: 'Bong-soon\'s strength reveal', title_ko: '봉순이의 힘 공개',
-    desc_en:  'Do Bong-soon casually demonstrates superhuman strength while speaking in standard Seoul dialect mixed with banmal. The comedy lies in the gap between her soft speech and her extraordinary actions.',
-    desc_ko:  '도봉순이 평범하게 초인적인 힘을 보여주는 장면. 부드러운 말투와 놀라운 행동 사이의 괴리에서 코미디가 탄생합니다.',
-    tags: ['comedy', 'banmal', 'character'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Korean Friendships Are So Deep', title_ko:'한국의 우정이 그토록 깊은 이유',
+    desc_en:'The concept of 의리 (loyalty, doing right by your people) makes Korean friendship more intense than in many cultures. A Korean best friend (절친) is expected to show up at 3am, give honest harsh feedback, and share meals without accounting. The word 우리 — used even for \'my own mother\' (우리 엄마) — shows how collective Korean bonds truly are.',
+    desc_ko:'의리(자기 사람을 위해 올바르게 행동하기) 개념이 한국의 우정을 강렬하게 만듭니다. 절친은 새벽 3시에도 달려오고 솔직한 쓴소리를 해줍니다. \'우리 엄마\'처럼 쓰는 \'우리\'는 한국 유대가 얼마나 집단적인지 보여줍니다.',
+    tags:['의리','절친','우리','friendship culture'], url:''
   },
   {
-    show_en: 'Queen of Tears',           show_ko: '눈물의 여왕',
-    title_en: '해어화 — flower that has left', title_ko: '해어화',
-    desc_en:  'Hae-in and Hyun-woo\'s reconciliation scene. "해어화" (解語花) is a classical Chinese-origin Korean word meaning a flower that can speak — a poetic term for a beautiful, intelligent woman. Literary vocabulary in a modern drama.',
-    desc_ko:  '해인과 현우의 화해 장면. "해어화"(解語花)는 말할 수 있는 꽃이라는 뜻의 한자어로, 아름답고 지혜로운 여성을 뜻하는 시적 표현입니다.',
-    tags: ['한자어', 'literary', 'romance'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why K-Dramas Feel So Comforting', title_ko:'K-드라마가 그토록 위로가 되는 이유',
+    desc_en:'K-dramas offer 힐링 (healing — a massive cultural concept in Korea). After Korea\'s intense 빨리빨리 (hurry hurry) culture of pressure and speed, dramas provide a space to slow down and feel deeply. Korean viewers describe watching dramas as 감성 충전 — recharging their emotional batteries.',
+    desc_ko:'K-드라마는 힐링(치유)을 제공합니다. 한국의 강렬한 빨리빨리 문화의 압박 이후, 드라마는 속도를 늦추고 감정을 깊이 느끼는 공간을 제공합니다. 한국 시청자들은 드라마 시청을 감성 충전이라고 표현합니다.',
+    tags:['힐링','빨리빨리','감성 충전','comfort'], url:''
   },
   {
-    show_en: 'Queen of Tears',           show_ko: '눈물의 여왕',
-    title_en: '사랑했었나봐',            title_ko: '사랑했었나봐',
-    desc_en:  '"사랑했었나봐" — I guess I was in love. The layered past tense ~었었 combined with ~나봐 (I suppose/it seems) creates a sentence that expresses the painful realisation of a love you only understand after it\'s gone.',
-    desc_ko:  '"사랑했었나봐" — 사랑했던 것 같아. 이중 과거 "~었었"과 추측의 "~나봐"가 결합해, 지나고 나서야 깨닫는 사랑의 아픔을 담은 문장이 됩니다.',
-    tags: ['past tense', '~나봐', 'emotion'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Koreans Say \'Aigoo!\'', title_ko:'한국인이 \'아이고!\'라고 말하는 이유',
+    desc_en:'\'아이고!\' is Korean\'s most versatile exclamation — expressing surprise, pain, embarrassment, frustration, sympathy, and affection all depending on context. It can mean \'oh no!\', \'bless you!\', \'oh goodness!\', or \'you poor thing!\' A grandmother saying 아이고 아이고 while patting your back is pure Korean comfort.',
+    desc_ko:'\'아이고!\'는 한국어에서 가장 다재다능한 감탄사입니다 — 맥락에 따라 놀람·아픔·민망함·좌절·공감·애정을 모두 표현합니다. 할머니가 등을 두드리며 \'아이고 아이고\'하는 것은 순수한 한국식 위로입니다.',
+    tags:['아이고','exclamation','interjection','emotion vocab'], url:''
   },
   {
-    show_en: 'Descendants of the Sun',   show_ko: '태양의 후예',
-    title_en: 'Are you a wolf or a dog?', title_ko: '개예요, 늑대예요?',
-    desc_en:  'Shi-jin\'s flirtatious opening line to Mo-yeon: "개예요, 늑대예요?" (Are you a dog or a wolf?) Korean uses these two animals as a metaphor — dogs are tame/loyal, wolves are dangerous/unpredictable. A famous first-meeting trope.',
-    desc_ko:  '시진이 모연에게 던지는 첫 대사. "개예요, 늑대예요?" 한국에서 개는 순하고 충직한 것을, 늑대는 위험하고 예측 불가한 것을 상징합니다. 유명한 첫 만남 클리셰입니다.',
-    tags: ['metaphor', 'flirting', 'animal vocab'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Koreans Always Eat Together', title_ko:'한국인이 항상 함께 밥을 먹는 이유',
+    desc_en:'Eating alone (혼밥) was historically stigmatised in Korea — a person eating alone was seen as isolated. The table is a social space: 반찬 (side dishes) are placed in the centre for sharing, not portioned individually. The phrase \'같이 밥 먹어요\' (let\'s eat together) is an invitation to connection, not just food.',
+    desc_ko:'한국 문화에서 혼밥은 역사적으로 낙인이 찍혀 있었습니다. 식탁은 사회적 공간입니다: 반찬은 가운데 놓고 나눕니다. \'같이 밥 먹어요\'는 음식뿐만 아니라 연결에 대한 초대입니다.',
+    tags:['혼밥','반찬','식사','communal eating'], url:''
   },
   {
-    show_en: 'Goblin (도깨비)',           show_ko: '도깨비',
-    title_en: '이번 생도 수고했어요',     title_ko: '이번 생도 수고했어요',
-    desc_en:  'Wang Yeo\'s ritual farewell to the departed soul: "이번 생도 수고했어요." "수고하다" means to work hard/endure — saying it to the dead is profound. The Grim Reaper acknowledges that simply being alive is exhausting.',
-    desc_ko:  '왕여가 망자에게 건네는 의식적 인사. "이번 생도 수고했어요." "수고하다"는 열심히 하다·견디다의 뜻으로, 죽은 이에게 이 말을 건네는 것은 살아있는 것 자체가 힘들었음을 인정하는 깊은 표현입니다.',
-    tags: ['수고', 'farewell', 'emotion'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Shoes Are Removed Indoors', title_ko:'실내에서 신발을 벗는 이유',
+    desc_en:'Removing shoes before entering a home is non-negotiable in Korea. Traditional Korean homes use 온돌 (underfloor heating) and the floor is a living space — people sit, sleep, and eat on it. The entry area (현관) is a transition zone between outside and inside. A character entering without removing shoes signals aggression or disrespect.',
+    desc_ko:'신발 벗기는 한국에서 절대적인 규칙입니다. 전통 한국 가옥은 온돌(바닥 난방)을 사용하며 바닥은 생활 공간입니다. 현관은 바깥과 안을 구분하는 신성한 전환 공간입니다.',
+    tags:['온돌','현관','신발','home culture'], url:''
   },
   {
-    show_en: 'The Glory (더 글로리)',     show_ko: '더 글로리',
-    title_en: '내가 너의 지옥이 될 거야', title_ko: '내가 너의 지옥이 될 거야',
-    desc_en:  'Moon Dong-eun\'s cold declaration of revenge. The future tense ~(으)ㄹ 거야 is typically soft in Korean everyday speech — but spoken slowly with full eye contact, it becomes one of the most threatening sentences in K-drama history.',
-    desc_ko:  '문동은의 차가운 복수 선언. "~(으)ㄹ 거야"는 보통 일상에서 부드럽게 쓰이지만, 천천히 눈을 맞추며 발음하면 K-드라마 역사상 가장 위협적인 문장 중 하나가 됩니다.',
-    tags: ['future tense', 'threat', 'revenge'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why K-Dramas Love the Rain', title_ko:'K-드라마가 비를 사랑하는 이유',
+    desc_en:'Rain in Korean culture carries deep emotional symbolism. Korean poetry and song use rain as a metaphor for longing, grief, and renewal. In dramas, rain always signals a turning point — a confession, a breakdown, or a farewell. The cultural weight of rain in Korea runs much deeper than mere weather.',
+    desc_ko:'한국 문화에서 비는 깊은 감정적 상징을 담고 있습니다. 한국 시와 노래는 비를 그리움·슬픔·갱신의 은유로 씁니다. 드라마에서 비는 항상 전환점을 알립니다.',
+    tags:['비','rain symbolism','감성','metaphor'], url:''
   },
   {
-    show_en: 'The Glory (더 글로리)',     show_ko: '더 글로리',
-    title_en: '학교폭력 — Schoolviolence', title_ko: '학교폭력',
-    desc_en:  '학교폭력 (school violence/bullying) is a heavy social issue in Korea. This scene brought it into national conversation. The compound word: 학교 (school) + 폭력 (violence). Many Korean social issues are embedded in compound vocabulary.',
-    desc_ko:  '학교폭력은 한국의 심각한 사회 문제입니다. 이 장면은 국민적 논의를 불러일으켰습니다. 합성어: 학교(학교) + 폭력(폭력). 많은 한국 사회 이슈가 합성어 어휘에 담겨 있습니다.',
-    tags: ['compound words', 'social issues', 'vocabulary'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why K-Drama Villains Are So Relatable', title_ko:'K-드라마 악당이 그토록 공감되는 이유',
+    desc_en:'Korean drama villains are rarely pure evil — they are usually victims of the same social pressures the protagonist fights against. The best Korean villains are people who chose a different response to the same wound. This moral complexity reflects Korean society\'s awareness that systemic pressure creates broken people.',
+    desc_ko:'한국 드라마 악당은 순수한 악이 아닌 경우가 많습니다 — 주인공이 싸우는 것과 같은 사회적 압박의 피해자인 경우가 대부분입니다. 최고의 한국 악당은 같은 상처에 다른 반응을 선택한 사람들입니다.',
+    tags:['villain','학벌주의','moral complexity','social critique'], url:''
   },
   {
-    show_en: 'Hospital Playlist',        show_ko: '슬기로운 의사생활',
-    title_en: 'The band plays — 밴드',   title_ko: '밴드 공연',
-    desc_en:  'Five doctors who have been friends since medical school play in a band every Friday. The scene shows the casual, warm banmal (반말) of long-time friends — a speech level impossible to use with new acquaintances.',
-    desc_ko:  '의대 시절부터 친구인 다섯 의사가 매주 금요일 밴드를 합니다. 오랜 친구 사이의 따뜻한 반말을 보여주는 장면 — 새로운 지인에게는 쓸 수 없는 언어 수준입니다.',
-    tags: ['banmal', 'friendship', 'speech levels'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Korean Dramas Have 16 Episodes', title_ko:'한국 드라마가 16부작인 이유',
+    desc_en:'The 16-episode format is a Korean broadcasting tradition rooted in the 2-episode-per-week system. It creates a compact story that must resolve within a set window — no American-style open-ended seasons. This gives Korean writers both a challenge and a gift: every episode must count.',
+    desc_ko:'16부작은 주 2회 방영 시스템에 뿌리를 둔 한국 방송 전통입니다. 정해진 기간 내에 해결해야 하는 압축된 이야기를 만듭니다. 모든 에피소드가 중요합니다.',
+    tags:['16부작','format','broadcasting','pacing'], url:''
   },
   {
-    show_en: 'Mr. Sunshine',             show_ko: '미스터 션샤인',
-    title_en: 'Go Ae-shin on the rooftop', title_ko: '옥상의 고애신',
-    desc_en:  'Go Ae-shin, a Joseon noblewoman who becomes a sniper, speaks formal late-Joseon era Korean — ending sentences in ~이오, ~하오 instead of modern ~이에요, ~해요. Historical drama speech is a fascinating window into classical Korean.',
-    desc_ko:  '저격수가 된 조선 여성 고애신이 쓰는 조선 말기 격식 한국어. 현대의 ~이에요·~해요 대신 ~이오·~하오를 씁니다. 사극의 언어는 고전 한국어를 들여다보는 매력적인 창입니다.',
-    tags: ['historical Korean', 'speech styles', 'Joseon'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Hospital Dramas Are a Korean Staple', title_ko:'병원 드라마가 한국의 정수인 이유',
+    desc_en:'Medical dramas thrive in Korea because medicine is one of the most prestigious careers. Korean parents\' aspirations often involve SKY university (서울대·고려대·연세대) then medical school. Hospital dramas dramatise both extreme competence and the human cost of that pressure — a tension every Korean family understands.',
+    desc_ko:'의학 드라마가 한국에서 번성하는 이유는 의사가 가장 권위 있는 직업 중 하나이기 때문입니다. 한국 부모의 최대 열망은 종종 SKY 대학 후 의대입니다.',
+    tags:['의사','SKY','medical drama','prestige culture'], url:''
   },
   {
-    show_en: 'Twenty-Five Twenty-One',   show_ko: '스물다섯 스물하나',
-    title_en: 'Na Hee-do\'s fencing cry', title_ko: '나희도의 펜싱 외침',
-    desc_en:  'Na Hee-do\'s battle cry before a fencing match: "이겨라 나희도!" (Win, Na Hee-do!) Koreans often cheer themselves using their own name in third person — a self-motivation phrase that feels uniquely Korean.',
-    desc_ko:  '"이겨라 나희도!" 한국인들은 자신의 이름을 3인칭으로 써서 스스로를 응원하는 경우가 있습니다. 이는 매우 한국적인 자기 동기 부여 방식입니다.',
-    tags: ['cheering', 'sport', 'self-motivation'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why the Wrist Grab Is So Famous', title_ko:'손목 잡기가 그토록 유명한 이유',
+    desc_en:'The 손목 잡기 (wrist grab) became globally mocked and beloved simultaneously. In Korean physical culture, grabbing someone\'s wrist is an assertive act that crosses personal space in a way hands rarely do. In drama logic it means \'I won\'t let you go.\' Modern dramas often subvert this trope to show Korean pop culture\'s self-awareness.',
+    desc_ko:'손목 잡기는 전 세계적으로 조롱과 사랑을 동시에 받은 K-드라마 클리셰입니다. 한국의 신체 문화에서 손목을 잡는 것은 강압적 행위입니다. 드라마 논리에서는 \'보내지 않겠다\'는 의미입니다.',
+    tags:['손목 잡기','trope','physical culture','kdrama cliché'], url:''
   },
   {
-    show_en: 'Hometown Cha-Cha-Cha',     show_ko: '갯마을 차차차',
-    title_en: '반장님 — Chief Hong',      title_ko: '홍반장',
-    desc_en:  'Du-sik is called "홍반장" (Chief Hong) by the whole village. 반장 means class/group leader — adding it to his surname creates an affectionate title. Korean adds occupational and role suffixes to names as a warm form of address.',
-    desc_ko:  '두식을 마을 전체가 "홍반장"이라고 부릅니다. 반장은 반 또는 그룹의 장을 의미하며, 성에 붙이면 애정 어린 호칭이 됩니다. 한국어는 이름에 직업·역할 접미사를 붙여 따뜻하게 부릅니다.',
-    tags: ['honorifics', 'nickname', 'community'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Korean Beauty Standards Dominate Screens', title_ko:'한국 미적 기준이 화면을 지배하는 이유',
+    desc_en:'Korea has one of the highest cosmetic surgery rates per capita globally, and the beauty industry is a massive cultural export. 피부 관리 (skin care) is not vanity — it is self-discipline and social currency. The phrase 꾸미는 게 예의 (looking put-together is courtesy) explains the cultural logic.',
+    desc_ko:'한국은 세계에서 1인당 성형 수술 비율이 가장 높은 나라 중 하나입니다. 피부 관리는 허영이 아니라 자기 관리와 사회적 자산입니다. \'꾸미는 게 예의\'라는 표현이 문화적 논리를 설명합니다.',
+    tags:['뷰티 산업','피부 관리','beauty standards','꾸미다'], url:''
   },
   {
-    show_en: 'Business Proposal',        show_ko: '사내 맞선',
-    title_en: '어머, 이건 사야 해',       title_ko: '어머, 이건 사야 해',
-    desc_en:  'Shin Ha-ri\'s famous shopping exclamation became a viral meme: "어머, 이건 사야 해!" (Oh my, I have to buy this!). 어머 is a feminine exclamation of surprise, similar to "Oh!" — and the ~야 해 structure means "have to/must."',
-    desc_ko:  '신하리의 유명한 쇼핑 대사가 밈이 되었습니다. "어머, 이건 사야 해!" 어머는 여성적 감탄사이고, "~야 해" 구조는 해야 한다·~해야 하다를 의미합니다.',
-    tags: ['exclamation', '~야 해', 'viral'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why the Plot Twist (반전) Works So Well', title_ko:'반전이 그토록 잘 통하는 이유',
+    desc_en:'The 반전 (reversal/twist) is a cherished K-drama device. Korean audiences expect betrayal, hidden identity, and shocking secret reveals — they are trained by years of dramas. The 반전 moment often comes at episode\'s end as a cliffhanger for the 다음 주에 계속 (continues next week) structure.',
+    desc_ko:'반전은 소중한 K-드라마 장치입니다. 한국 시청자들은 배신·숨겨진 정체성·충격적인 비밀 폭로를 기대하도록 훈련되어 있습니다. 반전 순간은 종종 \'다음 주에 계속\' 구조를 위한 클리프행어로 에피소드 끝에 옵니다.',
+    tags:['반전','cliffhanger','plot twist','drama structure'], url:''
   },
   {
-    show_en: 'Healer',                   show_ko: '힐러',
-    title_en: 'Night courier Healer',    title_ko: '야간 심부름꾼 힐러',
-    desc_en:  'Jung-hoo\'s cool introduction as a "야간 심부름꾼" (night errand runner). 심부름 means errand — 심부름꾼 adds the suffix ~꾼 which forms words for people who do something habitually: 사기꾼 (swindler), 일꾼 (worker).',
-    desc_ko:  '"야간 심부름꾼"으로 자신을 소개하는 장면. 심부름은 심부름, ~꾼은 어떤 일을 습관적으로 하는 사람을 뜻하는 접미사입니다: 사기꾼, 일꾼 등.',
-    tags: ['word formation', '~꾼', 'vocabulary'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Han (한) Is Untranslatable', title_ko:'\'한(恨)\'이 번역 불가능한 이유',
+    desc_en:'한 (Han) is a uniquely Korean emotional concept — a deep collective feeling of sorrow, resentment, and longing accumulated through historical trauma (invasion, colonisation, division). It cannot be translated because it is both personal and national simultaneously. Understanding 한 transforms how you experience Korean storytelling.',
+    desc_ko:'한(恨)은 독특한 한국의 감정 개념입니다 — 역사적 트라우마(침략·식민지화·분단)를 통해 쌓인 슬픔·원한·그리움의 깊은 집단적 감정입니다. 동시에 개인적이고 국가적이기 때문에 번역할 수 없습니다.',
+    tags:['한(恨)','untranslatable','historical trauma','collective emotion'], url:''
   },
   {
-    show_en: 'Move to Heaven',           show_ko: '무브 투 헤븐',
-    title_en: 'The last items of the dead', title_ko: '망자의 마지막 물건들',
-    desc_en:  'Geu-ru carefully packages a deceased person\'s belongings. The Korean concept of 유품 (遺品, belongings left by the deceased) is handled with a reverence rarely seen on screen. Vocabulary: 유품 = 遺 (left behind) + 品 (item).',
-    desc_ko:  '그루가 고인의 유품을 정성스럽게 정리하는 장면. 유품(遺品)이라는 한자어는 遺(남기다)+品(물건)의 합성어로, 화면에서 드물게 볼 수 있는 경건함으로 다뤄집니다.',
-    tags: ['유품', '한자어', 'grief'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Elevator Scenes Always Mean Tension', title_ko:'엘리베이터 장면이 항상 긴장을 의미하는 이유',
+    desc_en:'Elevators in K-dramas are charged spaces. Korea\'s dominant housing form — tall apartment buildings — means elevators are used constantly. Being trapped in a small space breaks normal social distance rules. The forced proximity of the elevator has become a reliable device for accidental confessions, uncomfortable meetings, and lingering eye contact.',
+    desc_ko:'K-드라마의 엘리베이터는 긴장감이 충만한 공간입니다. 한국에서는 고층 아파트가 지배적인 주거 형태이기 때문에 엘리베이터를 많이 씁니다. 강제된 근접성은 우발적 고백·어색한 만남을 위한 신뢰할 수 있는 드라마 장치가 됐습니다.',
+    tags:['아파트','elevator scene','proximity','tension device'], url:''
   },
   {
-    show_en: 'Signal',                   show_ko: '시그널',
-    title_en: 'The walkie-talkie across time', title_ko: '시간을 넘는 무전기',
-    desc_en:  'Detective Lee Jae-han and Park Hae-young communicate across different time periods via walkie-talkie. The drama uses different speech patterns for 1989 and the present — subtle shifts in vocabulary and formality reflect real generational language change.',
-    desc_ko:  '이재한 형사와 박해영이 무전기로 다른 시대와 소통합니다. 1989년과 현재의 언어 차이 — 어휘와 격식의 미묘한 변화가 실제 세대 간 언어 변화를 반영합니다.',
-    tags: ['time travel', 'language change', 'dialect'],
-    url: ''
+    show_en:'Korean Culture', show_ko:'한국 문화',
+    title_en:'Why Korean Dramas Use the \'Flashback to Childhood\' Device', title_ko:'K-드라마가 \'어린 시절 플래시백\' 장치를 사용하는 이유',
+    desc_en:'Childhood flashbacks in K-dramas are almost always the key to a character\'s wound — the moment that broke them. This reflects Korea\'s psychological culture (트라우마 치유) and the belief that adult behaviour is shaped by childhood experience. The flashback is also a device for 인연 (fated connection) — showing characters who met as children without knowing it.',
+    desc_ko:'K-드라마의 어린 시절 플래시백은 거의 항상 인물의 상처로 가는 열쇠입니다 — 그들을 무너뜨린 순간. 이는 한국의 트라우마 치유 문화와 어른의 행동이 어린 시절 경험으로 형성된다는 믿음을 반영합니다.',
+    tags:['플래시백','트라우마 치유','인연','character psychology'], url:''
   }
 ];
 
-/* ── i18n hero text ──────────────────────────────────────── */
 var HERO = {
-  en: {
-    eyebrow: '🎬 Category',
-    title:   'K-Drama',
-    sub:     'Iconic scenes, emotional moments, and unforgettable lines from the best Korean dramas — each clip paired with cultural and language context.'
-  },
-  ko: {
-    eyebrow: '🎬 카테고리',
-    title:   'K-드라마',
-    sub:     '최고의 한국 드라마에서 가져온 명장면, 감동적인 순간, 잊을 수 없는 대사들 — 각 클립마다 문화적·언어적 맥락이 함께 제공됩니다.'
-  }
+  en: { eyebrow:'🎬 Korean Culture', title:'K-Drama', sub:'Discover why Korean dramas work the way they do — the cultural rules, emotional codes, and social customs behind every scene.' },
+  ko: { eyebrow:'🎬 한국 문화', title:'K-드라마', sub:'한국 드라마가 그렇게 만들어지는 이유를 알아보세요 — 모든 장면 뒤에 숨어 있는 문화적 규칙, 감정 코드, 그리고 사회적 관습들.' }
+};
+var LABELS = {
+  en: { section:'🎬 30 Featured Shorts', watch:'▶ Watch Short', pending:'▶ Short Coming Soon' },
+  ko: { section:'🎬 30개 추천 쇼츠', watch:'▶ 쇼츠 보기', pending:'▶ 쇼츠 준비 중' }
 };
 
-var LABELS = {
-  en: { section: '📺 30 Featured Shorts', watch: '▶ Watch Short', pending: '▶ Short Coming Soon' },
-  ko: { section: '📺 30개 추천 쇼츠',    watch: '▶ 쇼츠 보기',  pending: '▶ 쇼츠 준비 중' }
-};
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
 
 function buildGrid() {
-  var isKo  = getLang() === 'ko';
-  var lang  = isKo ? 'ko' : 'en';
-  var lbl   = LABELS[lang];
-  var hero  = HERO[lang];
-
-  document.getElementById('hero-eyebrow').textContent  = hero.eyebrow;
-  document.getElementById('hero-title').textContent    = hero.title;
-  document.getElementById('hero-sub').textContent      = hero.sub;
-  document.getElementById('section-label').textContent = lbl.section;
+  var isKo = getLang()==='ko', lang = isKo?'ko':'en';
+  var h = HERO[lang], lb = LABELS[lang];
+  document.getElementById('hero-eyebrow').textContent  = h.eyebrow;
+  document.getElementById('hero-title').textContent    = h.title;
+  document.getElementById('hero-sub').textContent      = h.sub;
+  document.getElementById('section-label').textContent = lb.section;
   document.body.className = isKo ? 'lang-ko' : '';
-
   var html = '';
-  SHORTS.forEach(function(s, i) {
-    var num      = i + 1;
-    var isLive   = s.url && s.url.length > 10;
+  SHORTS.forEach(function(s,i) {
+    var num = i+1, isLive = s.url && s.url.length > 10;
     var watchBtn = isLive
-      ? '<a class="btn-watch" href="' + s.url + '" target="_blank" rel="noopener">▶ ' + lbl.watch + '</a>'
-      : '<button class="btn-watch pending">▶ ' + lbl.pending + '</button>';
-    var tags = s.tags.map(function(t){ return '<span class="short-tag">' + t + '</span>'; }).join('');
+      ? '<a class="btn-watch" href="'+s.url+'" target="_blank" rel="noopener">'+lb.watch+'</a>'
+      : '<button class="btn-watch pending">'+lb.pending+'</button>';
+    var tags = s.tags.map(function(t){return '<span class="short-tag">'+escHtml(t)+'</span>';}).join('');
     html += '<div class="short-card">';
-    html += '<div class="short-thumb">';
-    html += '<div class="short-play-btn"><div class="short-play-icon">▶</div></div>';
-    html += '<span class="short-num">#' + num + '</span>';
-    html += '</div>';
+    html += '<div class="short-thumb"><div class="short-play-btn"><div class="short-play-icon">&#9654;</div></div>';
+    html += '<span class="short-num">#'+num+'</span></div>';
     html += '<div class="short-body">';
-    html += '<div class="short-show">' + (isKo ? s.show_ko : s.show_en) + '</div>';
-    html += '<div class="short-title-en">' + s.title_en + '</div>';
-    html += '<div class="short-title-ko">' + s.title_ko + '</div>';
-    html += '<div class="short-desc-en">'  + s.desc_en  + '</div>';
-    html += '<div class="short-desc-ko">'  + s.desc_ko  + '</div>';
-    html += '<div class="short-tags">' + tags + '</div>';
-    html += '<div class="short-actions">' + watchBtn + '</div>';
+    html += '<div class="short-show">'+escHtml(isKo?s.show_ko:s.show_en)+'</div>';
+    html += '<div class="short-title-en">'+escHtml(s.title_en)+'</div>';
+    html += '<div class="short-title-ko">'+escHtml(s.title_ko)+'</div>';
+    html += '<div class="short-desc-en">'+escHtml(s.desc_en)+'</div>';
+    html += '<div class="short-desc-ko">'+escHtml(s.desc_ko)+'</div>';
+    html += '<div class="short-tags">'+tags+'</div>';
+    html += '<div class="short-actions">'+watchBtn+'</div>';
     html += '</div></div>';
   });
   document.getElementById('shortsGrid').innerHTML = html;
