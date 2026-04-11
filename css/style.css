@@ -1,5 +1,5 @@
 /* ============================================================
-   Live Korean — Main Stylesheet
+   Live Korea — Main Stylesheet
    Theme: Bright clean light — white base, deep rose-pink accent,
    rich violet secondary. Fresh, airy, modern.
    Fonts: Syne (display) + DM Sans (body) + Noto Sans KR
@@ -103,8 +103,11 @@ body::before {
   background: none; border: none;
   color: var(--muted); font-size: 1.3rem;
   padding: 6px; border-radius: 8px; transition: var(--transition); line-height: 1;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
 }
-.btn-topbar-home:hover { color: var(--accent); background: rgba(232,36,92,0.08); }
+.btn-topbar-home svg { display: block; border-radius: 50%; transition: box-shadow 0.2s; }
+.btn-topbar-home:hover { background: rgba(232,36,92,0.08); }
+.btn-topbar-home:hover svg { box-shadow: 0 0 0 3px rgba(205,46,58,0.25); }
 .topbar-right { display: flex; align-items: center; gap: 8px; }
 
 .topbar-lang {
@@ -405,6 +408,8 @@ body::before {
 
 .terms-overlay { position: fixed; inset: 0; z-index: 500; background: var(--bg); overflow-y: auto; display: none; }
 .terms-overlay.visible { display: block; }
+.terms-overlay-content { display: none; }
+.terms-overlay-content.visible { display: block; }
 #mainContent { display: none; }
 #mainContent.visible { display: block; }
 

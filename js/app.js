@@ -1,5 +1,5 @@
 /* ============================================================
-   Live Korean — Core JavaScript
+   Live Korea — Core JavaScript
    Handles: language, bookmarks, toast, terms, shared utils
    ============================================================ */
 
@@ -106,7 +106,7 @@ var LK_I18N = {
     'cat.count.kmusic': '30 Shorts · Add URL to go live',
     'cat.count.kent':   '30 Shorts · Add URL to go live',
     'install.label': 'Add to your Home Screen',
-    'install.sub': 'Live Korean works as a web app — no App Store needed. Install in seconds for a full-screen experience.',
+    'install.sub': 'Live Korea works as a web app — no App Store needed. Install in seconds for a full-screen experience.',
     'bm.bar.title': 'Bookmarks — Jump back in',
     'bm.empty': 'No bookmarks yet. Tap 🔖 to save your spot.',
     'bm.toast.added': '🔖 Bookmarked!',
@@ -132,7 +132,7 @@ var LK_I18N = {
     'cat.count.kmusic': '30개 쇼츠 · URL 추가 시 라이브',
     'cat.count.kent':   '30개 쇼츠 · URL 추가 시 라이브',
     'install.label': '홈 화면에 추가하기',
-    'install.sub': 'Live Korean은 웹 앱으로 동작합니다 — 앱 스토어 없이 바로 설치하세요.',
+    'install.sub': 'Live Korea는 웹 앱으로 동작합니다 — 앱 스토어 없이 바로 설치하세요.',
     'bm.bar.title': '북마크 — 이어보기',
     'bm.empty': '아직 북마크가 없습니다. 🔖 버튼으로 저장하세요.',
     'bm.toast.added': '🔖 북마크 저장됨!',
@@ -381,18 +381,18 @@ function injectTermsModal() {
     '<div id="tm-content-en">',
     '<div style="text-align:center;margin-bottom:20px;">',
     '<div style="font-size:2.4rem;margin-bottom:10px;">\ud83c\udfa5</div>',
-    '<div style="font-family:\'Syne\',sans-serif;font-size:1.25rem;font-weight:800;color:var(--accent);">Live Korean</div>',
+    '<div style="font-family:\'Syne\',sans-serif;font-size:1.25rem;font-weight:800;color:var(--accent);">Live Korea</div>',
     '<div style="font-size:0.76rem;color:var(--muted);margin-top:4px;">by m2ea Labs &mdash; Terms of Use</div>',
     '</div>',
 
     /* agreed badge */
     '<div id="tm-agreed-en" style="display:none;background:rgba(5,150,105,0.08);border:1.5px solid var(--green);border-radius:10px;padding:11px 16px;margin-bottom:16px;">',
     '<div style="font-size:0.85rem;font-weight:700;color:var(--green);">\u2705 You have agreed to these Terms of Use.</div>',
-    '<div style="font-size:0.76rem;color:var(--muted);margin-top:3px;">Your agreement is saved on this device. Thank you for using Live Korean responsibly.</div>',
+    '<div style="font-size:0.76rem;color:var(--muted);margin-top:3px;">Your agreement is saved on this device. Thank you for using Live Korea responsibly.</div>',
     '</div>',
 
     _tmCard('Welcome',
-      '<p>Welcome to <strong>Live Korean</strong> \u2014 learn Korean through real YouTube Shorts from your favourite K-dramas. Each short connects to a natural Korean expression used in the show.</p>'),
+      '<p>Welcome to <strong>Live Korea</strong> \u2014 learn Korean through real YouTube Shorts from your favourite K-dramas. Each short connects to a natural Korean expression used in the show.</p>'),
 
     _tmCard('Terms of Use',
       '<ul style="list-style:none;padding:0;margin:0;">'
@@ -402,8 +402,8 @@ function injectTermsModal() {
       + _tmLi('YouTube Shorts embedded in this app <strong>may include ads served by YouTube</strong>. These are not controlled by m2ea Labs.')
       + '</ul>'),
 
-    _tmCard('About Live Korean',
-      '<p>Live Korean links YouTube Shorts from popular Korean dramas to natural Korean expressions. Each episode features 30 expressions with short video clips to show them in context.</p>'
+    _tmCard('About Live Korea',
+      '<p>Live Korea links YouTube Shorts from popular Korean dramas to natural Korean expressions. Each episode features 30 expressions with short video clips to show them in context.</p>'
       + '<p style="margin-top:8px;">This app covers: <strong>Guardian: The Lonely and Great God</strong>, <strong>The Glory</strong>, and <strong>All of Us Are Dead</strong>. More dramas coming soon.</p>'
       + '<p style="margin-top:8px;">Operated by <strong>m2ea Labs</strong> as a language study project. All video content remains the property of its original owners.</p>'),
 
@@ -414,17 +414,17 @@ function injectTermsModal() {
     '<div id="tm-content-ko" style="display:none;font-family:\'Noto Sans KR\',\'DM Sans\',sans-serif;word-break:keep-all;">',
     '<div style="text-align:center;margin-bottom:20px;">',
     '<div style="font-size:2.4rem;margin-bottom:10px;">\ud83c\udfa5</div>',
-    '<div style="font-family:\'Syne\',sans-serif;font-size:1.25rem;font-weight:800;color:var(--accent);">Live Korean</div>',
+    '<div style="font-family:\'Syne\',sans-serif;font-size:1.25rem;font-weight:800;color:var(--accent);">Live Korea</div>',
     '<div style="font-size:0.76rem;color:var(--muted);margin-top:4px;">m2ea Labs &mdash; \uc774\uc6a9\uc57d\uad00</div>',
     '</div>',
 
     '<div id="tm-agreed-ko" style="display:none;background:rgba(5,150,105,0.08);border:1.5px solid var(--green);border-radius:10px;padding:11px 16px;margin-bottom:16px;">',
     '<div style="font-size:0.85rem;font-weight:700;color:var(--green);">\u2705 \uc774\uc6a9\uc57d\uad00\uc5d0 \ub3d9\uc758\ud558\uc168\uc2b5\ub2c8\ub2e4.</div>',
-    '<div style="font-size:0.76rem;color:var(--muted);margin-top:3px;">\ub3d9\uc758 \ub0b4\uc6a9\uc774 \uc774 \uae30\uae30\uc5d0 \uc800\uc7a5\ub418\uc5c8\uc2b5\ub2c8\ub2e4. Live Korean\uc744 \uc787\uc74c\ubaa9\uac8c \uc774\uc6a9\ud574 \uc8fc\uc154\uc11c \uac10\uc0ac\ud569\ub2c8\ub2e4.</div>',
+    '<div style="font-size:0.76rem;color:var(--muted);margin-top:3px;">\ub3d9\uc758 \ub0b4\uc6a9\uc774 \uc774 \uae30\uae30\uc5d0 \uc800\uc7a5\ub418\uc5c8\uc2b5\ub2c8\ub2e4. Live Korea\ub97c \uc787\uc74c\ubaa9\uac8c \uc774\uc6a9\ud574 \uc8fc\uc154\uc11c \uac10\uc0ac\ud569\ub2c8\ub2e4.</div>',
     '</div>',
 
     _tmCard('\ud83d\udc4b \ud658\uc601\ud569\ub2c8\ub2e4',
-      '<p><strong>Live Korean</strong>\uc5d0 \uc624\uc2e0 \uac83\uc744 \ud658\uc601\ud569\ub2c8\ub2e4. \uc88b\uc544\ud558\ub294 K-\ub4dc\ub77c\ub9c8\uc758 YouTube \uc264\uce20\ub97c \ud1b5\ud574 \uc790\uc5f0\uc2a4\ub7ec\uc6b4 \ud55c\uad6d\uc5b4 \ud45c\ud604\uc744 \uc7ac\ubbf8\uc788\uac8c \ubc30\uc6b8 \uc218 \uc788\uc2b5\ub2c8\ub2e4.</p>'),
+      '<p><strong>Live Korea</strong>\uc5d0 \uc624\uc2e0 \uac83\uc744 \ud658\uc601\ud569\ub2c8\ub2e4. \uc88b\uc544\ud558\ub294 K-\ub4dc\ub77c\ub9c8\uc758 YouTube \uc264\uce20\ub97c \ud1b5\ud574 \uc790\uc5f0\uc2a4\ub7ec\uc6b4 \ud55c\uad6d\uc5b4 \ud45c\ud604\uc744 \uc7ac\ubbf8\uc788\uac8c \ubc30\uc6b8 \uc218 \uc788\uc2b5\ub2c8\ub2e4.</p>'),
 
     _tmCard('\ud83d\udccc \uc774\uc6a9\uc57d\uad00',
       '<ul style="list-style:none;padding:0;margin:0;">'
@@ -435,7 +435,7 @@ function injectTermsModal() {
       + '</ul>'),
 
     _tmCard('\u2139\ufe0f \uc571 \uc18c\uac1c',
-      '<p>Live Korean\uc740 \uc778\uae30 \ud55c\uad6d \ub4dc\ub77c\ub9c8\uc758 YouTube \uc264\uce20\ub97c \uc790\uc5f0\uc2a4\ub7ec\uc6b4 \ud55c\uad6d\uc5b4 \ud45c\ud604\uacfc \uc5f0\uacb0\ud558\uc5ec \uc81c\uacf5\ud569\ub2c8\ub2e4.</p>'
+      '<p>Live Korea\ub294 \uc778\uae30 \ud55c\uad6d \ub4dc\ub77c\ub9c8\uc758 YouTube \uc264\uce20\ub97c \uc790\uc5f0\uc2a4\ub7ec\uc6b4 \ud55c\uad6d\uc5b4 \ud45c\ud604\uacfc \uc5f0\uacb0\ud558\uc5ec \uc81c\uacf5\ud569\ub2c8\ub2e4.</p>'
       + '<p style="margin-top:8px;">\ud604\uc7ac \uc81c\uacf5 \ub4dc\ub77c\ub9c8: <strong>\ub3c4\uae68\ube44</strong>, <strong>\ub354 \uae00\ub85c\ub9ac</strong>, <strong>\uc9c0\uae08 \uc6b0\ub9ac \ud559\uad50\ub294</strong>. \ub354 \ub9ce\uc740 \ub4dc\ub77c\ub9c8\uac00 \ucd94\uac00\ub420 \uc608\uc815\uc785\ub2c8\ub2e4.</p>'
       + '<p style="margin-top:8px;">\uc774 \uc571\uc740 <strong>m2ea Labs</strong>\uc5d0\uc11c \ud55c\uad6d\uc5b4 \ud559\uc2b5 \ud504\ub85c\uc81d\ud2b8\ub85c \uc6b4\uc601\ud569\ub2c8\ub2e4.</p>'),
 
