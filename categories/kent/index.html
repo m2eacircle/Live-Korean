@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K-Entertainment — Live Korean</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <meta name="theme-color" content="#0891b2">
+  <style>
+    .cat-hero {
+      background: linear-gradient(135deg, #ecfeff 0%, #cffafe 60%, #e0f7fa 100%);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px 24px;
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cat-hero-img { position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.18; }
+    .cat-hero-inner { position:relative;z-index:1; }
+    .cat-hero-eyebrow { font-size:0.72rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--accent3);margin-bottom:6px; }
+    .cat-hero-title { font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:600;font-style:italic;color:var(--text);line-height:1.25;margin-bottom:8px; }
+    .cat-hero-sub { font-size:0.82rem;color:var(--muted);max-width:480px;line-height:1.6; }
+    .shorts-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-bottom:48px; }
+    .short-card { background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:var(--transition); }
+    .short-card:hover { border-color:var(--accent3);box-shadow:0 8px 28px rgba(8,145,178,0.13);transform:translateY(-2px); }
+    .short-thumb { width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#ecfeff,#cffafe);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center; }
+    .short-thumb img { width:100%;height:100%;object-fit:cover; }
+    .short-play-btn { position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.22);transition:var(--transition); }
+    .short-card:hover .short-play-btn { background:rgba(8,145,178,0.35); }
+    .short-play-icon { width:48px;height:48px;background:rgba(255,255,255,0.92);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 16px rgba(0,0,0,0.2); }
+    .short-num { position:absolute;top:10px;left:10px;background:var(--accent3);color:#fff;font-size:0.65rem;font-weight:800;padding:3px 9px;border-radius:20px;letter-spacing:0.3px; }
+    .short-body { padding:14px 16px 16px; }
+    .short-show { font-size:0.68rem;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--accent3);margin-bottom:4px; }
+    .short-title-en { font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:700;color:var(--text);line-height:1.35;margin-bottom:2px; }
+    .short-title-ko { font-size:0.82rem;font-weight:500;color:var(--text);line-height:1.35;margin-bottom:8px;font-family:'Noto Sans KR',sans-serif; }
+    .short-desc-en, .short-desc-ko { font-size:0.77rem;color:var(--muted);line-height:1.55;margin-bottom:10px; }
+    .short-tags { display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px; }
+    .short-tag { font-size:0.65rem;font-weight:600;padding:3px 9px;border-radius:12px;background:var(--card2);color:var(--accent3);border:1px solid var(--border);letter-spacing:0.3px; }
+    .short-actions { display:flex;gap:8px; }
+    .btn-watch { flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--accent3);color:#fff;border:none;border-radius:var(--radius-sm);padding:9px 14px;font-size:0.78rem;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;transition:var(--transition);text-decoration:none; }
+    .btn-watch:hover { background:#0770a0; }
+    .btn-watch.pending { background:var(--card2);color:var(--muted);cursor:default; }
+    .btn-watch.pending:hover { background:var(--card2); }
+    .short-title-ko, .short-desc-ko { display:none; }
+    .lang-ko .short-title-en, .lang-ko .short-desc-en { display:none; }
+    .lang-ko .short-title-ko, .lang-ko .short-desc-ko { display:block; }
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-left">
+    <button class="btn-topbar-home" onclick="window.location.href='../../index.html'" title="Home">&#127968;</button>
+    <div class="topbar-logo"><span class="logo-live">Live</span><div class="logo-dot"></div><span class="logo-korea">Korean</span></div>
+  </div>
+  <div class="topbar-right" id="topbar-lang-wrap"></div>
+</header>
+<main>
+<div class="page-wrap">
+  <div class="cat-hero">
+    <img class="cat-hero-img" src="../../images/kent-banner.jpg" alt="K-Entertainment">
+    <div class="cat-hero-inner">
+      <div class="cat-hero-eyebrow" id="hero-eyebrow">🎤 Category</div>
+      <div class="cat-hero-title" id="hero-title">K-Entertainment</div>
+      <p class="cat-hero-sub" id="hero-sub">Laugh-out-loud variety shows, iconic talk show moments, and reality TV highlights — with the language and culture behind every clip.</p>
+    </div>
+  </div>
+  <div class="section-label" id="section-label">🎤 30 Featured Shorts</div>
+  <div class="shorts-grid" id="shortsGrid"></div>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="footer-copy">© 2025 m2ea Labs. All rights reserved.</div>
+  <div><a class="footer-terms" href="../../terms.html">Terms of Use / 이용약관</a></div>
+</footer>
+<script src="../../js/app.js"></script>
+<script>
+var SHORTS = [
+  {
+    show_en: 'Physical 100',           show_ko: '피지컬: 100',
+    title_en: 'Opening — 100 bodies',  title_ko: '오프닝 — 100개의 몸',
+    desc_en:  'Physical 100\'s opening sequence where 100 elite athletes gather. The Korean concept of 몸짱 (body + champion) is used — 짱 is Korean slang for "the best" or "number one." 얼짱 (face + best) and 몸짱 (body + best) are part of everyday youth vocabulary.',
+    desc_ko:  '100명의 엘리트 선수가 모이는 오프닝. "몸짱"(몸+짱)이라는 개념이 등장합니다. 짱은 최고를 뜻하는 속어로, 얼짱(얼굴+짱)·몸짱(몸+짱)은 청년층 일상어입니다.',
+    tags: ['짱', 'slang', 'body culture'],
+    url: ''
+  },
+  {
+    show_en: 'Physical 100',           show_ko: '피지컬: 100',
+    title_en: 'Ssireum — traditional wrestling', title_ko: '씨름 대결',
+    desc_en:  '씨름 (Korean traditional wrestling) appears in Physical 100 as a legacy event. 씨름 dates to the Three Kingdoms period (삼국시대). The cloth belt used is called 샅바 — one of many sports terms rooted in ancient Korean culture.',
+    desc_ko:  '씨름은 삼국시대부터 이어온 한국 전통 씨름입니다. 피지컬 100에서 레거시 종목으로 등장합니다. 씨름에 사용하는 천 벨트는 "샅바"라고 하며 고대 한국 문화에 뿌리를 두고 있습니다.',
+    tags: ['씨름', 'traditional sport', 'history'],
+    url: ''
+  },
+  {
+    show_en: 'Physical 100',           show_ko: '피지컬: 100',
+    title_en: '포기 — giving up',       title_ko: '포기',
+    desc_en:  '"포기" (抛棄, giving up/abandonment) is a heavily loaded word in Korean culture. There\'s a cultural pressure expressed in "포기하지 마라!" (Don\'t give up!) — endurance culture (끈기 문화) is a defining aspect of Korean social values.',
+    desc_ko:  '"포기"(抛棄)는 한국 문화에서 무게감 있는 단어입니다. "포기하지 마라!"라는 문화적 압력에서 볼 수 있듯, 끈기 문화는 한국 사회 가치관의 중요한 특징입니다.',
+    tags: ['포기', '끈기', 'cultural values'],
+    url: ''
+  },
+  {
+    show_en: 'Running Man (런닝맨)',    show_ko: '런닝맨',
+    title_en: 'Name tag ripping',      title_ko: '이름표 뜯기',
+    desc_en:  'Running Man\'s iconic 이름표 (name tag) elimination game became globally known. 이름표: 이름(name) + 표(tag/mark). The show popularised Korean variety slang like 몰래 (secretly), 배신 (betrayal), and 동맹 (alliance) for international audiences.',
+    desc_ko:  '런닝맨의 이름표 뜯기 게임은 세계적으로 유명해졌습니다. 이름표: 이름+표. 이 프로그램은 몰래·배신·동맹 같은 한국 예능 속어를 국제 시청자에게 알렸습니다.',
+    tags: ['배신', '이름표', 'variety vocab'],
+    url: ''
+  },
+  {
+    show_en: 'Running Man (런닝맨)',    show_ko: '런닝맨',
+    title_en: 'Yoo Jae-suk — 유느님',  title_ko: '유느님',
+    desc_en:  'Yoo Jae-suk is called "유느님" — 유 (his surname) + 느님 (a shortened form of 하느님, God). Adding ~님 to a name is standard Korean respect suffix — but 느님/하느님 elevates it to divine status. Fan-created honorifics reflect Korean suffix culture.',
+    desc_ko:  '유재석은 "유느님"으로 불립니다 — 유(성)+느님(하느님의 줄임). ~님은 표준 존칭 접미사이지만 느님/하느님은 신격화 수준입니다. 팬이 만든 경칭은 한국의 접미사 문화를 반영합니다.',
+    tags: ['~님', 'honorifics', 'fan culture'],
+    url: ''
+  },
+  {
+    show_en: 'Knowing Bros (아는 형님)', show_ko: '아는 형님',
+    title_en: '전학생 — new student format', title_ko: '전학생 포맷',
+    desc_en:  'Each episode\'s guest arrives as a "전학생" (transfer student). 전학: 轉(transfer) + 學(study/school) — to move schools. The format uses school hierarchy vocabulary: 형 (older brother among males), 누나 (older sister to males), creating instant comedic dynamics.',
+    desc_ko:  '매 에피소드의 게스트는 "전학생"으로 등장합니다. 전학: 轉(옮기다)+學(학교). 이 포맷은 형·누나 같은 학교 위계 어휘를 사용해 즉각적인 코미디 역학을 만듭니다.',
+    tags: ['전학생', '형/누나', 'address terms'],
+    url: ''
+  },
+  {
+    show_en: 'Knowing Bros (아는 형님)', show_ko: '아는 형님',
+    title_en: 'Quiz battle — 상식 퀴즈',  title_ko: '상식 퀴즈 배틀',
+    desc_en:  '상식 (常識, common knowledge/general knowledge) quiz battles are a staple of Korean variety shows. 상식: 常(always/usual) + 識(knowledge) — "everyday knowledge." Korean culture places high value on 상식 as a mark of an educated, well-rounded person.',
+    desc_ko:  '상식(常識) 퀴즈 배틀은 한국 예능의 단골 메뉴입니다. 상식: 常(항상)+識(지식) — "일상적 지식." 한국 문화는 상식을 교양 있는 사람의 표시로 높이 평가합니다.',
+    tags: ['상식', '한자어', 'quiz culture'],
+    url: ''
+  },
+  {
+    show_en: 'I Live Alone (나 혼자 산다)', show_ko: '나 혼자 산다',
+    title_en: '혼밥 — eating alone',      title_ko: '혼밥',
+    desc_en:  '"혼밥" = 혼자(alone) + 밥(rice/meal) — eating alone. From this came 혼술 (drinking alone), 혼자 여행 (solo travel). The "혼~" trend reflects a major social shift in Korea toward individualism and single-person households (1인 가구).',
+    desc_ko:  '"혼밥" = 혼자+밥 — 혼자 밥 먹기. 여기서 혼술·혼자 여행이 파생됩니다. "혼~" 트렌드는 1인 가구 증가와 함께 개인주의로의 한국 사회 변화를 반영합니다.',
+    tags: ['혼밥', 'word formation', 'social trends'],
+    url: ''
+  },
+  {
+    show_en: 'I Live Alone (나 혼자 산다)', show_ko: '나 혼자 산다',
+    title_en: 'Rainbow club reaction shots', title_ko: '무지개 클럽 리액션',
+    desc_en:  'The show\'s studio panel (무지개 회원) reacts to the footage. Korean variety uses 리액션 (reaction) culture intensely — hosts\' 공감 (empathy/resonance) reactions are carefully crafted. 공감: 共(together) + 感(feel) — feeling together.',
+    desc_ko:  '스튜디오 패널(무지개 회원)이 영상에 반응합니다. 한국 예능은 리액션 문화를 집중적으로 활용합니다. 공감: 共(함께)+感(느끼다) — 함께 느끼기.',
+    tags: ['공감', '리액션', 'variety format'],
+    url: ''
+  },
+  {
+    show_en: 'Infinite Challenge (무한도전)', show_ko: '무한도전',
+    title_en: '도전 — the spirit of challenge', title_ko: '도전 정신',
+    desc_en:  '"도전" (挑戰, challenge) is a foundational word in Korean culture. 도전: 挑(provoke/challenge) + 戰(battle). Korean culture enshrines 도전 정신 (challenge spirit) — the belief that attempting hard things is honourable, regardless of outcome.',
+    desc_ko:  '"도전"(挑戰)은 한국 문화의 핵심 단어입니다. 도전: 挑(도발)+戰(싸움). 한국 문화는 결과와 무관하게 어려운 것에 도전하는 것을 명예롭게 여기는 "도전 정신"을 중시합니다.',
+    tags: ['도전', '한자어', 'cultural values'],
+    url: ''
+  },
+  {
+    show_en: 'Master in the House (집사부일체)', show_ko: '집사부일체',
+    title_en: 'Lee Seung-gi meets masters',         title_ko: '이승기와 스승들',
+    desc_en:  '집사부일체 (集師父一體) is itself a rich title: 集(gather) + 師父(master/teacher) + 一體(one body) — "becoming one with the masters." The concept of 스승 (mentor/master) is deeply Confucian — the teacher-student bond (사제지간) is a sacred relationship in Korean culture.',
+    desc_ko:  '집사부일체(集師父一體): 集(모으다)+師父(스승)+一體(하나) — "스승과 하나 되기." 스승 개념은 유교 철학에 뿌리를 두며, 사제지간은 한국 문화에서 신성한 관계입니다.',
+    tags: ['사제지간', 'Confucianism', '한자어'],
+    url: ''
+  },
+  {
+    show_en: 'Variety Show Compilation',           show_ko: '예능 모음',
+    title_en: '눈치 — the art of reading the room', title_ko: '눈치',
+    desc_en:  '"눈치" — the Korean concept of reading the social atmosphere. 눈(eye) + 치 (a suffix for ability) — literally "eye ability." 눈치가 빠르다 = good at reading the room; 눈치가 없다 = oblivious. This concept has no exact English equivalent.',
+    desc_ko:  '"눈치" — 사회적 분위기를 읽는 한국의 개념. 눈(눈)+치(능력 접미사) — "눈의 능력." 눈치가 빠르다=분위기를 잘 읽는다, 눈치가 없다=둔하다. 영어에 정확한 등가어가 없는 개념입니다.',
+    tags: ['눈치', 'untranslatable', 'social skills'],
+    url: ''
+  },
+  {
+    show_en: 'SNL Korea',                          show_ko: 'SNL 코리아',
+    title_en: '뻔뻔한 사람 — the shameless character', title_ko: '뻔뻔한 사람',
+    desc_en:  'SNL Korea\'s comedic characters often embody "뻔뻔하다" (to be brazen/shameless). 뻔뻔하다 is a reduplicated form — 뻔뻔 repeats the root 뻔 (obvious/barefaced). Korean has hundreds of these X-X reduplicated intensifiers that English lacks.',
+    desc_ko:  'SNL 코리아의 코미디 캐릭터는 종종 "뻔뻔하다"를 구현합니다. 뻔뻔하다는 뻔(뻔뻔한)의 반복 형태입니다. 한국어에는 영어에 없는 X-X 반복 강조어가 수백 개 있습니다.',
+    tags: ['뻔뻔하다', 'reduplication', 'word formation'],
+    url: ''
+  },
+  {
+    show_en: 'Amazing Saturday (놀라운 토요일)', show_ko: '놀라운 토요일 도레미마켓',
+    title_en: 'Listening to lyrics — 받아쓰기',   title_ko: '받아쓰기 게임',
+    desc_en:  'Contestants must write song lyrics from hearing them — 받아쓰기 (dictation). 받다(receive) + 쓰기(writing). This game format reveals how difficult Korean spelling is: 맞춤법 (Korean orthographic rules) trips up even native speakers.',
+    desc_ko:  '참가자들이 듣고 노래 가사를 받아쓰는 받아쓰기 게임. 받다(받다)+쓰기(쓰기). 이 포맷은 한국어 맞춤법이 얼마나 어려운지 — 원어민도 틀리는 — 을 보여줍니다.',
+    tags: ['받아쓰기', '맞춤법', 'spelling'],
+    url: ''
+  },
+  {
+    show_en: 'Hangout with Yoo (놀면 뭐하니?)', show_ko: '놀면 뭐하니?',
+    title_en: '혼수상태 — hibernation challenge',  title_ko: '혼수상태 챌린지',
+    desc_en:  'The show\'s title "놀면 뭐하니?" means "What do you do when you play/are free?" The conditional ~(으)면 (if/when) + question is very natural Korean. 뭐 is informal for 무엇 (what). The whole title captures a very Korean conversational style.',
+    desc_ko:  '"놀면 뭐하니?"는 "놀 때 뭐 해?" 라는 뜻입니다. 조건형 "~(으)면"(~이면)+의문문은 매우 자연스러운 한국어입니다. 뭐는 무엇의 구어체입니다. 제목 전체가 한국어 대화 스타일을 담습니다.',
+    tags: ['~(으)면', 'conditional', 'conversational Korean'],
+    url: ''
+  },
+  {
+    show_en: 'We Got Married (우리 결혼했어요)', show_ko: '우리 결혼했어요',
+    title_en: '썸 — the undefined relationship',  title_ko: '썸',
+    desc_en:  '"썸" (from English "something") describes the undefined state between friendship and dating — when 썸을 탄다 (riding the "something") means you\'re in that ambiguous zone. Korea has an entire vocabulary for relationship stages that English lacks.',
+    desc_ko:  '"썸"(영어 something에서 유래)은 우정과 연애 사이의 미정의 상태를 의미합니다. 썸을 탄다는 그 애매한 구간에 있다는 뜻입니다. 한국어에는 영어에 없는 연애 단계 어휘가 있습니다.',
+    tags: ['썸', 'loanword', 'relationship vocab'],
+    url: ''
+  },
+  {
+    show_en: 'Society Game (소사이어티 게임)', show_ko: '소사이어티 게임',
+    title_en: '투표 — the voting ceremony',       title_ko: '투표 의식',
+    desc_en:  '투표 (投票, voting) is the dramatic centrepiece of Korean reality competitions. 투표: 投(throw) + 票(ticket/vote). The ritual of 눈치 before a vote — reading who is likely to betray you — is peak Korean social gaming.',
+    desc_ko:  '투표(投票)는 한국 서바이벌 예능의 극적 핵심입니다. 투표: 投(던지다)+票(표). 투표 전 눈치 싸움 — 누가 배신할지 읽어내는 것 — 이 한국 사회 게임의 정점입니다.',
+    tags: ['투표', '눈치', 'competition'],
+    url: ''
+  },
+  {
+    show_en: 'Street Woman Fighter',             show_ko: '스트릿 우먼 파이터',
+    title_en: '우리 팀은 최고야 — team spirit',  title_ko: '팀 결속력',
+    desc_en:  'Korean reality shows place enormous emphasis on 팀워크 (teamwork) and 의리 (loyalty/brotherhood). 의리: 義(righteousness) + 理(principle) — doing right by your people. Breaking 의리 is one of the most serious social failings in Korean culture.',
+    desc_ko:  '한국 리얼리티쇼는 팀워크와 의리를 극도로 중시합니다. 의리: 義(의로움)+理(원칙) — 자기 사람에게 올바르게 행동하기. 의리를 저버리는 것은 한국 문화에서 가장 심각한 사회적 실패 중 하나입니다.',
+    tags: ['의리', '한자어', 'loyalty culture'],
+    url: ''
+  },
+  {
+    show_en: 'Street Man Fighter',               show_ko: '스트릿 맨 파이터',
+    title_en: '칼군무 — precision group dance',  title_ko: '칼군무',
+    desc_en:  '"칼군무" = 칼(knife) + 군무(group dance) — dancing as sharp as a knife. This uniquely Korean term describes perfectly synchronised group choreography. 칼 is used as an intensifier meaning "extremely precise": 칼퇴근 (leaving work exactly on time).',
+    desc_ko:  '"칼군무" = 칼(칼)+군무(단체 춤) — 칼처럼 날카로운 군무. 완벽하게 동기화된 그룹 안무를 묘사하는 한국 고유 표현입니다. 칼은 "매우 정확한"의 강조어로: 칼퇴근(정확히 퇴근 시간에 퇴근) 등에 씁니다.',
+    tags: ['칼군무', 'compound words', 'dance culture'],
+    url: ''
+  },
+  {
+    show_en: 'Produce 101',                      show_ko: '프로듀스 101',
+    title_en: '픽 (pick) — national producers',  title_ko: '국민 프로듀서의 픽',
+    desc_en:  '"픽" (from English "pick") became a K-Pop standard term — "내 픽" (my pick = my favourite). The show addressed viewers as "국민 프로듀서" (national producers), giving them real voting power. 국민: 國(nation) + 民(people) — a weighty term used very casually here.',
+    desc_ko:  '"픽"(영어 pick에서)은 K-팝 표준 용어가 됐습니다 — "내 픽"(내가 선택한 것). 이 프로그램은 시청자를 "국민 프로듀서"로 칭하며 실제 투표권을 부여했습니다. 국민: 國(나라)+民(사람) — 무게 있는 단어가 가볍게 쓰입니다.',
+    tags: ['픽', '국민', 'loanword'],
+    url: ''
+  },
+  {
+    show_en: 'Radio Star (황금어장)',             show_ko: '라디오 스타',
+    title_en: '독설 — the sharp tongue',         title_ko: '독설',
+    desc_en:  '독설 (毒舌, poisonous tongue) is Radio Star\'s signature style — hosts deliver cutting, brutally honest commentary. 독설: 毒(poison) + 舌(tongue). This contrasts with the 공감 (empathy) style of other shows. Both styles have dedicated audiences in Korea.',
+    desc_ko:  '독설(毒舌)은 라디오 스타의 시그니처 스타일입니다. 독설: 毒(독)+舌(혀). 이것은 다른 프로그램의 공감 스타일과 대비됩니다. 두 스타일 모두 한국에서 열성적인 시청자를 가집니다.',
+    tags: ['독설', '한자어', 'talk show style'],
+    url: ''
+  },
+  {
+    show_en: 'New Journey to the West (신서유기)', show_ko: '신서유기',
+    title_en: '뇌절 — going too far',              title_ko: '뇌절',
+    desc_en:  '"뇌절" (腦切, brain-cut) is internet slang for taking a joke too far — oversaturating a joke until it\'s no longer funny. 뇌 (brain) + 절 (to cut/chop). This kind of internet slang (인터넷 신조어) appears constantly in modern Korean variety shows.',
+    desc_ko:  '"뇌절"(腦切)은 농담을 너무 심하게 밀어붙이는 것을 뜻하는 인터넷 속어입니다. 뇌(뇌)+절(자르다). 이러한 인터넷 신조어는 현대 한국 예능에 끊임없이 등장합니다.',
+    tags: ['뇌절', 'internet slang', '신조어'],
+    url: ''
+  },
+  {
+    show_en: 'Variety Show Culture',              show_ko: '예능 문화',
+    title_en: '케미 (chemistry) — variety gold',  title_ko: '케미',
+    desc_en:  '"케미" (chemistry between people) is one of Korean entertainment\'s most important concepts. A show lives or dies by its cast\'s 케미. From this: 케미가 폭발한다 (chemistry explodes = amazing synergy). English "chemistry" borrowed into Korean with its own cultural weight.',
+    desc_ko:  '"케미"(사람 간의 chemistry)는 한국 엔터테인먼트의 가장 중요한 개념 중 하나입니다. 케미가 폭발한다 = 시너지가 대단하다. 영어 chemistry가 한국어에 차용되면서 고유한 문화적 무게를 가집니다.',
+    tags: ['케미', 'loanword', 'entertainment culture'],
+    url: ''
+  },
+  {
+    show_en: 'Variety Show Culture',              show_ko: '예능 문화',
+    title_en: '유행어 — catchphrases',            title_ko: '유행어',
+    desc_en:  '"유행어" (流行語) = 유행(trend) + 어(language) — trending words/catchphrases. Korean variety shows generate enormous numbers of 유행어 that enter everyday speech. 대박! (jackpot/amazing!), 어머! (oh my!), 헐! (whoa/wtf) all started as entertainment catchphrases.',
+    desc_ko:  '"유행어"(流行語) = 유행+어 — 유행하는 말. 한국 예능은 일상어로 침투하는 엄청난 수의 유행어를 만들어냅니다. 대박!·어머!·헐! 모두 엔터테인먼트 유행어로 시작했습니다.',
+    tags: ['유행어', '한자어', 'trending language'],
+    url: ''
+  },
+  {
+    show_en: 'My Little Old Boy (미운 우리 새끼)', show_ko: '미운 우리 새끼',
+    title_en: '미운 우리 새끼 — the nuance',       title_ko: '미운 우리 새끼의 뉘앙스',
+    desc_en:  'The show title "미운 우리 새끼" is untranslatable: 미운 (hateable/annoying) + 우리 (our) + 새끼 (a rude word for "kid" that becomes affectionate between mothers) = "our annoying little one." Korean mothers say 새끼 to their grown children with pure love.',
+    desc_ko:  '"미운 우리 새끼"는 번역이 불가능합니다: 미운(밉다)+우리(우리)+새끼(무례한 말이지만 어머니들 사이에서는 애정이 됩니다) = "우리 밉지만 사랑스러운 애." 한국 어머니들은 자식에게 순수한 사랑으로 새끼라고 합니다.',
+    tags: ['새끼', 'untranslatable', 'mother-son bond'],
+    url: ''
+  },
+  {
+    show_en: 'Sixth Sense (식스센스)',            show_ko: '식스센스',
+    title_en: '가짜 vs 진짜 — fake or real?',    title_ko: '가짜 vs 진짜',
+    desc_en:  '"가짜" (fake) vs "진짜" (real) is a core vocabulary pair in Korean. 진짜 also functions as an intensifier: "진짜?" (really?), "진짜로" (for real), "진짜 웃겨" (so funny). Doubling it — "진짜 진짜" — maximises intensity. Very colloquial and essential.',
+    desc_ko:  '"가짜"(가짜) vs "진짜"(진짜)는 한국어의 핵심 어휘 쌍입니다. 진짜는 강조어로도 씁니다: "진짜?"·"진짜로"·"진짜 웃겨." "진짜 진짜"로 겹치면 강도가 최대가 됩니다. 매우 구어적이고 필수적입니다.',
+    tags: ['진짜', 'intensifiers', 'colloquial'],
+    url: ''
+  },
+  {
+    show_en: 'Ask Us Anything — Special',        show_ko: '아는 형님 스페셜',
+    title_en: '인생 역전 — life reversal',       title_ko: '인생 역전',
+    desc_en:  '"인생 역전" (人生逆轉) = life + reversal — a complete turnaround of one\'s fortunes. This phrase captures a deeply Korean dream: the idea that hard work, luck, or one key moment can completely transform your life trajectory.',
+    desc_ko:  '"인생 역전"(人生逆轉) = 인생+역전 — 운명의 완전한 역전. 이 표현은 한국인의 깊은 꿈을 담고 있습니다: 노력, 운, 또는 하나의 핵심 순간이 삶의 궤적을 완전히 바꿀 수 있다는 믿음.',
+    tags: ['인생 역전', '한자어', 'Korean dream'],
+    url: ''
+  },
+  {
+    show_en: 'Variety Show Culture',             show_ko: '예능 문화',
+    title_en: '눈물 버튼 — the tear moment',     title_ko: '눈물 버튼',
+    desc_en:  'Every Korean variety show has a "눈물 버튼" (tear button) moment — a carefully crafted emotional climax. Korean variety oscillates between 웃음 (laughter) and 감동 (moving/emotional resonance). 감동: 感(feeling) + 動(move) — to be emotionally moved.',
+    desc_ko:  '모든 한국 예능에는 "눈물 버튼" 순간 — 정교하게 설계된 감동 클라이맥스 — 이 있습니다. 한국 예능은 웃음과 감동 사이를 오갑니다. 감동: 感(느낌)+動(움직이다) — 감정적으로 움직이다.',
+    tags: ['감동', '눈물', 'emotional arc'],
+    url: ''
+  },
+  {
+    show_en: 'Variety Show Culture',             show_ko: '예능 문화',
+    title_en: '대박 — the ultimate exclamation', title_ko: '대박',
+    desc_en:  '"대박" (大博) originally means "jackpot" in gambling — 大(big) + 博(gamble). It evolved into the most versatile Korean exclamation: amazing, unbelievable, jackpot, terrible (context-dependent). "대박이다!" can express shock, joy, or dismay. Essential K-culture vocabulary.',
+    desc_ko:  '"대박"(大博)은 원래 도박에서 큰 판돈을 의미했습니다 — 大(크다)+博(도박). 현재는 가장 다재다능한 한국어 감탄사로 발전했습니다: 놀랍다, 믿기 어렵다, 대단하다 등 맥락에 따라 다양하게 쓰입니다.',
+    tags: ['대박', '한자어', 'exclamation'],
+    url: ''
+  },
+  {
+    show_en: 'Variety Show Culture',             show_ko: '예능 문화',
+    title_en: '치맥 — chicken and beer',         title_ko: '치맥 문화',
+    desc_en:  '"치맥" = 치킨(chicken) + 맥주(beer) — arguably the most beloved food pairing in Korean culture. Watching sports, variety shows, or dramas with 치맥 is a national ritual. Word-blending (혼성어) like this is highly productive in modern Korean.',
+    desc_ko:  '"치맥" = 치킨+맥주 — 한국 문화에서 가장 사랑받는 음식 조합입니다. 스포츠·예능·드라마를 치맥과 함께 보는 것은 국민 의식입니다. 이런 혼성어 만들기는 현대 한국어에서 매우 활발합니다.',
+    tags: ['치맥', '혼성어', 'food culture'],
+    url: ''
+  }
+];
+
+var HERO = {
+  en: { eyebrow: '🎤 Category', title: 'K-Entertainment', sub: 'Laugh-out-loud variety shows, iconic talk show moments, and reality TV highlights — with the language and culture behind every clip.' },
+  ko: { eyebrow: '🎤 카테고리', title: 'K-엔터테인먼트', sub: '폭소하게 만드는 버라이어티 쇼, 아이콘적인 토크쇼 순간, 리얼리티 TV 하이라이트 — 모든 클립의 언어와 문화가 함께합니다.' }
+};
+var LABELS = {
+  en: { section: '🎤 30 Featured Shorts', watch: '▶ Watch Short', pending: '▶ Short Coming Soon' },
+  ko: { section: '🎤 30개 추천 쇼츠',    watch: '▶ 쇼츠 보기',  pending: '▶ 쇼츠 준비 중' }
+};
+
+function buildGrid() {
+  var isKo = getLang() === 'ko'; var lang = isKo ? 'ko' : 'en';
+  var lbl = LABELS[lang]; var hero = HERO[lang];
+  document.getElementById('hero-eyebrow').textContent  = hero.eyebrow;
+  document.getElementById('hero-title').textContent    = hero.title;
+  document.getElementById('hero-sub').textContent      = hero.sub;
+  document.getElementById('section-label').textContent = lbl.section;
+  document.body.className = isKo ? 'lang-ko' : '';
+  var html = '';
+  SHORTS.forEach(function(s, i) {
+    var num = i + 1; var isLive = s.url && s.url.length > 10;
+    var watchBtn = isLive
+      ? '<a class="btn-watch" href="' + s.url + '" target="_blank" rel="noopener">▶ ' + lbl.watch + '</a>'
+      : '<button class="btn-watch pending">▶ ' + lbl.pending + '</button>';
+    var tags = s.tags.map(function(t){ return '<span class="short-tag">'+t+'</span>'; }).join('');
+    html += '<div class="short-card"><div class="short-thumb"><div class="short-play-btn"><div class="short-play-icon">▶</div></div><span class="short-num">#'+num+'</span></div>';
+    html += '<div class="short-body"><div class="short-show">'+(isKo?s.show_ko:s.show_en)+'</div>';
+    html += '<div class="short-title-en">'+s.title_en+'</div><div class="short-title-ko">'+s.title_ko+'</div>';
+    html += '<div class="short-desc-en">'+s.desc_en+'</div><div class="short-desc-ko">'+s.desc_ko+'</div>';
+    html += '<div class="short-tags">'+tags+'</div><div class="short-actions">'+watchBtn+'</div></div></div>';
+  });
+  document.getElementById('shortsGrid').innerHTML = html;
+}
+function applyPageLang() { buildGrid(); }
+window.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('topbar-lang-wrap').innerHTML = buildLangToggle();
+  buildGrid();
+});
+</script>
+</body>
+</html>

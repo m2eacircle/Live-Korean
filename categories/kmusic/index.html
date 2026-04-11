@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K-Music — Live Korean</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <meta name="theme-color" content="#7c3aed">
+  <style>
+    .cat-hero {
+      background: linear-gradient(135deg, #f5f0ff 0%, #ddd6fe 60%, #ede9fe 100%);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px 24px;
+      margin-bottom: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cat-hero-img { position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.18; }
+    .cat-hero-inner { position:relative;z-index:1; }
+    .cat-hero-eyebrow { font-size:0.72rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--accent2);margin-bottom:6px; }
+    .cat-hero-title { font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:600;font-style:italic;color:var(--text);line-height:1.25;margin-bottom:8px; }
+    .cat-hero-sub { font-size:0.82rem;color:var(--muted);max-width:480px;line-height:1.6; }
+    .shorts-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-bottom:48px; }
+    .short-card { background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:var(--transition); }
+    .short-card:hover { border-color:var(--accent2);box-shadow:0 8px 28px rgba(124,58,237,0.13);transform:translateY(-2px); }
+    .short-thumb { width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#f5f0ff,#ddd6fe);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center; }
+    .short-thumb img { width:100%;height:100%;object-fit:cover; }
+    .short-play-btn { position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.22);transition:var(--transition); }
+    .short-card:hover .short-play-btn { background:rgba(124,58,237,0.35); }
+    .short-play-icon { width:48px;height:48px;background:rgba(255,255,255,0.92);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 4px 16px rgba(0,0,0,0.2); }
+    .short-num { position:absolute;top:10px;left:10px;background:var(--accent2);color:#fff;font-size:0.65rem;font-weight:800;padding:3px 9px;border-radius:20px;letter-spacing:0.3px; }
+    .short-body { padding:14px 16px 16px; }
+    .short-show { font-size:0.68rem;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--accent2);margin-bottom:4px; }
+    .short-title-en { font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:700;color:var(--text);line-height:1.35;margin-bottom:2px; }
+    .short-title-ko { font-size:0.82rem;font-weight:500;color:var(--text);line-height:1.35;margin-bottom:8px;font-family:'Noto Sans KR',sans-serif; }
+    .short-desc-en, .short-desc-ko { font-size:0.77rem;color:var(--muted);line-height:1.55;margin-bottom:10px; }
+    .short-tags { display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px; }
+    .short-tag { font-size:0.65rem;font-weight:600;padding:3px 9px;border-radius:12px;background:var(--card2);color:var(--accent2);border:1px solid var(--border);letter-spacing:0.3px; }
+    .short-actions { display:flex;gap:8px; }
+    .btn-watch { flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--accent2);color:#fff;border:none;border-radius:var(--radius-sm);padding:9px 14px;font-size:0.78rem;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;transition:var(--transition);text-decoration:none; }
+    .btn-watch:hover { background:#6d28d9; }
+    .btn-watch.pending { background:var(--card2);color:var(--muted);cursor:default; }
+    .btn-watch.pending:hover { background:var(--card2); }
+    .short-title-ko, .short-desc-ko { display:none; }
+    .lang-ko .short-title-en, .lang-ko .short-desc-en { display:none; }
+    .lang-ko .short-title-ko, .lang-ko .short-desc-ko { display:block; }
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-left">
+    <button class="btn-topbar-home" onclick="window.location.href='../../index.html'" title="Home">&#127968;</button>
+    <div class="topbar-logo"><span class="logo-live">Live</span><div class="logo-dot"></div><span class="logo-korea">Korean</span></div>
+  </div>
+  <div class="topbar-right" id="topbar-lang-wrap"></div>
+</header>
+<main>
+<div class="page-wrap">
+  <div class="cat-hero">
+    <img class="cat-hero-img" src="../../images/kmusic-banner.jpg" alt="K-Music">
+    <div class="cat-hero-inner">
+      <div class="cat-hero-eyebrow" id="hero-eyebrow">🎵 Category</div>
+      <div class="cat-hero-title" id="hero-title">K-Music</div>
+      <p class="cat-hero-sub" id="hero-sub">Performance moments, behind-the-scenes clips, and MV highlights from K-Pop and Korean music — with cultural and lyrical context for every short.</p>
+    </div>
+  </div>
+  <div class="section-label" id="section-label">🎵 30 Featured Shorts</div>
+  <div class="shorts-grid" id="shortsGrid"></div>
+</div>
+</main>
+<footer class="site-footer">
+  <div class="footer-copy">© 2025 m2ea Labs. All rights reserved.</div>
+  <div><a class="footer-terms" href="../../terms.html">Terms of Use / 이용약관</a></div>
+</footer>
+<script src="../../js/app.js"></script>
+<script>
+var SHORTS = [
+  {
+    show_en: 'BTS',         show_ko: '방탄소년단',
+    title_en: 'Dynamite — "Shining through the city"',  title_ko: '다이너마이트 — 도시를 빛내다',
+    desc_en:  'BTS\'s first fully English-language single introduced a key cultural moment. Notably, 방탄소년단 (防彈少年團) means "bulletproof boy scouts" — the hanja 防彈 (defend-bullet) expresses their mission to protect youth from social pressures.',
+    desc_ko:  'BTS의 첫 영어 싱글은 중요한 문화적 순간을 만들었습니다. 방탄소년단(防彈少年團)은 "방어하다+탄환+소년+단체"의 한자어로, 사회적 압박으로부터 청년을 보호한다는 의미입니다.',
+    tags: ['BTS', '한자어', 'group name meaning'],
+    url: ''
+  },
+  {
+    show_en: 'BTS',         show_ko: '방탄소년단',
+    title_en: 'Spring Day — 봄날',                    title_ko: '봄날',
+    desc_en:  '"봄날" means spring day. The song uses 보고 싶다 (I miss you / I want to see you) extensively — one of the most essential Korean emotional expressions. 보다 means "to see" but 보고 싶다 expresses deep longing.',
+    desc_ko:  '"봄날"은 봄의 날이라는 뜻입니다. "보고 싶다"는 노래에서 반복되는 핵심 표현으로, 보다(보다)+고 싶다(원하다)의 결합이지만 깊은 그리움을 담고 있습니다.',
+    tags: ['보고 싶다', 'longing', 'seasons'],
+    url: ''
+  },
+  {
+    show_en: 'BTS',         show_ko: '방탄소년단',
+    title_en: 'IDOL performance',                     title_ko: 'IDOL 퍼포먼스',
+    desc_en:  'IDOL incorporates 얼쑤! and 좋아! — traditional Korean exclamations from pansori and folk music. 얼쑤 is an approving shout from the audience, equivalent to "bravo!" This fusion of traditional and modern is a defining K-Pop characteristic.',
+    desc_ko:  'IDOL에는 전통 판소리와 민요의 감탄사 "얼쑤!"와 "좋아!"가 담겨 있습니다. 얼쑤는 청중의 감탄사로 "브라보!"와 같습니다. 전통과 현대의 융합이 K-팝의 특징입니다.',
+    tags: ['얼쑤', 'traditional music', 'fusion'],
+    url: ''
+  },
+  {
+    show_en: 'BLACKPINK',   show_ko: '블랙핑크',
+    title_en: 'How You Like That — comeback stage', title_ko: 'How You Like That 컴백 무대',
+    desc_en:  '컴백 (comeback) is a uniquely Korean pop industry term — it simply means releasing new music/returning to the spotlight, not a return after failure. Every K-Pop release is a 컴백, tracked obsessively by fans (팬).',
+    desc_ko:  '"컴백"은 한국 팝 산업의 고유한 용어로, 실패 후 복귀가 아니라 단순히 신보 발매·활동 재개를 의미합니다. 모든 K-팝 발매는 컴백이며 팬들이 열성적으로 추적합니다.',
+    tags: ['컴백', 'industry terms', 'fandom'],
+    url: ''
+  },
+  {
+    show_en: 'BLACKPINK',   show_ko: '블랙핑크',
+    title_en: 'BLACKPINK in your area',             title_ko: '블랙핑크 인 유어 에어리어',
+    desc_en:  'The iconic fan chant (응원 문화) system. Korean fans learn precise 응원 (cheer) chants for each member during concerts. 응원 comes from 응하다 (to respond) + 원하다 (to wish) — the culture of active audience participation is uniquely Korean.',
+    desc_ko:  '아이콘적인 팬 응원 문화. 한국 팬들은 콘서트에서 멤버별 정확한 응원 구호를 배웁니다. 응원은 응하다+원하다의 합성어로, 적극적인 청중 참여 문화는 한국만의 것입니다.',
+    tags: ['응원', 'fandom culture', 'concert'],
+    url: ''
+  },
+  {
+    show_en: 'IU (아이유)',  show_ko: '아이유',
+    title_en: 'Eight — 에잇',                        title_ko: '에잇',
+    desc_en:  'IU (본명: 이지은) is one of Korea\'s most beloved artists. "Eight" explores the bittersweet feeling of being 29 — in Korean age-counting, this is especially poignant because Koreans traditionally count age differently: everyone gains a year on January 1st.',
+    desc_ko:  '아이유(본명 이지은)는 한국에서 가장 사랑받는 아티스트 중 한 명입니다. "에잇"은 스물아홉의 씁쓸달콤함을 담고 있습니다. 한국의 나이 계산법은 특이하게도 모두 1월 1일에 한 살을 더 먹습니다.',
+    tags: ['한국 나이', 'age', 'nostalgia'],
+    url: ''
+  },
+  {
+    show_en: 'IU (아이유)',  show_ko: '아이유',
+    title_en: 'Celebrity — 나는 나야',               title_ko: '셀러브리티 — 나는 나야',
+    desc_en:  '"나는 나야" (I am me) — the core lyrical message. This plain-form identity statement uses the copula 이다 in its basic declarative form, which in Korean carries more strength than its English equivalent. It\'s not a question; it\'s a declaration.',
+    desc_ko:  '"나는 나야" — 핵심 가사 메시지. 이 반말 정체성 선언은 이다의 기본 서술형을 사용하는데, 한국어에서는 영어보다 더 강한 힘을 가집니다. 의문이 아닌 선언입니다.',
+    tags: ['identity', 'copula', 'declarative'],
+    url: ''
+  },
+  {
+    show_en: 'NewJeans',    show_ko: '뉴진스',
+    title_en: 'OMG music video',                    title_ko: 'OMG 뮤직비디오',
+    desc_en:  'NewJeans popularised the 90s/Y2K aesthetic in K-Pop. Their name plays on 뉴 (new) + jeans — simple but memorable. Notice how 뉴진스 pronounces English loanwords with Korean phonology: "진스" not "jeans" — a feature of 외래어 (foreign loanwords).',
+    desc_ko:  '뉴진스는 K-팝에 90년대·Y2K 미학을 대중화했습니다. 이름은 뉴+진스의 조합입니다. 영어 외래어를 한국어 음운으로 발음하는 방식 — "진스" not "jeans" — 이 외래어의 특징입니다.',
+    tags: ['외래어', 'loanwords', 'pronunciation'],
+    url: ''
+  },
+  {
+    show_en: 'NewJeans',    show_ko: '뉴진스',
+    title_en: 'Hype Boy choreography',             title_ko: '하입보이 안무',
+    desc_en:  'K-Pop choreography (안무) culture — fans learn and perform the exact same dance as idols in 커버댄스 (cover dance) videos. 안무 comes from 안 (plan/arrange) + 무 (dance/movement 舞). Fan recreation is a massive cultural industry.',
+    desc_ko:  'K-팝 안무 문화 — 팬들이 아이돌과 똑같은 춤을 배워 커버댄스 영상을 만듭니다. 안무는 안(계획)+무(춤 舞)의 합성어입니다. 팬 재현은 거대한 문화 산업입니다.',
+    tags: ['안무', '커버댄스', 'fandom'],
+    url: ''
+  },
+  {
+    show_en: 'aespa',       show_ko: '에스파',
+    title_en: 'Black Mamba — ae universe', title_ko: 'Black Mamba — æ 세계관',
+    desc_en:  'aespa\'s "세계관" (世界觀, world view/lore) concept is central to their identity. 세계관 literally means "world-view" — in K-Pop it refers to the fictional universe each group builds. 世界觀: 세계(world) + 관(view/perspective).',
+    desc_ko:  '에스파의 "세계관"은 그들의 정체성의 핵심입니다. 세계관(世界觀)은 문자 그대로 "세계 관점"이며 K-팝에서는 그룹이 구축하는 허구적 세계를 의미합니다: 세계+관.',
+    tags: ['세계관', '한자어', 'K-pop lore'],
+    url: ''
+  },
+  {
+    show_en: 'TWICE',       show_ko: '트와이스',
+    title_en: 'CHEER UP — 오빠 절대 못 잊어', title_ko: 'CHEER UP — 오빠 절대 못 잊어',
+    desc_en:  '"오빠" (older brother, used by women toward older men) became globally known through K-Pop. It shows how Korean family terms are repurposed as terms of affection/admiration. The hierarchy embedded in Korean address terms is a key cultural concept.',
+    desc_ko:  '"오빠"(여성이 연상 남성에게 쓰는 호칭)는 K-팝을 통해 세계적으로 알려졌습니다. 한국의 가족 호칭이 애정·존경의 표현으로 전용되는 방식은 핵심 문화 개념입니다.',
+    tags: ['오빠', 'honorifics', 'address terms'],
+    url: ''
+  },
+  {
+    show_en: 'EXO',         show_ko: '엑소',
+    title_en: 'Growl — 으르렁',                    title_ko: '으르렁',
+    desc_en:  '"으르렁" is an onomatopoeia for a growl/snarl — animals do it, angry people do it. Korean is rich in onomatopoeia (의성어) and mimetic words (의태어). 으르렁 is 의성어 (sound-imitation). Learning Korean sound words is deeply expressive.',
+    desc_ko:  '"으르렁"은 으르렁대는 소리를 나타내는 의성어입니다. 한국어는 의성어(소리)와 의태어(모양)가 매우 풍부합니다. 한국어 소리 단어를 배우면 표현이 훨씬 풍부해집니다.',
+    tags: ['의성어', 'onomatopoeia', 'vocabulary'],
+    url: ''
+  },
+  {
+    show_en: 'SHINee',      show_ko: '샤이니',
+    title_en: 'View — the comeback',               title_ko: 'View — 컴백',
+    desc_en:  'SHINee\'s "View" is noted for 온유 (Onew)\'s distinct vocal timbre. Korean music fans use "목소리" (voice/timbre, literally "throat voice") and "음색" (tone colour) as distinct concepts. 음색: 音(sound) + 色(colour) — a synesthetic vocabulary.',
+    desc_ko:  '샤이니 "View"는 온유의 독특한 음색으로 유명합니다. 한국 팬들은 목소리와 음색을 별개 개념으로 씁니다. 음색: 音(소리)+色(색깔) — 공감각적 어휘입니다.',
+    tags: ['음색', '한자어', 'vocal culture'],
+    url: ''
+  },
+  {
+    show_en: 'G-Dragon',    show_ko: 'G-드래곤',
+    title_en: 'Crooked — 삐딱하게',               title_ko: '삐딱하게',
+    desc_en:  '"삐딱하게" means crookedly/askew — living diagonally, not straight. The adverb comes from 삐딱하다 (to be slanted/contrarian). G-Dragon\'s use of everyday descriptive words as philosophical statements is a trademark of his songwriting style.',
+    desc_ko:  '"삐딱하게"는 비스듬히·삐딱하게라는 부사입니다. G-드래곤이 일상 묘사 단어를 철학적 선언으로 사용하는 방식은 그의 작사 특징입니다.',
+    tags: ['adverb', 'descriptive words', 'philosophy'],
+    url: ''
+  },
+  {
+    show_en: 'Lee Hi (이하이)', show_ko: '이하이',
+    title_en: 'ONLY — 그리워',                    title_ko: 'ONLY — 그리워',
+    desc_en:  '"그리워" comes from 그립다 — to miss, to long for. Unlike 보고 싶다 (I want to see you), 그립다 carries a deeper, more permanent ache — the longing for something or someone that may never return. Two different words for missing in Korean.',
+    desc_ko:  '"그리워"는 그립다에서 나온 말입니다. 보고 싶다(보고 싶다)와 달리, 그립다는 더 깊고 영구적인 아픔 — 다시는 돌아오지 않을 수도 있는 것에 대한 그리움을 담습니다.',
+    tags: ['그립다', 'longing', 'emotion vocabulary'],
+    url: ''
+  },
+  {
+    show_en: 'Epik High',   show_ko: '에픽하이',
+    title_en: 'Umbrella — 우산',                  title_ko: '우산',
+    desc_en:  '"우산" (umbrella) is used as a metaphor for shelter and protection. Epik High\'s hip-hop uses 은유 (metaphor) extensively — 은유: 隱(hidden) + 喩(parable/analogy). Korean literary devices in modern music are worth studying.',
+    desc_ko:  '"우산"은 피난처와 보호의 은유로 사용됩니다. 에픽하이의 힙합은 은유(隱喩: 숨겨진+비유)를 광범위하게 사용합니다. 현대 음악 속 한국 수사학적 표현입니다.',
+    tags: ['은유', 'metaphor', 'hip-hop'],
+    url: ''
+  },
+  {
+    show_en: 'BIGBANG',     show_ko: '빅뱅',
+    title_en: 'Bang Bang Bang performance',        title_ko: '뱅뱅뱅 퍼포먼스',
+    desc_en:  'BIGBANG is credited with defining the "idol who writes their own music" (자작곡 아이돌) concept. 자작곡: 自(self) + 作(create) + 曲(song). This distinction carries enormous prestige in Korean music culture.',
+    desc_ko:  '빅뱅은 "자작곡 아이돌" 개념을 정의한 그룹으로 평가받습니다. 자작곡: 自(스스로)+作(만들다)+曲(노래). 이 구분은 한국 음악 문화에서 막대한 위상을 가집니다.',
+    tags: ['자작곡', '한자어', 'idol culture'],
+    url: ''
+  },
+  {
+    show_en: 'Stray Kids',  show_ko: '스트레이 키즈',
+    title_en: 'MIROH — 나의 길',                  title_ko: 'MIROH — 나의 길',
+    desc_en:  '"MIROH" (미로, 迷路) means maze/labyrinth — 迷(lost) + 路(road). Stray Kids are known for dense, self-written rap lyrics exploring identity and pressure. 미로 is used as a metaphor for the uncertain path of youth.',
+    desc_ko:  '"MIROH"(미로, 迷路)는 미궁을 의미합니다 — 迷(길을 잃다)+路(길). 스트레이 키즈는 정체성과 압박을 탐구하는 밀도 있는 자작 랩 가사로 유명합니다.',
+    tags: ['미로', '한자어', 'self-written'],
+    url: ''
+  },
+  {
+    show_en: 'Red Velvet',  show_ko: '레드벨벳',
+    title_en: 'Psycho — 나쁜 감정',               title_ko: 'Psycho — 나쁜 감정',
+    desc_en:  'Red Velvet\'s dual concept — "red" (upbeat, bright) and "velvet" (dark, sensual) — is expressed through their name itself. In Korean, 빨간 (red/passionate) vs 우아한 (velvet/elegant) are cultural colour associations worth knowing.',
+    desc_ko:  '레드벨벳의 이중 콘셉트 — 레드(밝고 경쾌함)와 벨벳(어둡고 관능적) — 이 이름 자체에 담겨 있습니다. 빨간(열정적)과 우아한(우아한)은 알아두면 좋은 한국의 색채 연상입니다.',
+    tags: ['colour vocab', 'concept', 'dual identity'],
+    url: ''
+  },
+  {
+    show_en: 'Park Jimin (지민)', show_ko: '지민',
+    title_en: 'Promise — 약속',                   title_ko: '약속',
+    desc_en:  '"약속" (約束, promise/appointment) is deeply woven into Korean social fabric. 약속 means both a formal promise AND simply meeting up with someone — "약속 있어?" means "Do you have plans?" This dual meaning reflects Korean relational culture.',
+    desc_ko:  '"약속"(約束)은 약속과 단순한 만남 모두를 의미합니다. "약속 있어?"는 "계획 있어?"를 뜻합니다. 이 이중 의미는 한국의 관계 중심 문화를 반영합니다.',
+    tags: ['약속', '한자어', 'social culture'],
+    url: ''
+  },
+  {
+    show_en: 'SEVENTEEN',   show_ko: '세븐틴',
+    title_en: 'Very Nice — 아주 NICE',            title_ko: '아주 NICE',
+    desc_en:  'SEVENTEEN has 13 members in 3 units: vocal (보컬), performance (퍼포먼스), and hip-hop (힙합). This unit system (유닛) is unique to K-Pop — individual sub-groups within one group, each with distinct artistic direction.',
+    desc_ko:  '세븐틴은 보컬·퍼포먼스·힙합 세 유닛으로 구성된 13인조 그룹입니다. 유닛 시스템은 K-팝 고유의 시스템으로, 한 그룹 안에 각기 다른 예술 방향의 소그룹이 존재합니다.',
+    tags: ['유닛', 'group structure', 'K-pop system'],
+    url: ''
+  },
+  {
+    show_en: 'MAMAMOO',     show_ko: '마마무',
+    title_en: 'Um Oh Ah Yeah',                   title_ko: '음오아예',
+    desc_en:  '"음오아예" is a sequence of Korean vowel sounds — 음, 오, 아, 예 — functioning as a playful nonsense hook. In Korean, vowels carry meaning as interjections: 음 (hmm), 오 (oh), 아 (ah), 예 (yes). Even "nonsense" in Korean has linguistic structure.',
+    desc_ko:  '"음오아예"는 한국어 모음 음·오·아·예의 연속으로, 유쾌한 훅 역할을 합니다. 한국어에서 모음은 감탄사로 의미를 지닙니다: 음(흠), 오(오), 아(아), 예(예). "무의미한" 말도 구조가 있습니다.',
+    tags: ['vowels', 'interjections', 'wordplay'],
+    url: ''
+  },
+  {
+    show_en: 'LE SSERAFIM', show_ko: '르세라핌',
+    title_en: 'FEARLESS debut stage',             title_ko: 'FEARLESS 데뷔 무대',
+    desc_en:  '데뷔 (debut) is a critical milestone in K-Pop. Groups spend years in 연습생 (trainee) system before debuting. 연습생: 練(practice) + 習(learn) + 生(student) — the intense training culture is a defining feature of K-Pop production.',
+    desc_ko:  '"데뷔"는 K-팝에서 중요한 이정표입니다. 그룹들은 데뷔 전 수년간 연습생 시스템을 거칩니다. 연습생: 練(연습)+習(배우다)+生(학생) — 강도 높은 트레이닝 문화가 K-팝의 특징입니다.',
+    tags: ['데뷔', '연습생', 'idol system'],
+    url: ''
+  },
+  {
+    show_en: 'Oh My Girl',  show_ko: '오마이걸',
+    title_en: 'Dun Dun Dance — 던던댄스',         title_ko: '던던댄스',
+    desc_en:  'Korean music has a rich tradition of 후렴구 (chorus/refrain hook) — catchy, repetitive sections designed for fans to sing along. 후렴: 後(after) + 廉(modest) — a classical term now embedded in modern pop structure.',
+    desc_ko:  '한국 음악에는 후렴구(後廉句) 전통이 있습니다 — 팬들이 함께 부를 수 있도록 설계된 반복 구간. 후렴: 後(뒤)+廉(검소) — 현대 팝 구조에 뿌리내린 고전 음악 용어입니다.',
+    tags: ['후렴구', '한자어', 'song structure'],
+    url: ''
+  },
+  {
+    show_en: 'Crush',       show_ko: '크러쉬',
+    title_en: '좋아해 — I like you',              title_ko: '좋아해',
+    desc_en:  '좋아해 (I like you) vs 사랑해 (I love you) — a critical distinction. In Korean, confessing feelings uses a specific escalation: 좋아해 → 좋아해요 → 정말 좋아해 → 사랑해. Koreans do not say 사랑해 lightly. Crush captures this emotional nuance.',
+    desc_ko:  '좋아해(좋아하다)와 사랑해(사랑하다)의 차이. 한국어 고백에는 단계가 있습니다: 좋아해 → 좋아해요 → 정말 좋아해 → 사랑해. 한국인은 사랑해를 가볍게 쓰지 않습니다.',
+    tags: ['좋아해', '사랑해', 'confession vocabulary'],
+    url: ''
+  },
+  {
+    show_en: 'Dean',        show_ko: '딘',
+    title_en: '풀어 (D (Half Moon))',            title_ko: '풀어',
+    desc_en:  'Dean\'s R&B blends Standard Korean with colloquial Seoulite speech. "풀어" comes from 풀다 — to untie/loosen/relax. The word covers both physical loosening and emotional release. Korean often uses one verb for both physical and metaphorical states.',
+    desc_ko:  '딘의 R&B는 표준어와 서울 구어체를 혼합합니다. "풀어"는 풀다에서 온 말로 물리적인 풀림과 감정적 해방 모두를 뜻합니다. 한국어는 종종 물리적·은유적 상태에 같은 동사를 씁니다.',
+    tags: ['풀다', 'R&B', 'polysemy'],
+    url: ''
+  },
+  {
+    show_en: 'Heize',       show_ko: '헤이즈',
+    title_en: 'We Don\'t Talk Together',         title_ko: '우리 말 안 해',
+    desc_en:  '"우리 말 안 해" uses "우리" (we/our) — one of Korean\'s most distinctive features. Koreans use 우리 where English uses "my": 우리 엄마 (my mom), 우리나라 (my country). The collective "we" is deeply embedded in Korean identity.',
+    desc_ko:  '"우리 말 안 해"에서 "우리"는 한국어의 가장 독특한 특징 중 하나입니다. 한국인은 영어의 my 자리에 우리를 씁니다: 우리 엄마, 우리나라. 집단적 "우리"는 한국 정체성에 깊이 새겨져 있습니다.',
+    tags: ['우리', 'collective we', 'cultural linguistics'],
+    url: ''
+  },
+  {
+    show_en: 'Zion.T',      show_ko: '자이언티',
+    title_en: 'Yanghwa BRDG',                   title_ko: '양화대교',
+    desc_en:  '양화대교 (Yanghwa Bridge) is a real bridge in Seoul over the Han River (한강). The Han River is central to Seoul\'s geography and culture — 한강 picnics (치맥) are iconic. Songs about specific Seoul locations carry deep nostalgic weight for Koreans.',
+    desc_ko:  '양화대교는 서울 한강의 실제 다리입니다. 한강은 서울의 지리와 문화의 중심이며, 한강 피크닉(치맥)은 아이콘적입니다. 특정 서울 장소를 담은 노래는 한국인에게 깊은 향수를 불러옵니다.',
+    tags: ['한강', 'Seoul geography', 'nostlagia'],
+    url: ''
+  },
+  {
+    show_en: 'Baekhyun',    show_ko: '백현',
+    title_en: 'UN Village — 유엔빌리지',         title_ko: 'UN Village',
+    desc_en:  'UN Village is a real luxury residential area in Seoul near 한강 (Han River). Korean songs frequently use real Seoul neighbourhoods as shorthand for lifestyle and aspiration. Knowing Seoul\'s geography unlocks layers of meaning in K-Pop.',
+    desc_ko:  'UN Village는 한강 근처의 실제 서울 고급 주거 지역입니다. 한국 노래는 실제 서울 동네를 라이프스타일과 열망의 상징으로 자주 사용합니다. 서울 지리를 알면 K-팝의 의미층이 열립니다.',
+    tags: ['Seoul districts', 'lifestyle', 'geography'],
+    url: ''
+  },
+  {
+    show_en: 'AKMU',        show_ko: '악동뮤지션',
+    title_en: '어떻게 이별까지 사랑하겠어, 널 사랑하는 거지', title_ko: '어떻게 이별까지 사랑하겠어',
+    desc_en:  'AKMU\'s title is a full philosophical sentence as a song title — a Korean tradition. "어떻게 이별까지 사랑하겠어, 널 사랑하는 거지" — How can I love you through a breakup, it\'s just that I love you. The grammar ~는 거지 softens a declaration into a vulnerable admission.',
+    desc_ko:  'AKMU는 철학적 문장을 제목으로 쓰는 한국 전통을 따릅니다. "~는 거지" 구조는 선언을 취약한 고백으로 부드럽게 만들어줍니다.',
+    tags: ['~는 거지', 'song title grammar', 'breakup'],
+    url: ''
+  }
+];
+
+var HERO = {
+  en: { eyebrow: '🎵 Category', title: 'K-Music', sub: 'Performance moments, behind-the-scenes clips, and MV highlights from K-Pop and Korean music — with cultural and lyrical context for every short.' },
+  ko: { eyebrow: '🎵 카테고리', title: 'K-뮤직',  sub: 'K-팝과 한국 음악의 퍼포먼스 순간, 비하인드 클립, MV 하이라이트 — 모든 쇼츠마다 문화적·가사적 맥락이 함께합니다.' }
+};
+var LABELS = {
+  en: { section: '🎵 30 Featured Shorts', watch: '▶ Watch Short', pending: '▶ Short Coming Soon' },
+  ko: { section: '🎵 30개 추천 쇼츠',    watch: '▶ 쇼츠 보기',  pending: '▶ 쇼츠 준비 중' }
+};
+
+function buildGrid() {
+  var isKo = getLang() === 'ko'; var lang = isKo ? 'ko' : 'en';
+  var lbl = LABELS[lang]; var hero = HERO[lang];
+  document.getElementById('hero-eyebrow').textContent  = hero.eyebrow;
+  document.getElementById('hero-title').textContent    = hero.title;
+  document.getElementById('hero-sub').textContent      = hero.sub;
+  document.getElementById('section-label').textContent = lbl.section;
+  document.body.className = isKo ? 'lang-ko' : '';
+  var html = '';
+  SHORTS.forEach(function(s, i) {
+    var num = i + 1; var isLive = s.url && s.url.length > 10;
+    var watchBtn = isLive
+      ? '<a class="btn-watch" href="' + s.url + '" target="_blank" rel="noopener">▶ ' + lbl.watch + '</a>'
+      : '<button class="btn-watch pending">▶ ' + lbl.pending + '</button>';
+    var tags = s.tags.map(function(t){ return '<span class="short-tag">'+t+'</span>'; }).join('');
+    html += '<div class="short-card"><div class="short-thumb"><div class="short-play-btn"><div class="short-play-icon">▶</div></div><span class="short-num">#'+num+'</span></div>';
+    html += '<div class="short-body"><div class="short-show">'+(isKo?s.show_ko:s.show_en)+'</div>';
+    html += '<div class="short-title-en">'+s.title_en+'</div><div class="short-title-ko">'+s.title_ko+'</div>';
+    html += '<div class="short-desc-en">'+s.desc_en+'</div><div class="short-desc-ko">'+s.desc_ko+'</div>';
+    html += '<div class="short-tags">'+tags+'</div><div class="short-actions">'+watchBtn+'</div></div></div>';
+  });
+  document.getElementById('shortsGrid').innerHTML = html;
+}
+function applyPageLang() { buildGrid(); }
+window.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('topbar-lang-wrap').innerHTML = buildLangToggle();
+  buildGrid();
+});
+</script>
+</body>
+</html>
