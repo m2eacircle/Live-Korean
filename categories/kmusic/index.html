@@ -46,7 +46,17 @@
 <body>
 <header class="topbar">
   <div class="topbar-left">
-    <button class="btn-topbar-home" onclick="window.location.href='../../index.html'" title="Home">&#127968;</button>
+    <button class="btn-topbar-home" onclick="window.location.href='../../index.html'" title="Home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="22" height="22" aria-label="Home">
+  <!-- White background circle -->
+  <circle cx="50" cy="50" r="49" fill="white" stroke="#ccc" stroke-width="1"/>
+  <!-- Red (top) Taegeuk half -->
+  <path d="M50,10 A40,40 0 0,1 50,90 A20,20 0 0,1 50,50 A20,20 0 0,0 50,10 Z" fill="#CD2E3A"/>
+  <!-- Blue (bottom) Taegeuk half -->
+  <path d="M50,10 A40,40 0 0,0 50,90 A20,20 0 0,0 50,50 A20,20 0 0,1 50,10 Z" fill="#003478"/>
+  <!-- Inner circles -->
+  <circle cx="50" cy="30" r="10" fill="#CD2E3A"/>
+  <circle cx="50" cy="70" r="10" fill="#003478"/>
+</svg></button>
     <div class="topbar-logo"><span class="logo-live">Live</span><div class="logo-dot"></div><span class="logo-korea">Korea</span></div>
   </div>
   <div class="topbar-right" id="topbar-lang-wrap"></div>
