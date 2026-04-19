@@ -20,6 +20,10 @@
     .cat-card[data-cat="kmusic"]:hover  { border-color: #7c3aed; box-shadow: 0 8px 32px rgba(124,58,237,0.18); }
     .cat-card[data-cat="kent"]:hover    { border-color: #0891b2; box-shadow: 0 8px 32px rgba(8,145,178,0.18); }
 
+    /* Disable hover effects on unavailable cards */
+    .cat-card.coming { cursor: not-allowed; }
+    .cat-card.coming:hover { border-color: var(--border) !important; box-shadow: none !important; }
+
     /* ── Category banner gradients ──────────────────────── */
     .kdrama-banner { background: linear-gradient(135deg, #fff0f4 0%, #ffd6e4 50%, #ffe4ee 100%); }
     .kmusic-banner { background: linear-gradient(135deg, #f5f0ff 0%, #ddd6fe 50%, #ede9fe 100%); }
@@ -74,16 +78,16 @@
       z-index: 2;
     }
     .cat-coming-pill span {
-      background: rgba(255,255,255,0.92);
-      color: var(--accent2);
+      background: rgba(30,20,20,0.72);
+      color: #fff;
       font-size: 0.72rem;
       font-weight: 800;
-      padding: 5px 14px;
+      padding: 5px 16px;
       border-radius: 20px;
       letter-spacing: 1.2px;
       text-transform: uppercase;
-      border: 1px solid var(--border2);
-      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(6px);
     }
     .cat-body {
       padding: 16px 18px 18px;
@@ -387,7 +391,8 @@
   <div class="cat-grid">
 
     <!-- K-DRAMA -->
-    <a class="cat-card" data-cat="kdrama" href="categories/kdrama/index.html">
+    <!-- To re-enable: change <div> back to <a href="categories/kdrama/index.html">, remove "coming", set data-available="true" -->
+    <div class="cat-card coming" data-cat="kdrama" data-available="false">
       <div class="cat-banner kdrama-banner">
         <img src="images/kdrama-banner.jpg" alt="K-Drama"
           style="width:100%;height:100%;object-fit:cover;display:block;"
@@ -395,16 +400,17 @@
         <div class="cat-banner-emoji" style="display:none;">🎬</div>
         <div class="cat-banner-overlay"></div>
       </div>
+      <div class="cat-coming-pill"><span data-i18n="cat.unavailable">Unavailable</span></div>
       <div class="cat-body">
         <div class="cat-title" data-i18n="cat.kdrama.name">K-Drama</div>
         <div class="cat-subtitle" data-i18n="cat.kdrama.sub">Korean Dramas</div>
-        <div class="cat-coming-text" data-i18n="cat.count.kdrama">30 Shorts · Add URL to go live</div>
       </div>
-      <span class="cat-badge">🎬 30 Shorts</span>
-    </a>
+      <span class="cat-badge coming-badge">🔒 Unavailable</span>
+    </div>
 
     <!-- K-MUSIC -->
-    <a class="cat-card" data-cat="kmusic" href="categories/kmusic/index.html">
+    <!-- To re-enable: change <div> back to <a href="categories/kmusic/index.html">, remove "coming", set data-available="true" -->
+    <div class="cat-card coming" data-cat="kmusic" data-available="false">
       <div class="cat-banner kmusic-banner">
         <img src="images/kmusic-banner.jpg" alt="K-Music"
           style="width:100%;height:100%;object-fit:cover;display:block;"
@@ -412,16 +418,17 @@
         <div class="cat-banner-emoji" style="display:none;">🎵</div>
         <div class="cat-banner-overlay"></div>
       </div>
+      <div class="cat-coming-pill"><span data-i18n="cat.unavailable">Unavailable</span></div>
       <div class="cat-body">
         <div class="cat-title" data-i18n="cat.kmusic.name">K-Music</div>
         <div class="cat-subtitle" data-i18n="cat.kmusic.sub">K-Pop &amp; Beyond</div>
-        <div class="cat-coming-text" data-i18n="cat.count.kmusic">30 Shorts · Add URL to go live</div>
       </div>
-      <span class="cat-badge" style="background:var(--accent2);">🎵 30 Shorts</span>
-    </a>
+      <span class="cat-badge coming-badge">🔒 Unavailable</span>
+    </div>
 
     <!-- K-ENTERTAINMENT -->
-    <a class="cat-card" data-cat="kent" href="categories/kent/index.html">
+    <!-- To re-enable: change <div> back to <a href="categories/kent/index.html">, remove "coming", set data-available="true" -->
+    <div class="cat-card coming" data-cat="kent" data-available="false">
       <div class="cat-banner kent-banner">
         <img src="images/kent-banner.jpg" alt="K-Entertainment"
           style="width:100%;height:100%;object-fit:cover;display:block;"
@@ -429,13 +436,13 @@
         <div class="cat-banner-emoji" style="display:none;">🎤</div>
         <div class="cat-banner-overlay"></div>
       </div>
+      <div class="cat-coming-pill"><span data-i18n="cat.unavailable">Unavailable</span></div>
       <div class="cat-body">
         <div class="cat-title" data-i18n="cat.kent.name">K-Entertainment</div>
         <div class="cat-subtitle" data-i18n="cat.kent.sub">Variety &amp; More</div>
-        <div class="cat-coming-text" data-i18n="cat.count.kent">30 Shorts · Add URL to go live</div>
       </div>
-      <span class="cat-badge" style="background:var(--accent3);">🎤 30 Shorts</span>
-    </a>
+      <span class="cat-badge coming-badge">🔒 Unavailable</span>
+    </div>
 
   </div><!-- /cat-grid -->
 
