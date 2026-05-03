@@ -1,5 +1,5 @@
 /* ============================================================
-   Live Korean — Guardian: The Lonely and Great God
+   Hidden K-Drama Stories — Guardian: The Lonely and Great God
    드라마 데이터 (30 expressions × 16 episodes)
    ============================================================ */
 
