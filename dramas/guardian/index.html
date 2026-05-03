@@ -113,7 +113,11 @@
   </div>
 
   <div class="section-label" id="ep-section-label">&#127381; YouTube Shorts &mdash; 24 Stories</div>
-  <div class="episode-grid" id="shortsGrid"></div>
+  <div style="margin-bottom:40px;">
+    <a class="btn-nav" href="short.html" style="display:inline-flex;align-items:center;gap:8px;padding:12px 22px;font-size:0.95rem;font-weight:800;background:linear-gradient(135deg,var(--accent),#d91a60);color:#fff;border:none;border-radius:var(--radius-sm);text-decoration:none;transition:var(--transition);" id="btn-view-shorts">
+      &#127381; <span id="shorts-btn-lbl">View All 24 YouTube Shorts</span>
+    </a>
+  </div>
 
 </div>
 </main>
@@ -125,61 +129,6 @@
 
 <script src="../../js/app.js"></script>
 <script>
-
-  var SHORTS_COUNT = 24;
-  var SHORT_EMOJIS = ['&#127754;','&#9889;','&#128142;','&#10052;','&#127819;','&#128161;','&#127775;','&#9728;','&#128218;','&#127968;','&#127381;','&#128587;','&#128007;','&#128248;','&#128336;','&#9885;','&#127881;','&#128064;','&#127917;','&#9997;','&#127881;','&#127979;','&#128131;','&#128278;'];
-  var SHORT_TITLES_EN = [
-    'Road Sign Anachronism in Episode 1',
-    'The Secret of the Stopped Calendar',
-    'Filming Locations: Duksung & Quebec',
-    "Sunny's House Also in Secret Garden!",
-    "Ji Eun-tak's School Filming Locations",
-    'Did the Secretary Reincarnate as the Villain?',
-    'The Hierarchy of Divine Beings',
-    'Taiwanese Fans Won the Lottery!',
-    "Gong Yoo's Casting Took 5 Years",
-    'Why the Phone Changed Mid-Drama',
-    'Even Quebec Locals Know Goblin',
-    'Fashion Codes of the Main Characters',
-    'What the Male Leads Have in Common',
-    'Goblin Inspired the Film Suzume',
-    "Gong Yoo & Lee Dong-wook's Improvisations",
-    'The Guardian vs Goblin Translation Debate',
-    'Characters Reunited Across Lifetimes',
-    'Supporting Actors Who Became Stars',
-    'The Actors Watch Their Own Works in the Drama',
-    'Lee Dong-wook Chased the Writer onto a Plane',
-    "The Double Meaning of Ordering 'Heaven'",
-    'Is Yeonhee University Actually Yonsei?',
-    "Ji Eun-tak's Uniform is the Actress's Real School Uniform",
-    'Reality vs Drama at the Essay Exam Location'
-  ];
-  var SHORT_TITLES_KO = [
-    '1화 도로명표지판 오류',
-    '1화 달력의 비밀',
-    '촬영지: 덕성여대와 퀘벡',
-    '써니의 집은 시크릿 가든에도!',
-    '지은탁 학교 촬영지',
-    '김 비서와 간신, 환생한 걸까?',
-    '도깨비 세계관의 신격 존재들',
-    '대만 팬이 도깨비 복권에 당첨!',
-    '공유 캐스팅에 5년이 걸린 이유',
-    '갤럭시 노트7에서 S7으로 바뀐 이유',
-    '퀘벡 현지인도 도깨비를 안다',
-    '주인공들의 패션 코드',
-    '주연 남자 배우들의 공통점',
-    '스즈메의 문단속에 영감을 준 도깨비',
-    '공유와 이동욱의 즉흥 연기',
-    '도깨비 vs 고블린 번역 논란',
-    '전생의 인연으로 다시 만나는 인물들',
-    '조연·단역에서 주연으로 성장한 배우들',
-    '극중 영화와 드라마 속 본인 출연!',
-    '이동욱이 비행기까지 타고 쫓아간 캐스팅',
-    '천국 주문의 중의적 의미',
-    '연희대학교는 연세대학교?',
-    '지은탁의 교복은 실제 배우의 모교 교복',
-    '논술 시험장 촬영의 현실과 드라마 차이'
-  ];
 
   function goHome() { window.location.href = '../../index.html'; }
 
@@ -196,52 +145,11 @@
     document.getElementById('ep-section-label').innerHTML = isKo
       ? '&#127381; 유튜브 쇼츠 &mdash; 24개 스토리'
       : '&#127381; YouTube Shorts &mdash; 24 Stories';
+    document.getElementById('shorts-btn-lbl').textContent = isKo
+      ? '유튜브 쇼츠 24개 전체 보기'
+      : 'View All 24 YouTube Shorts';
     document.getElementById('desc-en').style.display = isKo ? 'none' : 'block';
     document.getElementById('desc-ko').style.display = isKo ? 'block' : 'none';
-    buildShortsGrid();
-  }
-
-  function buildShortsGrid() {
-    var isKo = getLang() === 'ko';
-    var grid = document.getElementById('shortsGrid');
-    if (!grid) return;
-    grid.innerHTML = '';
-
-    for (var s = 1; s <= SHORTS_COUNT; s++) {
-      var bmId = 'guardian-short' + s;
-      var card = document.createElement('a');
-      card.className = 'episode-card';
-      card.href = 'shorts/short' + s + '.html';
-
-      var bmBtn = document.createElement('button');
-      bmBtn.className = 'bm-corner';
-      bmBtn.setAttribute('data-bm-id', bmId);
-      bmBtn.title = isKo ? '저장' : 'Bookmark';
-      bmBtn.innerHTML = '&#128278;';
-      (function(sn) {
-        bmBtn.addEventListener('click', function(evt) {
-          evt.preventDefault(); evt.stopPropagation();
-          toggleBookmark('short','guardian-short'+sn,'&#127754; Guardian Story '+sn,'dramas/guardian/shorts/short'+sn+'.html');
-        });
-      })(s);
-      card.appendChild(bmBtn);
-
-      var ph = document.createElement('div');
-      ph.className = 'ep-img-placeholder';
-      var emoji = SHORT_EMOJIS[(s - 1) % SHORT_EMOJIS.length];
-      ph.innerHTML = emoji + '<span class="episode-num-badge">#' + s + '</span>';
-      card.appendChild(ph);
-
-      var body = document.createElement('div');
-      body.className = 'episode-card-body';
-      var titleText = isKo ? SHORT_TITLES_KO[s-1] : SHORT_TITLES_EN[s-1];
-      body.innerHTML = '<div class="episode-card-title" style="font-size:0.82rem;line-height:1.4;">' + titleText + '</div>'
-        + '<div class="episode-card-desc">&#127381; ' + (isKo ? '유튜브 쇼츠' : 'YouTube Short') + '</div>';
-      card.appendChild(body);
-
-      grid.appendChild(card);
-    }
-    syncBookmarkButtons();
   }
 
   window.addEventListener('DOMContentLoaded', function() {
