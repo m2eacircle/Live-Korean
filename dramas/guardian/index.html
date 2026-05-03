@@ -558,14 +558,6 @@
     document.getElementById('shorts-label').innerHTML   = isKo
       ? '&#127381; 유튜브 쇼츠 &mdash; 24개 스토리'
       : '&#127381; YouTube Shorts &mdash; 24 Stories';
-    document.getElementById('desc-en').style.display = isKo ? 'none' : 'block';
-    document.getElementById('desc-ko').style.display = isKo ? 'block' : 'none';
-    document.querySelectorAll('[data-lang-en]').forEach(function(el) {
-      el.style.display = isKo ? 'none' : '';
-    });
-    document.querySelectorAll('[data-lang-ko]').forEach(function(el) {
-      el.style.display = isKo ? '' : 'none';
-    });
   }
 
   window.addEventListener('DOMContentLoaded', function() {

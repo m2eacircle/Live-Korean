@@ -71,10 +71,10 @@ function applyLang() {
     }
   });
   document.querySelectorAll('[data-lang-en]').forEach(function(el) {
-    el.style.display = (lang === 'en') ? 'block' : 'none';
+    el.style.display = (lang === 'en') ? '' : 'none';
   });
   document.querySelectorAll('[data-lang-ko]').forEach(function(el) {
-    el.style.display = (lang === 'ko') ? 'block' : 'none';
+    el.style.display = (lang === 'ko') ? '' : 'none';
   });
 }
 
@@ -94,9 +94,9 @@ var LK_I18N = {
     'home.hero.title': '🎬 <span class="hero-accent">Hidden</span> K-Drama Stories',
     'home.hero.sub': 'Untold backstories, behind-the-scenes secrets, and fascinating trivia from your favourite K-Dramas.',
     'home.shows.label': '📺 Dramas',
-    'guardian.meta': '16 Episodes · 480 Shorts · Fantasy Romance',
-    'glory.meta': '16 Episodes · 480 Shorts · Thriller Drama',
-    'aouad.meta': '12 Episodes · 360 Shorts · Zombie Thriller',
+    'guardian.meta': '24 YouTube Shorts · Fantasy Romance',
+    'glory.meta': 'Coming Soon · Thriller Drama',
+    'aouad.meta': 'Coming Soon · Zombie Thriller',
     'bm.bar.title': 'Bookmarks — Jump back in',
     'bm.empty': 'No bookmarks yet. Tap 🔖 to save your spot.',
     'bm.toast.added': '🔖 Bookmarked!',
@@ -110,9 +110,9 @@ var LK_I18N = {
     'home.hero.title': '🎬 숨겨진 <span class="hero-kr">K-드라마</span> 이야기',
     'home.hero.sub': '좋아하는 K-드라마의 숨겨진 뒷이야기, 촬영 비하인드, 흥미로운 트리비아를 만나보세요.',
     'home.shows.label': '📺 드라마',
-    'guardian.meta': '16화 · 480개 쇼츠 · 판타지 로맨스',
-    'glory.meta': '16화 · 480개 쇼츠 · 스릴러 드라마',
-    'aouad.meta': '12화 · 360개 쇼츠 · 좀비 스릴러',
+    'guardian.meta': '유튜브 쇼츠 24개 · 판타지 로맨스',
+    'glory.meta': '준비 중 · 스릴러 드라마',
+    'aouad.meta': '준비 중 · 좀비 스릴러',
     'bm.bar.title': '북마크 — 이어보기',
     'bm.empty': '아직 북마크가 없습니다. 🔖 버튼으로 저장하세요.',
     'bm.toast.added': '🔖 북마크 저장됨!',

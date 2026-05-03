@@ -407,6 +407,17 @@ function agreeAndEnter() {
 }
 
 /* ── Init ─────────────────────────────────────────────────── */
+function applyPageLang() {
+  var isKo = getLang() === 'ko';
+  document.documentElement.lang = isKo ? 'ko' : 'en';
+  var eyebrow = document.querySelector('.home-hero-eyebrow');
+  if (eyebrow) eyebrow.textContent = isKo ? '✨ K-드라마 뒷이야기 & 트리비아' : '✨ K-Drama Backstories & Trivia';
+  var gloryMeta  = document.querySelector('.show-card[data-show="glory"] .show-card-meta');
+  var aouadMeta  = document.querySelector('.show-card[data-show="aouad"] .show-card-meta');
+  if (gloryMeta)  gloryMeta.textContent  = isKo ? '준비 중 — 곧 업데이트됩니다!' : 'Study content in preparation — stay tuned!';
+  if (aouadMeta)  aouadMeta.textContent  = isKo ? '준비 중 — 곧 업데이트됩니다!' : 'Study content in preparation — stay tuned!';
+}
+
 window.addEventListener('DOMContentLoaded', function() {
   injectTermsModal();
   if (hasAgreed()) {
