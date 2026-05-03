@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guardian Story 11 &mdash; Live Korean</title>
+  <link rel="stylesheet" href="../../../css/style.css">
+  <style>
+    .short-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 26px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+    .short-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 10px;
+    }
+    .short-title-en {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem; font-weight: 800;
+      color: var(--text); margin-bottom: 8px; line-height: 1.35;
+    }
+    .short-title-ko {
+      font-size: 1.15rem; font-weight: 800;
+      color: var(--accent); margin-bottom: 14px; line-height: 1.4;
+      font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+      word-break: keep-all;
+    }
+    .short-body-en {
+      font-size: 0.92rem; color: var(--text); line-height: 1.8; margin-bottom: 10px;
+    }
+    .short-body-ko {
+      font-size: 0.92rem; color: var(--text); line-height: 1.9; margin-bottom: 10px;
+      font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif; word-break: keep-all;
+    }
+    .short-yt-wrap {
+      margin-top: 18px;
+    }
+    .btn-youtube {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--accent), #d91a60);
+      color: #fff; border: none; border-radius: 10px;
+      padding: 11px 22px; font-size: 0.88rem; font-weight: 800;
+      cursor: pointer; transition: all 0.22s; text-decoration: none;
+      font-family: inherit;
+    }
+    .btn-youtube:hover { transform: scale(1.04); box-shadow: 0 4px 18px rgba(255,45,120,0.4); }
+    .btn-youtube.pending {
+      background: var(--card2); color: var(--muted);
+      border: 1px solid var(--border); cursor: not-allowed;
+      pointer-events: none; opacity: 0.6;
+    }
+    .short-nav-row {
+      display: flex; gap: 10px; margin-top: 32px; flex-wrap: wrap;
+    }
+    .btn-short-nav {
+      background: var(--card2); border: 1.5px solid var(--border);
+      border-radius: 8px; padding: 9px 18px;
+      font-size: 0.84rem; font-weight: 700; color: var(--text);
+      cursor: pointer; transition: all 0.18s; font-family: inherit;
+    }
+    .btn-short-nav:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .btn-short-nav:disabled { opacity: 0.35; pointer-events: none; }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-left">
+    <button class="btn-topbar-home" onclick="goHome()" title="Home">&#127968;</button>
+    <div class="topbar-logo">
+      <span class="logo-live">Live</span>
+      <div class="logo-dot"></div>
+      <span class="logo-korea">Korean</span>
+    </div>
+  </div>
+  <div class="topbar-right" id="topbar-lang-wrap"></div>
+</header>
+
+<main>
+<div class="page-wrap">
+
+  <nav class="nav-row">
+    <button class="btn-nav home" onclick="goHome()">&#127968; <span id="nav-home">Home</span></button>
+    <button class="btn-nav" onclick="window.location.href='../index.html'">&#9664; <span id="nav-back">Back to Guardian</span></button>
+  </nav>
+
+  <nav class="breadcrumb">
+    <a href="../../../index.html">Live Korean</a>
+    <span class="sep">&#8250;</span>
+    <a href="../index.html" id="bc-drama">Guardian</a>
+    <span class="sep">&#8250;</span>
+    <span class="current" id="bc-story">Story 11</span>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-thumb">
+      <img src="../images/ep1.jpg" alt="Guardian"
+        onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#ede9fe,#c4b8e8)';this.parentElement.innerHTML='&#127754;';"">
+    </div>
+    <div class="page-header-info">
+      <div class="page-header-title" id="hdr-title">Guardian &mdash; Story 11</div>
+      <div class="page-header-meta" id="hdr-meta">YouTube Short &middot; Did You Know?</div>
+      <div class="page-header-actions">
+        <button class="btn-bm" data-bm-id="guardian-short11"
+          onclick="toggleBookmark('short','guardian-short11','&#127754; Guardian Story 11','dramas/guardian/shorts/short11.html')">
+          &#128278; <span id="bm-label">Bookmark</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bookmark-bar" id="bookmarkBar">
+    <div class="bookmark-bar-head"><span class="bm-icon">&#128278;</span><span id="bm-bar-title">Your Bookmarks</span></div>
+    <div class="bookmark-chips" id="bookmarkChips"></div>
+  </div>
+
+  <!-- EN Card -->
+  <div class="short-card" id="card-en" data-lang-en>
+    <div class="short-num">&#127381; STORY 11 OF 24 &mdash; YOUTUBE SHORT</div>
+    <div class="short-title-en">Even Quebec Locals Know Goblin</div>
+    <div class="short-body-en">Goblin's popularity reached Quebec locals too. A Christmas decoration shop called La Boutique de Noël de Québec has Goblin stills hanging on its walls, and street musicians have been spotted playing the Goblin OST. Gong Yoo and the drama are genuinely known there.</div>
+    <div class="short-yt-wrap">
+      <a class="btn-youtube pending" id="yt-btn-en" href="#" target="_blank" rel="noopener">
+        &#9654; Watch on YouTube
+      </a>
+    </div>
+  </div>
+
+  <!-- KO Card -->
+  <div class="short-card" id="card-ko" data-lang-ko style="display:none; font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif; word-break:keep-all;">
+    <div class="short-num">&#127381; 스토리 11 / 24 &mdash; 유튜브 쇼츠</div>
+    <div class="short-title-ko">퀘벡 현지인도 도깨비를 안다</div>
+    <div class="short-body-ko">퀘벡 현지인들도 도깨비와 공유를 알 정도입니다. La Boutique de Noël de Québec라는 크리스마스 용품 가게에는 도깨비 스틸컷이 걸려 있고, 거리 음악가들이 도깨비 OST를 연주하는 모습도 포착되었습니다.</div>
+    <div class="short-yt-wrap">
+      <a class="btn-youtube pending" id="yt-btn-ko" href="#" target="_blank" rel="noopener">
+        &#9654; 유튜브에서 보기
+      </a>
+    </div>
+  </div>
+
+  <div class="short-nav-row">
+    <button class="btn-short-nav" id="btn-prev" onclick="goPrev()" >&#9664; <span id="nav-prev-lbl">Previous</span></button>
+    <button class="btn-short-nav" id="btn-next" onclick="goNext()" ><span id="nav-next-lbl">Next</span> &#9654;</button>
+    <button class="btn-short-nav" onclick="window.location.href='../index.html'">&#9783; <span id="nav-all-lbl">All Stories</span></button>
+  </div>
+
+</div>
+</main>
+
+<footer class="site-footer" id="lk-footer">
+  <div class="footer-copy">&copy; 2025 m2ea Labs. All rights reserved.</div>
+  <div><a class="footer-terms" href="../../../terms.html">Terms of Use / &#51060;&#50857;&#50557;&#44288;</a></div>
+</footer>
+
+<script src="../../../js/app.js"></script>
+<script>
+  var SHORT_NUM = 11;
+  var TOTAL_SHORTS = 24;
+  var YOUTUBE_URL = ''; // To be filled when YouTube Short is published
+
+  function goHome() { window.location.href = '../../../index.html'; }
+  function goPrev() { if (SHORT_NUM > 1) window.location.href = 'short' + (SHORT_NUM - 1) + '.html'; }
+  function goNext() { if (SHORT_NUM < TOTAL_SHORTS) window.location.href = 'short' + (SHORT_NUM + 1) + '.html'; }
+
+  function applyPageLang() {
+    var isKo = getLang() === 'ko';
+    document.documentElement.lang = isKo ? 'ko' : 'en';
+    document.getElementById('nav-home').textContent      = isKo ? '홈' : 'Home';
+    document.getElementById('nav-back').textContent      = isKo ? '도깨비로' : 'Back to Guardian';
+    document.getElementById('bc-drama').textContent      = isKo ? '도깨비' : 'Guardian';
+    document.getElementById('bc-story').textContent      = isKo ? '스토리 11' : 'Story 11';
+    document.getElementById('hdr-title').textContent     = isKo ? '도깨비 &mdash; 스토리 11' : 'Guardian — Story 11';
+    document.getElementById('hdr-meta').textContent      = isKo ? '유튜브 쇼츠 · 알고 계셨나요?' : 'YouTube Short · Did You Know?';
+    document.getElementById('bm-label').textContent      = isKo ? '저장' : 'Bookmark';
+    document.getElementById('bm-bar-title').textContent  = isKo ? '북마크' : 'Your Bookmarks';
+    document.getElementById('nav-prev-lbl').textContent  = isKo ? '이전' : 'Previous';
+    document.getElementById('nav-next-lbl').textContent  = isKo ? '다음' : 'Next';
+    document.getElementById('nav-all-lbl').textContent   = isKo ? '전체 보기' : 'All Stories';
+    document.getElementById('card-en').style.display = isKo ? 'none' : 'block';
+    document.getElementById('card-ko').style.display = isKo ? 'block' : 'none';
+  }
+
+  window.addEventListener('DOMContentLoaded', function() {
+    if (!hasAgreed()) { window.location.href = '../../../index.html'; return; }
+    injectTermsModal();
+    document.getElementById('topbar-lang-wrap').innerHTML = buildLangToggle();
+    applyPageLang();
+    applyLang();
+    renderBookmarkBar();
+    syncBookmarkButtons();
+  });
+</script>
+</body>
+</html>

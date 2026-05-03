@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guardian: The Lonely and Great God — Live Korean</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    .ep-img-placeholder {
+      width: 100%; height: 120px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem; position: relative;
+      background: linear-gradient(135deg, #ede9fe, #c4b8e8);
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+    .drama-info-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow);
+    }
+    .drama-info-card .di-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 10px;
+    }
+    .drama-info-card .di-desc {
+      font-size: 0.88rem; color: var(--text); line-height: 1.8;
+    }
+    .drama-info-card .di-tags {
+      display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px;
+    }
+    .di-tag {
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 20px; padding: 3px 12px;
+      font-size: 0.74rem; font-weight: 600; color: var(--muted);
+    }
+    .di-tag.accent { background: rgba(232,36,92,0.08); border-color: rgba(232,36,92,0.25); color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-left">
+    <button class="btn-topbar-home" onclick="goHome()" title="Home">&#127968;</button>
+    <div class="topbar-logo">
+      <span class="logo-live">Live</span>
+      <div class="logo-dot"></div>
+      <span class="logo-korea">Korean</span>
+    </div>
+  </div>
+  <div class="topbar-right" id="topbar-lang-wrap"></div>
+</header>
+
+<main>
+<div class="page-wrap">
+
+  <nav class="nav-row">
+    <button class="btn-nav home" onclick="goHome()">&#127968; <span id="nav-home">Home</span></button>
+    <button class="btn-nav" onclick="history.back()">&#9664; <span id="nav-back">Back</span></button>
+  </nav>
+
+  <nav class="breadcrumb">
+    <a href="../../index.html">Live Korean</a>
+    <span class="sep">&#8250;</span>
+    <span class="current" id="bc-drama">Guardian</span>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-thumb">
+      <img src="../../images/guardian.jpg" alt="Guardian"
+        onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#ede9fe,#c4b8e8)';this.parentElement.innerHTML='&#127754;';">
+    </div>
+    <div class="page-header-info">
+      <div class="page-header-title" id="hdr-title">Guardian: The Lonely and Great God</div>
+      <div class="page-header-meta" id="hdr-meta">24 YouTube Shorts &middot; 2016&ndash;2017 &middot; Fantasy Romance</div>
+      <div class="page-header-actions">
+        <button class="btn-bm" data-bm-id="show-guardian"
+          onclick="toggleBookmark('show','show-guardian','&#127754; Guardian','dramas/guardian/index.html')">
+          &#128278; <span id="bm-label">Bookmark</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EN description -->
+  <div class="drama-info-card" id="desc-en" data-lang-en>
+    <div class="di-label">&#127916; About This Drama</div>
+    <div class="di-desc">
+      <strong>Guardian: The Lonely and Great God</strong> (also known as <em>Goblin</em>) is a 2016&ndash;2017 Korean fantasy romance drama starring Gong Yoo and Kim Go-eun. A 939-year-old goblin &mdash; cursed to live forever with a sword through his chest &mdash; can only break the curse if a human bride pulls out the sword. He encounters Ji Eun-tak, a cheerful high school girl who can see ghosts, and their fates become intertwined across lifetimes.<br><br>
+      The drama is celebrated for its lyrical dialogue, breathtaking cinematography across Korea and Canada, and its deeply emotional storyline. It was a record-breaking hit across Asia and introduced millions of international viewers to the world of Korean dramas.
+    </div>
+</div>
+
+  <!-- KO description -->
+  <div class="drama-info-card" id="desc-ko" data-lang-ko style="display:none;font-family:'Noto Sans KR','DM Sans',sans-serif;word-break:keep-all;">
+    <div class="di-label">&#127916; 드라마 소개</div>
+    <div class="di-desc">
+      <strong>쓸쓸하고 찬란하神 &ndash; 도깨비</strong>는 2016&ndash;2017년 tvN에서 방영된 판타지 로맨스 드라마입니다. 공유와 김고은이 주연을 맡았으며, 가슴에 꽂힌 검을 뽑아줄 신부를 기다리며 939년을 살아온 도깨비(공유)와 귀신을 볼 수 있는 밝고 씩씩한 고등학생 지은탁(김고은)의 운명적 만남을 그린 작품입니다.<br><br>
+      서정적인 대사, 한국과 캐나다를 배경으로 한 아름다운 영상미, 깊은 감동의 스토리로 아시아 전역에서 기록적인 시청률을 달성했습니다. 전 세계 수백만 명에게 한국 드라마의 매력을 알린 기념비적인 작품입니다.
+    </div>
+</div>
+
+  <div class="bookmark-bar" id="bookmarkBar">
+    <div class="bookmark-bar-head">
+      <span class="bm-icon">&#128278;</span>
+      <span id="bm-bar-title">Your Bookmarks</span>
+    </div>
+    <div class="bookmark-chips" id="bookmarkChips"></div>
+  </div>
+
+  <div class="section-label" id="ep-section-label">&#127381; YouTube Shorts &mdash; 24 Stories</div>
+  <div class="episode-grid" id="shortsGrid"></div>
+
+</div>
+</main>
+
+<footer class="site-footer" id="lk-footer">
+  <div class="footer-copy">&copy; 2025 m2ea Labs. All rights reserved.</div>
+  <div><a class="footer-terms" href="../../terms.html">Terms of Use / &#51060;&#50857;&#50557;&#44288;</a></div>
+</footer>
+
+<script src="../../js/app.js"></script>
+<script>
+
+  var SHORTS_COUNT = 24;
+  var SHORT_EMOJIS = ['&#127754;','&#9889;','&#128142;','&#10052;','&#127819;','&#128161;','&#127775;','&#9728;','&#128218;','&#127968;','&#127381;','&#128587;','&#128007;','&#128248;','&#128336;','&#9885;','&#127881;','&#128064;','&#127917;','&#9997;','&#127881;','&#127979;','&#128131;','&#128278;'];
+  var SHORT_TITLES_EN = [
+    'Road Sign Anachronism in Episode 1',
+    'The Secret of the Stopped Calendar',
+    'Filming Locations: Duksung & Quebec',
+    "Sunny's House Also in Secret Garden!",
+    "Ji Eun-tak's School Filming Locations",
+    'Did the Secretary Reincarnate as the Villain?',
+    'The Hierarchy of Divine Beings',
+    'Taiwanese Fans Won the Lottery!',
+    "Gong Yoo's Casting Took 5 Years",
+    'Why the Phone Changed Mid-Drama',
+    'Even Quebec Locals Know Goblin',
+    'Fashion Codes of the Main Characters',
+    'What the Male Leads Have in Common',
+    'Goblin Inspired the Film Suzume',
+    "Gong Yoo & Lee Dong-wook's Improvisations",
+    'The Guardian vs Goblin Translation Debate',
+    'Characters Reunited Across Lifetimes',
+    'Supporting Actors Who Became Stars',
+    'The Actors Watch Their Own Works in the Drama',
+    'Lee Dong-wook Chased the Writer onto a Plane',
+    "The Double Meaning of Ordering 'Heaven'",
+    'Is Yeonhee University Actually Yonsei?',
+    "Ji Eun-tak's Uniform is the Actress's Real School Uniform",
+    'Reality vs Drama at the Essay Exam Location'
+  ];
+  var SHORT_TITLES_KO = [
+    '1화 도로명표지판 오류',
+    '1화 달력의 비밀',
+    '촬영지: 덕성여대와 퀘벡',
+    '써니의 집은 시크릿 가든에도!',
+    '지은탁 학교 촬영지',
+    '김 비서와 간신, 환생한 걸까?',
+    '도깨비 세계관의 신격 존재들',
+    '대만 팬이 도깨비 복권에 당첨!',
+    '공유 캐스팅에 5년이 걸린 이유',
+    '갤럭시 노트7에서 S7으로 바뀐 이유',
+    '퀘벡 현지인도 도깨비를 안다',
+    '주인공들의 패션 코드',
+    '주연 남자 배우들의 공통점',
+    '스즈메의 문단속에 영감을 준 도깨비',
+    '공유와 이동욱의 즉흥 연기',
+    '도깨비 vs 고블린 번역 논란',
+    '전생의 인연으로 다시 만나는 인물들',
+    '조연·단역에서 주연으로 성장한 배우들',
+    '극중 영화와 드라마 속 본인 출연!',
+    '이동욱이 비행기까지 타고 쫓아간 캐스팅',
+    '천국 주문의 중의적 의미',
+    '연희대학교는 연세대학교?',
+    '지은탁의 교복은 실제 배우의 모교 교복',
+    '논술 시험장 촬영의 현실과 드라마 차이'
+  ];
+
+  function goHome() { window.location.href = '../../index.html'; }
+
+  function applyPageLang() {
+    var isKo = getLang() === 'ko';
+    document.documentElement.lang = isKo ? 'ko' : 'en';
+    document.getElementById('nav-home').textContent     = isKo ? '홈' : 'Home';
+    document.getElementById('nav-back').textContent     = isKo ? '뒤로' : 'Back';
+    document.getElementById('bc-drama').textContent     = isKo ? '도깨비' : 'Guardian';
+    document.getElementById('hdr-title').textContent    = isKo ? '쓸쓸하고 찬란하神 \u2013 도깨비' : 'Guardian: The Lonely and Great God';
+    document.getElementById('hdr-meta').textContent     = isKo ? '유튜브 쇼츠 24개 · 2016\u20132017 · 판타지 로맨스' : '24 YouTube Shorts · 2016\u20132017 · Fantasy Romance';
+    document.getElementById('bm-label').textContent     = isKo ? '저장' : 'Bookmark';
+    document.getElementById('bm-bar-title').textContent = isKo ? '북마크' : 'Your Bookmarks';
+    document.getElementById('ep-section-label').innerHTML = isKo
+      ? '&#127381; 유튜브 쇼츠 &mdash; 24개 스토리'
+      : '&#127381; YouTube Shorts &mdash; 24 Stories';
+    document.getElementById('desc-en').style.display = isKo ? 'none' : 'block';
+    document.getElementById('desc-ko').style.display = isKo ? 'block' : 'none';
+    buildShortsGrid();
+  }
+
+  function buildShortsGrid() {
+    var isKo = getLang() === 'ko';
+    var grid = document.getElementById('shortsGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    for (var s = 1; s <= SHORTS_COUNT; s++) {
+      var bmId = 'guardian-short' + s;
+      var card = document.createElement('a');
+      card.className = 'episode-card';
+      card.href = 'shorts/short' + s + '.html';
+
+      var bmBtn = document.createElement('button');
+      bmBtn.className = 'bm-corner';
+      bmBtn.setAttribute('data-bm-id', bmId);
+      bmBtn.title = isKo ? '저장' : 'Bookmark';
+      bmBtn.innerHTML = '&#128278;';
+      (function(sn) {
+        bmBtn.addEventListener('click', function(evt) {
+          evt.preventDefault(); evt.stopPropagation();
+          toggleBookmark('short','guardian-short'+sn,'&#127754; Guardian Story '+sn,'dramas/guardian/shorts/short'+sn+'.html');
+        });
+      })(s);
+      card.appendChild(bmBtn);
+
+      var ph = document.createElement('div');
+      ph.className = 'ep-img-placeholder';
+      var emoji = SHORT_EMOJIS[(s - 1) % SHORT_EMOJIS.length];
+      ph.innerHTML = emoji + '<span class="episode-num-badge">#' + s + '</span>';
+      card.appendChild(ph);
+
+      var body = document.createElement('div');
+      body.className = 'episode-card-body';
+      var titleText = isKo ? SHORT_TITLES_KO[s-1] : SHORT_TITLES_EN[s-1];
+      body.innerHTML = '<div class="episode-card-title" style="font-size:0.82rem;line-height:1.4;">' + titleText + '</div>'
+        + '<div class="episode-card-desc">&#127381; ' + (isKo ? '유튜브 쇼츠' : 'YouTube Short') + '</div>';
+      card.appendChild(body);
+
+      grid.appendChild(card);
+    }
+    syncBookmarkButtons();
+  }
+
+  window.addEventListener('DOMContentLoaded', function() {
+    if (!hasAgreed()) {
+      window.location.href = '../../index.html?redirect=' + encodeURIComponent(window.location.href);
+      return;
+    }
+    injectTermsModal();
+    document.getElementById('topbar-lang-wrap').innerHTML = buildLangToggle();
+    applyPageLang();
+    applyLang();
+    renderBookmarkBar();
+    syncBookmarkButtons();
+  });
+
+</script>
+</body>
+</html>
