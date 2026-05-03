@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guardian: The Lonely and Great God &mdash; Live Korean</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    .drama-info-card {
+      background: var(--card); border: 1.5px solid var(--border);
+      border-radius: var(--radius); padding: 22px 24px;
+      margin-bottom: 28px; box-shadow: var(--shadow);
+    }
+    .drama-info-card .di-label {
+      font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 10px;
+    }
+    .drama-info-card .di-desc { font-size: 0.88rem; color: var(--text); line-height: 1.8; }
+    .story-card {
+      background: var(--card); border: 1.5px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      margin-bottom: 16px; box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    .story-card:hover { border-color: var(--accent); box-shadow: 0 4px 20px rgba(232,36,92,0.12); }
+    .story-card-inner { display: flex; }
+    .story-thumb {
+      width: 110px; min-width: 110px; position: relative;
+      background: linear-gradient(135deg, var(--card2), var(--card3));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; flex-shrink: 0;
+    }
+    .story-thumb img { width: 110px; height: 100%; min-height: 100px; object-fit: cover; display: block; }
+    .story-num-badge {
+      position: absolute; bottom: 6px; left: 7px;
+      background: rgba(255,255,255,0.92); color: var(--accent2);
+      font-size: 0.65rem; font-weight: 800; padding: 2px 7px;
+      border-radius: 10px; border: 1px solid var(--border);
+    }
+    .story-content { flex: 1; padding: 14px 16px 14px 14px; min-width: 0; }
+    .story-label {
+      font-family: 'Syne', sans-serif; font-size: 0.63rem; font-weight: 800;
+      letter-spacing: 1.8px; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 5px;
+    }
+    .story-title-en {
+      font-family: 'Syne', sans-serif; font-size: 0.98rem; font-weight: 800;
+      color: var(--text); line-height: 1.3; margin-bottom: 7px;
+    }
+    .story-title-ko {
+      font-size: 0.95rem; font-weight: 800; color: var(--accent);
+      line-height: 1.35; margin-bottom: 7px;
+      font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif; word-break: keep-all;
+    }
+    .story-body-en { font-size: 0.84rem; color: var(--text); line-height: 1.75; margin-bottom: 10px; }
+    .story-body-ko {
+      font-size: 0.84rem; color: var(--text); line-height: 1.85; margin-bottom: 10px;
+      font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif; word-break: keep-all;
+    }
+    .btn-youtube {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: linear-gradient(135deg, var(--accent), #d91a60);
+      color: #fff; border: none; border-radius: 8px;
+      padding: 7px 16px; font-size: 0.8rem; font-weight: 800;
+      cursor: pointer; transition: all 0.22s; text-decoration: none; font-family: inherit;
+    }
+    .btn-youtube:hover { transform: scale(1.04); box-shadow: 0 4px 16px rgba(255,45,120,0.4); }
+    .btn-youtube.pending {
+      background: var(--card2); color: var(--muted);
+      border: 1px solid var(--border); cursor: not-allowed; pointer-events: none; opacity: 0.6;
+    }
+    @media (max-width: 500px) {
+      .story-thumb { width: 80px; min-width: 80px; }
+      .story-thumb img { width: 80px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-left">
+    <button class="btn-topbar-home" onclick="goHome()" title="Home">&#127968;</button>
+    <div class="topbar-logo">
+      <span class="logo-live">Live</span>
+      <div class="logo-dot"></div>
+      <span class="logo-korea">Korean</span>
+    </div>
+  </div>
+  <div class="topbar-right" id="topbar-lang-wrap"></div>
+</header>
+
+<main>
+<div class="page-wrap">
+
+  <nav class="nav-row">
+    <button class="btn-nav home" onclick="goHome()">&#127968; <span id="nav-home">Home</span></button>
+    <button class="btn-nav" onclick="history.back()">&#9664; <span id="nav-back">Back</span></button>
+  </nav>
+
+  <nav class="breadcrumb">
+    <a href="../../index.html">Live Korean</a>
+    <span class="sep">&#8250;</span>
+    <span class="current" id="bc-drama">Guardian</span>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-thumb">
+      <img src="../../images/guardian.jpg" alt="Guardian"
+        onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(135deg,#ede9fe,#c4b8e8)';this.parentElement.innerHTML='&#127754;';">
+    </div>
+    <div class="page-header-info">
+      <div class="page-header-title" id="hdr-title">Guardian: The Lonely and Great God</div>
+      <div class="page-header-meta" id="hdr-meta">24 YouTube Shorts &middot; 2016&ndash;2017 &middot; Fantasy Romance</div>
+      <div class="page-header-actions">
+        <button class="btn-bm" data-bm-id="show-guardian"
+          onclick="toggleBookmark('show','show-guardian','&#127754; Guardian','dramas/guardian/index.html')">
+          &#128278; <span id="bm-label">Bookmark</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="drama-info-card" id="desc-en" data-lang-en>
+    <div class="di-label">&#127916; About This Drama</div>
+    <div class="di-desc">
+      <strong>Guardian: The Lonely and Great God</strong> (also known as <em>Goblin</em>) is a 2016&ndash;2017 Korean fantasy romance drama starring Gong Yoo and Kim Go-eun. A 939-year-old goblin &mdash; cursed to live forever with a sword through his chest &mdash; can only break the curse if a human bride pulls out the sword. He encounters Ji Eun-tak, a cheerful high school girl who can see ghosts, and their fates become intertwined across lifetimes.<br><br>
+      The drama is celebrated for its lyrical dialogue, breathtaking cinematography across Korea and Canada, and its deeply emotional storyline. It was a record-breaking hit across Asia and introduced millions of international viewers to the world of Korean dramas.
+    </div>
+  </div>
+
+  <div class="drama-info-card" id="desc-ko" data-lang-ko style="display:none;font-family:'Noto Sans KR','DM Sans',sans-serif;word-break:keep-all;">
+    <div class="di-label">&#127916; 드라마 소개</div>
+    <div class="di-desc">
+      <strong>쓸쓸하고 찬란하神 &ndash; 도깨비</strong>는 2016&ndash;2017년 tvN에서 방영된 판타지 로맨스 드라마입니다. 공유와 김고은이 주연을 맡았으며, 가슴에 꽂힌 검을 뽑아줄 신부를 기다리며 939년을 살아온 도깨비(공유)와 귀신을 볼 수 있는 밝고 씩씩한 고등학생 지은탁(김고은)의 운명적 만남을 그린 작품입니다.<br><br>
+      서정적인 대사, 한국과 캐나다를 배경으로 한 아름다운 영상미, 깊은 감동의 스토리로 아시아 전역에서 기록적인 시청률을 달성했습니다. 전 세계 수백만 명에게 한국 드라마의 매력을 알린 기념비적인 작품입니다.
+    </div>
+  </div>
+
+  <div class="bookmark-bar" id="bookmarkBar">
+    <div class="bookmark-bar-head">
+      <span class="bm-icon">&#128278;</span>
+      <span id="bm-bar-title">Your Bookmarks</span>
+    </div>
+    <div class="bookmark-chips" id="bookmarkChips"></div>
+  </div>
+
+  <div class="section-label" id="shorts-label">&#127381; YouTube Shorts &mdash; 24 Stories</div>
+  <div id="storiesList">
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep1.jpg" alt="Road Sign Anachronism in Episode 1" onerror="this.style.display='none';this.parentElement.innerHTML='&#127381;';">
+        <span class="story-num-badge">#1</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 1 / 24</div>
+        <div class="story-title-en" data-lang-en>Road Sign Anachronism in Episode 1</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">1화 도로명표지판 오류</div>
+        <div class="story-body-en" data-lang-en>The opening scene of Episode 1 is set in 1998 Seoul. But if you look closely at the car collision scene, you can spot a Korean new-address road sign — a system that wasn&#39;t introduced until 2013. That&#39;s a 15-year anachronism that eagle-eyed fans caught.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">1화에서 저승사자 등장씬의 배경은 1998년 서울로 설정되어 있습니다. 그런데 충돌한 차량 장면을 자세히 보면 2013년에 도입된 도로명표지판이 버젓이 보입니다. 15년이나 앞선 표지판이 등장한 것이죠. 도깨비 팬들의 날카로운 눈이 이 작은 오류를 잡아냈습니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep2.jpg" alt="The Secret of the Stopped Calendar" onerror="this.style.display='none';this.parentElement.innerHTML='&#128197;';">
+        <span class="story-num-badge">#2</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 2 / 24</div>
+        <div class="story-title-en" data-lang-en>The Secret of the Stopped Calendar</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">1화 달력의 비밀</div>
+        <div class="story-body-en" data-lang-en>In Episode 1, Ji Eun-tak&#39;s mother passes away on Eun-tak&#39;s 9th birthday. After their final moment with a birthday cake, a calendar is shown — but it&#39;s frozen at the year both of them actually died, not 2006, the year Eun-tak would have turned 9. A heartbreaking detail hidden in plain sight.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">1화에서 지은탁의 엄마가 세상을 떠난 날은 은탁의 9번째 생일입니다. 생일 케이크 앞에서의 마지막 만남 이후 달력이 등장하는데, 은탁이 실제로 9살이 되는 2006년이 아니라 두 사람이 사망한 시점에서 달력이 멈춰 있습니다. 작가의 세심한 설정이 만들어낸 가슴 아픈 디테일입니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep3.jpg" alt="Filming Locations: Duksung &amp; Quebec" onerror="this.style.display='none';this.parentElement.innerHTML='&#127909;';">
+        <span class="story-num-badge">#3</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 3 / 24</div>
+        <div class="story-title-en" data-lang-en>Filming Locations: Duksung &amp; Quebec</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">촬영지: 덕성여대와 퀘벡</div>
+        <div class="story-body-en" data-lang-en>The outdoor scenes at the Goblin&#39;s residence were filmed at Unhyeongung Yanggwan inside Duksung Women&#39;s University&#39;s Jongno campus. The library, portal door scenes, and locker scenes were shot at the Ssangmun-dong campus. The Quebec scenes were so impactful that Asian tourism to Quebec City notably increased.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">극 중 도깨비 집터의 야외 촬영은 덕성여대 종로캠퍼스 내 운현궁 양관에서 이루어졌습니다. 도서관과 퀘벡 이동문 장면, 사물함 씬은 쌍문동 캠퍼스에서 촬영했습니다. 퀘벡 씬의 영향으로 퀘벡시를 찾는 한국·중국 등 아시아 관광객이 눈에 띄게 늘었다고 합니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep4.jpg" alt="Sunny&#39;s House Also in Secret Garden!" onerror="this.style.display='none';this.parentElement.innerHTML='&#127968;';">
+        <span class="story-num-badge">#4</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 4 / 24</div>
+        <div class="story-title-en" data-lang-en>Sunny&#39;s House Also in Secret Garden!</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">써니의 집은 시크릿 가든에도!</div>
+        <div class="story-body-en" data-lang-en>Sunny&#39;s apartment in Goblin is the same house used for Im Ah-young&#39;s home in Secret Garden — and both characters are played by Yoo In-na. That means Yoo In-na technically lives in the same house across two dramas. Both shows also share the setup of the female lead&#39;s best friend living together with her.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">극 중 써니의 집은 드라마 &#39;시크릿 가든&#39;에서도 임아영의 집으로 등장했던 바로 그 공간입니다. 두 작품 모두 배우 유인나가 출연했으니, 유인나는 두 편의 드라마에서 같은 집에 사는 셈이 됩니다. 게다가 두 작품 모두 여주인공의 가장 친한 친구와 함께 사는 설정이라는 공통점도 있습니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep5.jpg" alt="Ji Eun-tak&#39;s School Filming Locations" onerror="this.style.display='none';this.parentElement.innerHTML='&#127979;';">
+        <span class="story-num-badge">#5</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 5 / 24</div>
+        <div class="story-title-en" data-lang-en>Ji Eun-tak&#39;s School Filming Locations</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">지은탁 학교 촬영지</div>
+        <div class="story-body-en" data-lang-en>The bus stop near Ji Eun-tak&#39;s school is located near Hongik University Teacher Training High School. The teachers&#39; office and classroom scenes were filmed at Junggang High School, while the cafeteria was shot at Seoungoon High School in Incheon — a composite of multiple real schools.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">지은탁이 등하교하는 정류장은 홍익대학교 사범대학 부속고등학교 근처입니다. 교무실과 교실 씬은 서울 중앙고등학교에서, 급식실 씬은 인천 서운고등학교에서 각각 촬영했습니다. 한 학교가 아닌 여러 학교를 조합해 극 중 학교를 완성한 것입니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep6.jpg" alt="Did the Secretary Reincarnate as the Villain?" onerror="this.style.display='none';this.parentElement.innerHTML='&#128064;';">
+        <span class="story-num-badge">#6</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 6 / 24</div>
+        <div class="story-title-en" data-lang-en>Did the Secretary Reincarnate as the Villain?</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">김 비서와 간신, 환생한 걸까?</div>
+        <div class="story-body-en" data-lang-en>Actor Jo Woo-jin (Secretary Kim) and actor Kim Byung-chul (the traitorous minister) look strikingly similar, leading many viewers to speculate that the villain had reincarnated as the secretary. Jo Woo-jin also left a deep impression in the film Inside Men as an extremely villainous character.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">극 중 김 비서 역의 배우 조우진과 간신 역의 배우 김병철은 외모가 닮아 &#39;간신이 김 비서로 환생한 것 아니냐&#39;는 시청자 반응이 많았습니다. 조우진은 영화 &#39;내부자들&#39;에서 강렬한 악역으로도 깊은 인상을 남긴 바 있어 더욱 그럴듯하게 느껴졌습니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep7.jpg" alt="The Hierarchy of Divine Beings" onerror="this.style.display='none';this.parentElement.innerHTML='&#10024;';">
+        <span class="story-num-badge">#7</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 7 / 24</div>
+        <div class="story-title-en" data-lang-en>The Hierarchy of Divine Beings</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">도깨비 세계관의 신격 존재들</div>
+        <div class="story-body-en" data-lang-en>Goblin features three tiers of divine beings: Samshin Halmae, a divine aide to the Jade Emperor who determines which souls are born; the Grim Reaper, a subordinate of the King of Hell; and the Goblin, a human soul bound to a sword by divine will. In terms of power: Samshin &gt; Goblin &gt; Grim Reaper.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">도깨비 세계관에는 세 가지 신격 존재가 등장합니다. 삼신할매는 옥황상제의 수행비서격으로 아이를 점지하는 능력을 지니고, 저승사자는 염라대왕의 수하로 망자를 인도합니다. 도깨비는 사람들의 염원으로 신이 김신의 검에 그의 영혼을 깃들게 한 존재입니다. 능력 순서는 삼신할매 &gt; 도깨비 &gt; 저승사자입니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep8.jpg" alt="Taiwanese Fans Won the Lottery!" onerror="this.style.display='none';this.parentElement.innerHTML='&#127920;';">
+        <span class="story-num-badge">#8</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 8 / 24</div>
+        <div class="story-title-en" data-lang-en>Taiwanese Fans Won the Lottery!</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">대만 팬이 도깨비 복권에 당첨!</div>
+        <div class="story-body-en" data-lang-en>During Taiwan&#39;s 2017 Lunar New Year holiday, Goblin ranked #1 among Korean and Japanese dramas on iQIYI, Taiwan&#39;s largest video platform. Even more remarkably, four Taiwanese fans who bought lottery tickets using the numbers Gong Yoo&#39;s character revealed in the drama — actually won the jackpot.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">대만 최대 동영상 사이트 아이치이(愛奇藝) 집계에서 2017년 춘절 연휴 기간 동안 도깨비가 시청 1위를 기록했습니다. 더 놀라운 건 극 중 공유가 알려준 복권 번호를 재미로 산 대만 팬 4명이 실제로 1등에 당첨되어 거액을 받았다는 사실입니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep9.jpg" alt="Gong Yoo&#39;s Casting Took 5 Years" onerror="this.style.display='none';this.parentElement.innerHTML='&#9203;';">
+        <span class="story-num-badge">#9</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 9 / 24</div>
+        <div class="story-title-en" data-lang-en>Gong Yoo&#39;s Casting Took 5 Years</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">공유 캐스팅에 5년이 걸린 이유</div>
+        <div class="story-body-en" data-lang-en>Writer Kim Eun-sook spent five years trying to cast Gong Yoo. Having just completed his military service, Gong Yoo lacked confidence and kept hesitating, afraid of ruining a star writer&#39;s project. The result of that five-year wait was Goblin.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">김은숙 작가는 공유에게 무려 5년간 출연 제의를 했습니다. 공유는 막 군 복무를 마친 상태였고, 스타 작가의 작품을 망칠까 봐 자신이 없어 오래 망설였다고 합니다. 그 5년의 기다림 끝에 도깨비가 탄생했습니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep10.jpg" alt="Why the Phone Changed Mid-Drama" onerror="this.style.display='none';this.parentElement.innerHTML='&#128241;';">
+        <span class="story-num-badge">#10</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 10 / 24</div>
+        <div class="story-title-en" data-lang-en>Why the Phone Changed Mid-Drama</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">갤럭시 노트7에서 S7으로 바뀐 이유</div>
+        <div class="story-body-en" data-lang-en>The Galaxy Note7 was featured as a PPL sponsor in the early episodes. But after the Note7&#39;s real-world battery explosion scandal, it was replaced by the Galaxy S7 Edge from Episode 3. Since re-shooting Episodes 1 and 2 was impossible, the Note7 still appears in those episodes.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">드라마 초반에는 갤럭시 노트7이 PPL로 등장했습니다. 하지만 실제 제품의 배터리 폭발 사고로 3화부터 갤럭시 S7 엣지로 교체되었습니다. 이미 촬영된 1, 2화는 재촬영이 불가해 노트7이 그대로 등장합니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep11.jpg" alt="Even Quebec Locals Know Goblin" onerror="this.style.display='none';this.parentElement.innerHTML='&#127981;';">
+        <span class="story-num-badge">#11</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 11 / 24</div>
+        <div class="story-title-en" data-lang-en>Even Quebec Locals Know Goblin</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">퀘벡 현지인도 도깨비를 안다</div>
+        <div class="story-body-en" data-lang-en>Goblin&#39;s popularity reached Quebec locals too. A Christmas decoration shop called La Boutique de Noël de Québec has Goblin stills hanging on its walls, and street musicians have been spotted playing the Goblin OST. Gong Yoo and the drama are genuinely known there.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">퀘벡 현지인들도 도깨비와 공유를 알 정도입니다. La Boutique de Noël de Québec라는 크리스마스 용품 가게에는 도깨비 스틸컷이 걸려 있고, 거리 음악가들이 도깨비 OST를 연주하는 모습도 포착되었습니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep12.jpg" alt="Fashion Codes of the Main Characters" onerror="this.style.display='none';this.parentElement.innerHTML='&#128084;';">
+        <span class="story-num-badge">#12</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 12 / 24</div>
+        <div class="story-title-en" data-lang-en>Fashion Codes of the Main Characters</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">주인공들의 패션 코드</div>
+        <div class="story-body-en" data-lang-en>Each main character has a signature fashion code: the Goblin wears luxury British gentleman&#39;s style befitting someone who conjures gold; the Grim Reaper has a refined vampire-meets-underworld look; Samshin Halmae commands attention with bold reds across different eras; and student Eun-tak wears casual over-uniform hoodies, keeping it real for her age.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">도깨비는 재력을 상징하듯 명품으로 꾸민 영국 신사 스타일, 저승사자는 뱀파이어와 저승사자를 합친 점잖은 스타일, 삼신할매는 세대를 넘나드는 강렬한 붉은색 의상으로 존재감을 드러냅니다. 학생 지은탁은 또래답게 교복에 후드티를 걸치는 자연스러운 스타일로 대비를 이룹니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep13.jpg" alt="What the Male Leads Have in Common" onerror="this.style.display='none';this.parentElement.innerHTML='&#127917;';">
+        <span class="story-num-badge">#13</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 13 / 24</div>
+        <div class="story-title-en" data-lang-en>What the Male Leads Have in Common</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">주연 남자 배우들의 공통점</div>
+        <div class="story-body-en" data-lang-en>All the main male actors share one thing in common: they all appeared in the KBS 2TV School drama series. Gong Yoo was in School 4, Lee Dong-wook in School 2 and 3, and Yook Sungjae in Who Are You: School 2015.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">주연 남자 배우들에게는 공통점이 있습니다. 공유는 학교 4, 이동욱은 학교 2·3, 육성재는 후아유-학교 2015에 출연한 경험이 있습니다. 세 배우 모두 KBS 2TV 학교 시리즈 출신인 것입니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep14.jpg" alt="Goblin Inspired the Film Suzume" onerror="this.style.display='none';this.parentElement.innerHTML='&#128682;';">
+        <span class="story-num-badge">#14</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 14 / 24</div>
+        <div class="story-title-en" data-lang-en>Goblin Inspired the Film Suzume</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">스즈메의 문단속에 영감을 준 도깨비</div>
+        <div class="story-body-en" data-lang-en>Director Makoto Shinkai revealed in an interview that he was inspired by Goblin while creating Suzume. The repeated appearance of &#39;doors&#39; as a key motif in the film is likely a direct result of that inspiration.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">신카이 마코토 감독은 &#39;스즈메의 문단속&#39;을 제작할 때 도깨비에서 영감을 얻었다고 인터뷰에서 직접 밝혔습니다. 작품 속 &#39;문&#39;이 핵심 소재로 반복 등장하는 것도 이 영향 때문인 것으로 보입니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep15.jpg" alt="Gong Yoo &amp; Lee Dong-wook&#39;s Improvisations" onerror="this.style.display='none';this.parentElement.innerHTML='&#127908;';">
+        <span class="story-num-badge">#15</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 15 / 24</div>
+        <div class="story-title-en" data-lang-en>Gong Yoo &amp; Lee Dong-wook&#39;s Improvisations</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">공유와 이동욱의 즉흥 연기</div>
+        <div class="story-body-en" data-lang-en>Lee Dong-wook and Gong Yoo were particularly known for their improvisations on set. Many of the drama&#39;s most memorable lines and scenes were actually ad-libbed by the two actors.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">이동욱과 공유는 즉흥 연기가 특히 많았습니다. 두 배우가 내뱉은 애드리브가 드라마의 명장면과 명대사로 남은 경우가 적지 않습니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep16.jpg" alt="The &#39;Guardian&#39; vs &#39;Goblin&#39; Translation Debate" onerror="this.style.display='none';this.parentElement.innerHTML='&#127760;';">
+        <span class="story-num-badge">#16</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 16 / 24</div>
+        <div class="story-title-en" data-lang-en>The &#39;Guardian&#39; vs &#39;Goblin&#39; Translation Debate</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">도깨비 vs 고블린 번역 논란</div>
+        <div class="story-body-en" data-lang-en>Goblin was initially translated as &#39;Guardian&#39; in English-speaking markets, then changed to &#39;Goblin.&#39; However, Western fantasy goblins are orc-like creatures, while the Korean 도깨비 (dokkaebi) is closer to a fairy or intermediate deity. The translation sparked ongoing debate over cultural equivalence.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">영어권에서는 처음에 도깨비를 &#39;Guardian&#39;으로 번역했다가 이후 &#39;Goblin&#39;으로 바꾸었습니다. 그런데 서양 판타지의 &#39;고블린&#39;은 오크 계열 종족인 반면, 한국의 도깨비는 요정이나 중간계 신에 가깝습니다. 문화적 개념 차이로 번역 논란이 이어졌습니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep1.jpg" alt="Characters Reunited Across Lifetimes" onerror="this.style.display='none';this.parentElement.innerHTML='&#9854;';">
+        <span class="story-num-badge">#17</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 17 / 24</div>
+        <div class="story-title-en" data-lang-en>Characters Reunited Across Lifetimes</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">전생의 인연으로 다시 만나는 인물들</div>
+        <div class="story-body-en" data-lang-en>Characters from the Goryeo era keep crossing paths with the Grim Reaper in the modern era: the court lady who helped poison the king meets Wang Yeo as a 23rd-generation reaper; the sailor who drowned a child reappears as a hit-and-run driver; and the child who recommended the Goblin book to Eun-tak ends up at Wang Yeo&#39;s tea house of the dead with her mother.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">왕을 독살하는 데 가담했던 나인과 사망 당시 김신 옆에 있던 궁녀는 23기 저승사자로 왕여와 다시 마주칩니다. 어린 김신과 함께하다 아이를 바다에 빠뜨린 뱃사람은 교통사고 가해자로 왕여 앞에 서고, 지은탁에게 도깨비 책을 추천한 아이는 엄마와 함께 망자의 찻집에서 왕여를 만납니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep2.jpg" alt="Supporting Actors Who Became Stars" onerror="this.style.display='none';this.parentElement.innerHTML='&#11088;';">
+        <span class="story-num-badge">#18</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 18 / 24</div>
+        <div class="story-title-en" data-lang-en>Supporting Actors Who Became Stars</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">조연·단역에서 주연으로 성장한 배우들</div>
+        <div class="story-body-en" data-lang-en>Many supporting and minor actors from Goblin went on to become lead actors. In addition to Yeom Hye-ran, Kim Byung-chul, and Jo Woo-jin, there&#39;s Park Se-wan (the gosiwon ghost), and uncredited extras Kim Hye-yoon, Kim Nam-hee, and Lee Kyu-hyung — all household names today.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">도깨비로 얼굴을 알린 조연·단역 배우들이 이후 주연급으로 성장한 사례가 많습니다. 염혜란, 김병철, 조우진 외에도 고시원 귀신 역의 박세완, 이름도 올라오지 않은 단역이었던 김혜윤, 김남희, 이규형 등이 있습니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep3.jpg" alt="The Actors Watch Their Own Works in the Drama" onerror="this.style.display='none';this.parentElement.innerHTML='&#127916;';">
+        <span class="story-num-badge">#19</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 19 / 24</div>
+        <div class="story-title-en" data-lang-en>The Actors Watch Their Own Works in the Drama</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">극중 영화와 드라마 속 본인 출연!</div>
+        <div class="story-body-en" data-lang-en>The film Ji Eun-tak and Kim Shin watch on their date is Train to Busan — a film starring Gong Yoo himself. The drama Lee Dong-wook watches at home is Bubble Gum — a drama in which Lee Dong-wook is the lead. Both actors watch their own productions within the show.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">극 중 지은탁과 김신이 함께 보는 영화는 공유가 실제로 주연을 맡은 &#39;부산행&#39;입니다. 이동욱이 집에서 시청하는 드라마 역시 이동욱 본인이 주연인 &#39;풍선껌&#39;입니다. 두 배우가 극 중에서 자신의 다른 작품을 즐기는 묘한 장면이 탄생했습니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep4.jpg" alt="Lee Dong-wook Chased the Writer onto a Plane" onerror="this.style.display='none';this.parentElement.innerHTML='&#9992;';">
+        <span class="story-num-badge">#20</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 20 / 24</div>
+        <div class="story-title-en" data-lang-en>Lee Dong-wook Chased the Writer onto a Plane</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">이동욱이 비행기까지 타고 쫓아간 캐스팅</div>
+        <div class="story-body-en" data-lang-en>Before Gong Yoo was even cast, Lee Dong-wook had already decided he wanted to play the Grim Reaper. He reportedly boarded a plane to catch writer Kim Eun-sook during her overseas trip, personally pleading for the role. He got it.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">이동욱은 공유가 캐스팅되기도 전에 저승사자 역을 맡고 싶다는 의사를 직접 전달했습니다. 해외 출장을 떠나는 김은숙 작가를 비행기까지 타고 쫓아가 저승사자를 하게 해달라고 요청했고, 결국 배역을 따냈습니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep5.jpg" alt="The Double Meaning of Ordering &#39;Heaven&#39;" onerror="this.style.display='none';this.parentElement.innerHTML='&#128174;';">
+        <span class="story-num-badge">#21</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 21 / 24</div>
+        <div class="story-title-en" data-lang-en>The Double Meaning of Ordering &#39;Heaven&#39;</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">천국 주문의 중의적 의미</div>
+        <div class="story-body-en" data-lang-en>The child who once recommended the Goblin book to Eun-tak later visits Wang Yeo&#39;s tea house of the dead with her mother. When asked what to order, the mother says &#39;천국&#39; (Heaven). In Korean, &#39;국&#39; can also mean soup — making it a double meaning. Wang Yeo announces: &#39;Your Heaven is ready,&#39; and mother and daughter pass on to the afterlife.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">지은탁에게 도깨비 책을 추천했던 진영이라는 아이는 나중에 엄마와 함께 저승사자의 망자의 찻집을 방문합니다. 아이가 무엇을 주문할지 묻자 엄마는 &#39;천국&#39;을 주문합니다. 천국(天國)은 영어로 Heaven이지만 한국어에서 &#39;국&#39;은 국(soup)을 뜻하기도 해 중의적 표현이 됩니다. 왕여가 &#39;주문하신 천국 나왔습니다&#39;라고 말하며 두 사람이 천국으로 향합니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep6.jpg" alt="Is Yeonhee University Actually Yonsei?" onerror="this.style.display='none';this.parentElement.innerHTML='&#127979;';">
+        <span class="story-num-badge">#22</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 22 / 24</div>
+        <div class="story-title-en" data-lang-en>Is Yeonhee University Actually Yonsei?</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">연희대학교는 연세대학교?</div>
+        <div class="story-body-en" data-lang-en>The fictional Yeonhee University that Eun-tak attends is clearly modeled after Yonsei University: the department name &#39;언론홍보영상학부&#39; is a name uniquely used at Yonsei&#39;s Sinchon campus. &#39;Yeonhee&#39; also happens to be Yonsei&#39;s historical former name. However, the school logo imitates Seoul National University&#39;s to emphasize it&#39;s fictional.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">극 중 지은탁이 입학한 연희대학교는 가상의 학교입니다. 그러나 과 이름이 &#39;언론홍보영상학부&#39;인데, 이 명칭을 실제로 사용하는 대학은 연세대학교 신촌캠퍼스뿐입니다. 연세대학교의 옛 이름도 연희대학교입니다. 다만 학교 로고는 서울대학교를 모방해 가상의 학교임을 강조했습니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep7.jpg" alt="Ji Eun-tak&#39;s Uniform is the Actress&#39;s Real School Uniform" onerror="this.style.display='none';this.parentElement.innerHTML='&#128084;';">
+        <span class="story-num-badge">#23</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 23 / 24</div>
+        <div class="story-title-en" data-lang-en>Ji Eun-tak&#39;s Uniform is the Actress&#39;s Real School Uniform</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">지은탁의 교복은 실제 배우의 모교 교복</div>
+        <div class="story-body-en" data-lang-en>Ji Eun-tak&#39;s school uniform is actually the real uniform of Kaywon School of Art and Design — the school from which actress Kim Go-eun graduated. Thanks to consistent self-management, she fits into her actual high school uniform without any alteration.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">지은탁이 입고 있는 교복은 배역을 맡은 배우 김고은이 실제로 졸업한 계원예술고등학교의 교복입니다. 성인이 된 이후에도 꾸준히 몸을 관리해온 덕분에 고등학교 교복이 전혀 어색하지 않게 잘 맞았습니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="story-card">
+    <div class="story-card-inner">
+      <div class="story-thumb">
+        <img src="images/ep8.jpg" alt="Reality vs Drama at the Essay Exam Location" onerror="this.style.display='none';this.parentElement.innerHTML='&#128221;';">
+        <span class="story-num-badge">#24</span>
+      </div>
+      <div class="story-content">
+        <div class="story-label">&#127381; STORY 24 / 24</div>
+        <div class="story-title-en" data-lang-en>Reality vs Drama at the Essay Exam Location</div>
+        <div class="story-title-ko" data-lang-ko style="display:none;">논술 시험장 촬영의 현실과 드라마 차이</div>
+        <div class="story-body-en" data-lang-en>The university entrance exam scene was filmed at Konkuk University. In the drama, the streets are completely empty after the exam ends — a stark contrast to reality, where the area surrounding exam halls is notoriously gridlocked on test day. A deliberate dramatic choice.</div>
+        <div class="story-body-ko" data-lang-ko style="display:none;">지은탁이 논술시험을 치른 장소는 건국대학교 고사장입니다. 드라마에서는 시험이 끝난 뒤 거리가 텅 비어 있는 것으로 나오지만, 실제로 논술시험 날 주변은 교통이 마비될 정도로 혼잡합니다. 극적 연출을 위해 현실과 다르게 표현한 것입니다.</div>
+        <a class="btn-youtube pending" href="#" target="_blank" rel="noopener">&#9654; <span data-lang-en>Watch on YouTube</span><span data-lang-ko style="display:none;">유튜브에서 보기</span></a>
+      </div>
+    </div>
+  </div>
+  </div>
+
+</div>
+</main>
+
+<footer class="site-footer" id="lk-footer">
+  <div class="footer-copy">&copy; 2025 m2ea Labs. All rights reserved.</div>
+  <div><a class="footer-terms" href="../../terms.html">Terms of Use / &#51060;&#50857;&#50557;&#44288;</a></div>
+</footer>
+
+<script src="../../js/app.js"></script>
+<script>
+  function goHome() { window.location.href = '../../index.html'; }
+
+  function applyPageLang() {
+    var isKo = getLang() === 'ko';
+    document.documentElement.lang = isKo ? 'ko' : 'en';
+    document.getElementById('nav-home').textContent     = isKo ? '홈' : 'Home';
+    document.getElementById('nav-back').textContent     = isKo ? '뒤로' : 'Back';
+    document.getElementById('bc-drama').textContent     = isKo ? '도깨비' : 'Guardian';
+    document.getElementById('hdr-title').textContent    = isKo ? '쓸쓸하고 찬란하神 – 도깨비' : 'Guardian: The Lonely and Great God';
+    document.getElementById('hdr-meta').textContent     = isKo ? '유튜브 쇼츠 24개 · 2016–2017 · 판타지 로맨스' : '24 YouTube Shorts · 2016–2017 · Fantasy Romance';
+    document.getElementById('bm-label').textContent     = isKo ? '저장' : 'Bookmark';
+    document.getElementById('bm-bar-title').textContent = isKo ? '북마크' : 'Your Bookmarks';
+    document.getElementById('shorts-label').innerHTML   = isKo
+      ? '&#127381; 유튜브 쇼츠 &mdash; 24개 스토리'
+      : '&#127381; YouTube Shorts &mdash; 24 Stories';
+    document.getElementById('desc-en').style.display = isKo ? 'none' : 'block';
+    document.getElementById('desc-ko').style.display = isKo ? 'block' : 'none';
+    document.querySelectorAll('[data-lang-en]').forEach(function(el) {
+      el.style.display = isKo ? 'none' : '';
+    });
+    document.querySelectorAll('[data-lang-ko]').forEach(function(el) {
+      el.style.display = isKo ? '' : 'none';
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', function() {
+    if (!hasAgreed()) {
+      window.location.href = '../../index.html?redirect=' + encodeURIComponent(window.location.href);
+      return;
+    }
+    injectTermsModal();
+    document.getElementById('topbar-lang-wrap').innerHTML = buildLangToggle();
+    applyPageLang();
+    applyLang();
+    renderBookmarkBar();
+    syncBookmarkButtons();
+  });
+</script>
+</body>
+</html>
